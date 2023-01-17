@@ -15,3 +15,4 @@ Join our [Telegram group](https://t.me/+nl8AbyS6izZjNjc0) for collaboration.
 ## Possible Knowledge Sources
 
 - [defichainwiki.com](https://www.defichainwiki.com/)
+- [Example scraping Wikipedia](https://github.com/openai/openai-cookbook/blob/main/examples/fine-tuned_qa/olympics-1-collect-data.ipynb)
