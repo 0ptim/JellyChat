@@ -8,9 +8,9 @@ Join our [Telegram group](https://t.me/+nl8AbyS6izZjNjc0) for collaboration.
 
 - Use OpenAI Embeddings [API](https://beta.openai.com/) together with GPT-3 API to [create a domain specific Q&A bot](https://www.mlq.ai/fine-tuning-gpt-3-question-answer-bot/amp/).
 
-### Notes
+## Experiment 2
 
-- Sample dataset from: 
+- Use [GPT Index](https://gpt-index.readthedocs.io/) to index the wiki.
 
 ## Possible Knowledge Sources
 
