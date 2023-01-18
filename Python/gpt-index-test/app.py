@@ -1,7 +1,7 @@
-from gpt_index import GPTSimpleVectorIndex, SimpleDirectoryReader, GPTListIndex
-import os
+from gpt_index import GPTListIndex
+from dotenv import load_dotenv
 
-os.environ["OPENAI_API_KEY"] = ""
+load_dotenv()
 
 index_from_disk = GPTListIndex.load_from_disk('scraped_index.json')
 

@@ -1,11 +1,11 @@
 import openai
 import numpy as np  # standard math module for python
 from pprint import pprint
+from dotenv import load_dotenv
+import os
 
-
-def open_file(filepath):
-    with open(filepath, 'r', encoding='utf-8') as infile:
-        return infile.read()
+load_dotenv()
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 def gpt3_embedding(content, engine='text-embedding-ada-002'):
@@ -19,9 +19,6 @@ def similarity(v1, v2):  # return dot product of two vectors
     return np.dot(v1, v2)
 
 
-openai.api_key = open_file('openaiapikey.txt')
-
-
 def match_class(vector, classes):
     results = list()
     for c in classes:
@@ -31,7 +28,8 @@ def match_class(vector, classes):
     return results
 
 
-categories = ['plant', 'reptile', 'mammal', 'fish', 'bird', 'pet', 'wild animal']
+categories = ['plant', 'reptile', 'mammal',
+              'fish', 'bird', 'pet', 'wild animal']
 
 classes = list()
 for c in categories:

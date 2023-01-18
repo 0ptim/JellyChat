@@ -1,8 +1,7 @@
 from gpt_index import GPTListIndex, SimpleWebPageReader, GPTSimpleVectorIndex
-from IPython.display import Markdown, display
-import os
+from dotenv import load_dotenv
 
-os.environ["OPENAI_API_KEY"] = ""
+load_dotenv()
 
 documents = SimpleWebPageReader(html_to_text=True).load_data(
     ["https://www.defichainwiki.com/docs/auto/Staking"])
