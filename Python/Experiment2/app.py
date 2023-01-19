@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-index_from_disk = GPTSimpleVectorIndex.load_from_disk('index_vector.json')
+index_from_disk = GPTSimpleVectorIndex.load_from_disk('./indices/index_vector.json')
 
 while True:
     question = input('Ask anything about DeFiChain: ')

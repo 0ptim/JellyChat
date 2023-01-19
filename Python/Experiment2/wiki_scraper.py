@@ -6,7 +6,7 @@ import re
 load_dotenv()
 
 scrapeUrl = 'https://www.defichainwiki.com/'
-indexFileTarget = 'index_vector.json'
+indexFileTarget = './indices/index_vector.json'
 
 urls = getUrlsToScrape(scrapeUrl)
 
