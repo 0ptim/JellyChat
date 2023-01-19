@@ -1,10 +1,11 @@
-from gpt_index import GPTListIndex
+from gpt_index import GPTSimpleVectorIndex
 from dotenv import load_dotenv
 
 load_dotenv()
 
-index_from_disk = GPTListIndex.load_from_disk('scraped_index.json')
+index_from_disk = GPTSimpleVectorIndex.load_from_disk('index_vector.json')
 
-response = index_from_disk.query(
-    "How much DFI is needed to create a masternode?", verbose=True)
-print(response)
+while True:
+    question = input('Ask anything about DeFiChain: ')
+    response = index_from_disk.query(question, verbose=True)
+    print(response)
