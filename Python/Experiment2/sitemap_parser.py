@@ -8,4 +8,5 @@ def getUrlsToScrape(rootUrl: str):
     for page in tree.all_pages():
         print('📃 Found page:', page.url)
         urls.append(page.url)
+    urls = list(set(urls))  # Remove duplicates
     return urls
