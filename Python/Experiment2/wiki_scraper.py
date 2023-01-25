@@ -10,6 +10,10 @@ indexFileTarget = './indices/index_wiki.json'
 
 urls = getUrlsToScrape(scrapeUrl)
 
+for url in urls:
+    if "Updated_White_Paper" in url:        
+        print("Remove", url)
+        urls.remove(url)
 
 print('🔭 Scrape %s found pages..' % len(urls))
 documents = SimpleWebPageReader(html_to_text=True).load_data(urls)
