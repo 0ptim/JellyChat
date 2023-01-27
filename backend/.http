@@ -1,7 +1,7 @@
-@baseUrl = http://127.0.0.1:5000
-
 ### Request 1
-POST {{baseUrl}}/get-response
+POST http://127.0.0.1:5000/get-response HTTP/1.1
 Content-Type: application/json
 
-{"question": "This is a simulated question!"}
+{
+    "question": "How many DFI do I need to create a masternode?"
+}
