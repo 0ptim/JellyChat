@@ -11,7 +11,7 @@ indexFileTarget = './indices/index_wiki.json'
 urls = getUrlsToScrape(scrapeUrl)
 
 for url in urls:
-    if "Updated_White_Paper" in url:        
+    if "Updated_White_Paper" in url:
         print("Remove", url)
         urls.remove(url)
 

@@ -28,20 +28,8 @@ pip install -r .\requirements.txt
 
 Docs: https://flask.palletsprojects.com/en/2.2.x/quickstart/
 
-Run Flask app
-
-```
-flask --app api run
-```
-
 Run Flask app in debug mode
 
 ```
-flask --app api --debug run
-```
-
-Run Flask app 
-
-```
-flask --app api run --host=0.0.0.0
+flask --debug run
 ```

@@ -1,0 +1,7 @@
+@baseUrl = http://127.0.0.1:5000
+
+### Request 1
+POST {{baseUrl}}/get-response
+Content-Type: application/json
+
+{"question": "This is a simulated question!"}

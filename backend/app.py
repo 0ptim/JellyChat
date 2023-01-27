@@ -1,11 +1,14 @@
-from gpt_index import GPTSimpleVectorIndex
-from dotenv import load_dotenv
+from flask import Flask
+from flask import request
 
-load_dotenv()
+app = Flask(__name__)
 
-index_from_disk = GPTSimpleVectorIndex.load_from_disk('./indices/index_wiki.json')
 
-while True:
-    question = input('Ask anything about DeFiChain: ')
-    response = index_from_disk.query(question, verbose=True, similarity_top_k=2)
-    print(response)
+@app.post("/get-response")
+def process_question():
+    if request.is_json and 'question' in request.json:
+        question = request.json["question"]
+        print("Question asked:", question)
+    return {
+        "respone": "Answer"
+    }
