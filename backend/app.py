@@ -11,7 +11,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # Setup the Flask-JWT-Extended extension
-app.config["JWT_SECRET_KEY"] = os.environ["JWT_SECRET_KEY"]
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 jwt = JWTManager(app)
 
 
@@ -19,7 +19,7 @@ jwt = JWTManager(app)
 def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-    if username != os.environ["JWT_USERNAME"] or password != os.environ["JWT_PASSWORD"]:
+    if username != os.getenv("JWT_USERNAME") or password != os.getenv("JWT_PASSWORD"):
         return jsonify({"msg": "Bad username or password"}), 401
 
     access_token = create_access_token(identity=username)
