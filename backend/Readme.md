@@ -1,3 +1,11 @@
+# Environment Variables
+
+`OPENAI_API_KEY` - Your OpenAI API Key.
+`JWT_SECRET_KEY` - A randomly generated secret key which is used for generating the JWT token.
+`JWT_USERNAME` - Username for the login.
+`JWT_PASSWORD` - Password for the login.
+
+
 # Pyhton basic setup
 
 Create virtual environment
