@@ -3,7 +3,7 @@
 Create virtual environment
 
 ```
-python -v venv venv
+python -m venv venv
 ```
 
 Activate virtual environment
@@ -21,7 +21,7 @@ Deactivate
 Install all project dependencies
 
 ```
-pip install -r .\requirements.txt
+pip install -r requirements.txt
 ```
 
 # Flask
@@ -32,4 +32,30 @@ Run Flask app in debug mode
 
 ```
 flask --debug run
+```
+
+# PythonAnywhere
+
+Create virtual environment
+
+```
+mkvirtualenv venv --python=/usr/bin/python3.10
+```
+
+Start existing virtual environment
+
+```
+workon venv
+```
+
+Deactivate virtual environment
+
+```
+deactivate
+```
+
+Delete virtual environment
+
+```
+rmvirtualenv  venv
 ```
