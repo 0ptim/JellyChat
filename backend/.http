@@ -1,17 +1,21 @@
-### Request JWT
-POST http://127.0.0.1:5000/login HTTP/1.1
+@baseUrl="http://0ptim.pythonanywhere.com"
+
+# @name login
+POST {{baseUrl}}/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "{USERNAME}",
-    "password": "{PASSWORD}"
+    "username": "{{$dotenv JWT_USERNAME}}",
+    "password": "{{$dotenv JWT_PASSWORD}}"
 }
 
+@authToken = {{login.response.body.$.access_token}}
 
-### Request Answer
-POST http://127.0.0.1:5000/get-response HTTP/1.1
+### 
+
+POST {{baseUrl}}/get-response HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer {JWT_TOKEN}
+Authorization: Bearer {{authToken}}
 
 {
     "question": "How many DFI do I need to create a masternode?"
