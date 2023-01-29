@@ -15,10 +15,8 @@ index_from_disk = GPTSimpleVectorIndex.load_from_disk(
     './indices/index_wiki.json')
 
 
-@app.post("/get-response")
+@app.post("/ask")
 def process_question():
-    print("▶️")
-
     if request.headers.get("API-Key") != API_KEY:
         return "Unauthorized", 401
 
@@ -32,4 +30,21 @@ def process_question():
 
     return {
         "response": response.response
+    }
+
+
+@app.post("/simulate")
+def simulate_question():
+    if request.headers.get("API-Key") != API_KEY:
+        return "Unauthorized", 401
+
+    if request.is_json and 'question' in request.json:
+        question = request.json["question"]
+        print("Question asked:", question)
+
+    response = "You asked: " + question
+    print(response)
+
+    return {
+        "response": response
     }
