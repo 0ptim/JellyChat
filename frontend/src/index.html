@@ -4,9 +4,59 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>ChatDeFiChain</title>
   </head>
   <body>
     <h1>ChatDeFiChain</h1>
+    <div x-data="QA_data">
+      <div>
+        <h3>Enter a question</h3>
+
+        <input
+          x-model="question"
+          type="text"
+          placeholder="How many DFI do I need to create my own masternode?"
+        />
+        <button @click="ask()">Search</button>
+        <p>Answer: <span x-text="$data.answer"></span></p>
+      </div>
+    </div>
+
+    <script>
+      const QA_data = () => {
+        return {
+          question: "How many DFI do I need to create my own masternode?",
+          answer: "-",
+          ask: async function () {
+            this.answer = await getQuestionAnswered(this.question);
+          },
+        };
+      };
+
+      async function getQuestionAnswered(question) {
+        console.log("searchQuestion: " + question);
+
+        axios.defaults.baseURL = "http://0ptim.pythonanywhere.com/";
+        axios.defaults.headers.common["API-Key"] = "PLACEHOLDER";
+        axios.defaults.headers.post["Content-Type"] = "application/json";
+
+        answer = "";
+        await axios
+          .post("/ask", {
+            question: question,
+          })
+          .then(function (response) {
+            console.log(response.data.response);
+            answer = response.data.response;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        return answer;
+      }
+    </script>
   </body>
 </html>
