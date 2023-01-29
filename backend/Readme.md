@@ -1,10 +1,13 @@
 # Environment Variables
 
+`API_KEY` - The API key which clients will need to access this API.
 `OPENAI_API_KEY` - Your OpenAI API Key.
-`JWT_SECRET_KEY` - A randomly generated secret key which is used for generating the JWT token.
-`JWT_USERNAME` - Username for the login.
-`JWT_PASSWORD` - Password for the login.
 
+# Authentication
+
+Clients can request from this backend providing the same `API_KEY` as defined in `.env`.
+
+They need to send the key with every request in the header: `API-Key`:`{The_Key}`
 
 # Pyhton basic setup
 
