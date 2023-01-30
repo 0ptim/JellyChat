@@ -12,7 +12,7 @@ app = Flask(__name__)
 API_KEY = os.getenv("API_KEY")
 
 index_from_disk = GPTSimpleVectorIndex.load_from_disk(
-    './indices/index_wiki.json')
+    './../index_wiki.json')
 
 
 @app.route("/ask", methods=["OPTIONS", "POST"])
