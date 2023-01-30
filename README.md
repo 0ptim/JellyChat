@@ -1,16 +1,33 @@
 # ChatDeFiChain
 
-Experimentation for fine-tuning LLMs for the use of a DeFiChain specific chatbot.
+## 1. `/job`
 
-Join our [Telegram group](https://t.me/+nl8AbyS6izZjNjc0) for collaboration.
+Code related to scraping defichainwiki.com and creating an index, which then can be used to answer DeFiChain-specific questions.
 
-## Experiment 1
+- Python
+- GPT-Index
+- OpenAI API
 
-- Use OpenAI Embeddings [API](https://beta.openai.com/) together with GPT-3 API to [create a domain specific Q&A bot](https://www.mlq.ai/fine-tuning-gpt-3-question-answer-bot/amp/).
+[Details 🔎](./job/Readme.md)
 
-## Experiment 2
+## 2. `/backend`
 
-- Use [GPT Index](https://gpt-index.readthedocs.io/) to index the wiki.
+Rest API backend which can retrieve questions and will answer with the gathered knowledge out of defichainwiki.com.
+
+- Python
+- Flask
+- OpenAI API
+
+[Details 🔎](./backend/Readme.md)
+
+## 2. `/frontend`
+
+Lightweight web-client where people can enter questions. Calls the backend API.
+
+- HTML, CSS, JS
+- Alpine.js
+
+[Details 🔎](./frontend/Readme.md)
 
 ## Possible Knowledge Sources
 
