@@ -12,7 +12,7 @@ app = Flask(__name__)
 API_KEY = os.getenv("API_KEY")
 
 index_from_disk = GPTSimpleVectorIndex.load_from_disk(
-    './../index_wiki.json')
+    './indices/index_wiki.json')
 
 
 @app.route("/ask", methods=["OPTIONS", "POST"])
@@ -69,3 +69,7 @@ def simulate_question():
     headers = {"Access-Control-Allow-Origin": "*"}
 
     return make_response(jsonify(resp), 200, headers)
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int("3000"), debug=True)

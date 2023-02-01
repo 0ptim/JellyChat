@@ -45,6 +45,20 @@ Run Flask app in debug mode
 flask --debug run
 ```
 
+# Docker
+
+Create image
+
+```
+docker build -t chatdefichain-backend .
+```
+
+Run the image
+
+```
+docker container run --env-file .env -d -p 3000:3000 chatdefichain-backend
+```
+
 # PythonAnywhere
 
 Create virtual environment
