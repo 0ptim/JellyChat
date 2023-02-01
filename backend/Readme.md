@@ -9,7 +9,7 @@ Clients can request from this backend providing the same `API_KEY` as defined in
 
 They need to send the key with every request in the header: `API-Key`:`{The_Key}`
 
-# Pyhton basic setup
+# Python basic setup
 
 Create virtual environment
 
@@ -43,6 +43,20 @@ Run Flask app in debug mode
 
 ```
 flask --debug run
+```
+
+# Docker
+
+Create image
+
+```
+docker build -t chatdefichain-backend .
+```
+
+Run the image
+
+```
+docker container run --env-file .env -d -p 3000:3000 chatdefichain-backend
 ```
 
 # PythonAnywhere

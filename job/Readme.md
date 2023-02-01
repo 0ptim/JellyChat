@@ -2,7 +2,7 @@
 
 `OPENAI_API_KEY` - Your OpenAI API Key.
 
-# Pyhton basic setup
+# Python basic setup
 
 Create virtual environment
 
