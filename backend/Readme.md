@@ -9,7 +9,7 @@ Clients can request from this backend providing the same `API_KEY` as defined in
 
 They need to send the key with every request in the header: `API-Key`:`{The_Key}`
 
-# Pyhton basic setup
+# Python basic setup
 
 Create virtual environment
 
