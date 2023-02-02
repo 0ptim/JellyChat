@@ -1,9 +1,7 @@
 .env
-indices/
 __pycache__/
 venv/
 *.pyc
 *.pyo
 *.egg-info/
-.
 node_modules/
