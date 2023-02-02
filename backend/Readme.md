@@ -56,7 +56,7 @@ docker build -t chatdefichain-backend .
 Run the image
 
 ```
-docker container run --env-file .env -d -p 3000:3000 chatdefichain-backend
+docker container run --env-file .env -d -p 8080:8080 chatdefichain-backend
 ```
 
 # PythonAnywhere
