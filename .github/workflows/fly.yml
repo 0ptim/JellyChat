@@ -12,5 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - working-directory: backend/src
       - run: flyctl deploy --remote-only
+      - working-directory: backend/src
