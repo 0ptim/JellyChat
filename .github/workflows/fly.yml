@@ -2,7 +2,7 @@ name: Deploy backend to Fly.io
 on:
   push:
     branches:
-      - 0ptim/fly-action
+      - main
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
