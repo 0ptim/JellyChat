@@ -29,6 +29,9 @@ def process_question():
         question = request.json["question"]
         print("Question asked:", question)
 
+    if question == "":
+        return make_response("No question provided", 400)
+
     response = index_from_disk.query(
         question, verbose=True, similarity_top_k=1)
     print(response)
@@ -54,6 +57,9 @@ def simulate_question():
     if request.is_json and 'question' in request.json:
         question = request.json["question"]
         print("Question asked:", question)
+
+    if question == "":
+        return make_response("No question provided", 400)
 
     response = "You asked: " + question
 
