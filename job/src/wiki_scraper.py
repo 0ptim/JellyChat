@@ -2,6 +2,11 @@ from gpt_index import SimpleWebPageReader, GPTSimpleVectorIndex
 from dotenv import load_dotenv
 from sitemap_parser import *
 import re
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
 load_dotenv()
 
