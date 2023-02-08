@@ -1,13 +1,6 @@
 # Environment Variables
 
-`API_KEY` - The API key which clients will need to access this API.
 `OPENAI_API_KEY` - Your OpenAI API Key.
-
-# Authentication
-
-Clients can request from this backend providing the same `API_KEY` as defined in `.env`.
-
-They need to send the key with every request in the header: `API-Key`:`{The_Key}`
 
 # Python basic setup
 
