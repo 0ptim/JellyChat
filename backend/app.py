@@ -3,7 +3,11 @@ from dotenv import load_dotenv
 import os
 from flask import Flask, jsonify, request, make_response
 from flask import request
+import logging
+import sys
 
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
 load_dotenv()
 
@@ -33,7 +37,7 @@ def process_question():
         return make_response("No question provided", 400)
 
     response = index_from_disk.query(
-        question, verbose=True, similarity_top_k=1)
+        question, similarity_top_k=1)
     print(response)
 
     resp = {"response": response}
