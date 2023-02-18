@@ -1,4 +1,0 @@
-openai~=0.26.1
-pandas~=1.5.2
-numpy~=1.24.1
-transformers~=4.25.1
