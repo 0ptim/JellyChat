@@ -51,29 +51,3 @@ Run the image
 ```
 docker container run --env-file .env -d -p 8080:8080 chatdefichain-backend
 ```
-
-# PythonAnywhere
-
-Create virtual environment
-
-```
-mkvirtualenv venv --python=/usr/bin/python3.10
-```
-
-Start existing virtual environment
-
-```
-workon venv
-```
-
-Deactivate virtual environment
-
-```
-deactivate
-```
-
-Delete virtual environment
-
-```
-rmvirtualenv  venv
-```
