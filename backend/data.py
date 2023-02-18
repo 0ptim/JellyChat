@@ -12,6 +12,7 @@ def init_db():
         db.execute('''
         CREATE TABLE IF NOT EXISTS ratings (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            date DATETIME DEFAULT CURRENT_TIMESTAMP,
             question TEXT NOT NULL,
             answer TEXT NOT NULL,
             rating INTEGER DEFAULT NULL,
