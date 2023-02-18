@@ -1,9 +1,0 @@
-{
-  "devDependencies": {
-    "tailwindcss": "^3.2.4"
-  },
-  "dependencies": {
-    "@alpinejs/mask": "^3.11.1",
-    "alpinejs": "^3.11.1"
-  }
-}
