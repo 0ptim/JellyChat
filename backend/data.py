@@ -3,7 +3,7 @@ import sqlite3
 
 def get_db():
     """Opens a new database connection (or creates a new database) if there is none yet for the current application context."""
-    return sqlite3.connect('database.db')
+    return sqlite3.connect('/data/database.db')
 
 
 def init_db():
