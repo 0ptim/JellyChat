@@ -1,10 +1,10 @@
 from gpt_index import GPTSimpleVectorIndex
 from dotenv import load_dotenv
-import os
 from flask import Flask, jsonify, request, make_response
 from flask import request
 import logging
 import sys
+from data import init_db, add_rating, add_QA
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
@@ -12,6 +12,11 @@ logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 load_dotenv()
 
 app = Flask(__name__)
+
+
+with app.app_context():
+    init_db()
+
 
 index_from_disk = GPTSimpleVectorIndex.load_from_disk(
     './indices/index_wiki.json')
@@ -30,17 +35,22 @@ def process_question():
 
     question: str = ""
     if request.is_json and 'question' in request.json:
-        question = request.json["question"]
+        question = request.json["question"].strip()
         print("Question asked:", question)
 
     if question == "":
         return make_response("No question provided", 400)
 
-    response = index_from_disk.query(
+    indexResponse = index_from_disk.query(
         question, similarity_top_k=1)
+
+    response = indexResponse.response.strip()
+
     print(response)
 
-    resp = {"response": response}
+    id = add_QA(question, response)
+
+    resp = {"response": response, "id": id}
     headers = {"Access-Control-Allow-Origin": "*"}
 
     return make_response(jsonify(resp), 200, headers)
@@ -59,7 +69,7 @@ def simulate_question():
 
     question: str = ""
     if request.is_json and 'question' in request.json:
-        question = request.json["question"]
+        question = request.json["question"].strip()
         print("Question asked:", question)
 
     if question == "":
@@ -67,10 +77,33 @@ def simulate_question():
 
     response = "You asked: " + question
 
-    resp = {"response": response}
+    id = add_QA(question, response)
+
+    resp = {"response": response, "id": id}
     headers = {"Access-Control-Allow-Origin": "*"}
 
     return make_response(jsonify(resp), 200, headers)
+
+
+@app.route('/rate', methods=["OPTIONS", "POST"])
+def add_qa():
+    if request.method == "OPTIONS":
+        headers = {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST",
+            "Access-Control-Allow-Headers": "API-Key, Content-Type",
+            "Access-Control-Max-Age": "3600"
+        }
+        return make_response("", 204, headers)
+
+    id = request.json['id']
+    rating = request.json['rating']
+
+    add_rating(id, rating)
+
+    headers = {"Access-Control-Allow-Origin": "*"}
+
+    return make_response("", 200, headers)
 
 
 if __name__ == "__main__":

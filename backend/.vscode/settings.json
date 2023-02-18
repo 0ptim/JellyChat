@@ -1,3 +1,4 @@
 {
-  "python.autoComplete.extraPaths": ["."]
+  "python.autoComplete.extraPaths": ["."],
+  "python.analysis.extraPaths": ["."]
 }
