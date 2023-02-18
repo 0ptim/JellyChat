@@ -14,22 +14,40 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             question TEXT NOT NULL,
             answer TEXT NOT NULL,
-            rating INTEGER NOT NULL,
+            rating INTEGER DEFAULT NULL,
             CHECK (rating >= 0 AND rating <= 1)
         )
         ''')
         db.commit()
 
 
-def add_rating(question: str, answer: str, rating: int):
-    """Add a rating to the database.
+def add_QA(question: str, answer: str):
+    """Add a question and answer to the database.
 
     Args:
         question: The question that was asked.
         answer: The answer that was selected.
-        rating: The rating of the answer. 0 = bad, 1 = good.
+
+    Returns:
+        The id of the new entry.
     """
     with get_db() as db:
-        db.execute('INSERT INTO ratings (question, answer, rating) VALUES (?, ?, ?)',
-                   (question, answer, rating))
+        cursor = db.cursor()
+        cursor.execute('INSERT INTO ratings (question, answer) VALUES (?, ?)',
+                       (question, answer))
+        db.commit()
+        return cursor.lastrowid
+
+
+def add_rating(id: int, rating: int):
+    """Add a rating to a question and answer.
+
+    Args:
+        id: The id of the question and answer.
+        rating: The rating (0 or 1).
+    """
+    with get_db() as db:
+        cursor = db.cursor()
+        cursor.execute('UPDATE ratings SET rating = ? WHERE id = ?',
+                       (rating, id))
         db.commit()
