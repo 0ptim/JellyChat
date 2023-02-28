@@ -1,16 +1,24 @@
 import sqlite3
+import os
 
 
 def get_db():
     """Opens a new database connection (or creates a new database) if there is none yet for the current application context."""
-    return sqlite3.connect('/data/database.db')
+    try:
+        conn = sqlite3.connect('data/database.db')
+    except sqlite3.OperationalError:
+        os.mkdir('data')
+    finally:
+        conn = sqlite3.connect('data/database.db')
+
+    return conn
 
 
 def init_db():
     """Initialize the database."""
     with get_db() as db:
         db.execute('''
-        CREATE TABLE IF NOT EXISTS ratings (
+        CREATE TABLE IF NOT EXISTS QA (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             date DATETIME DEFAULT CURRENT_TIMESTAMP,
             question TEXT NOT NULL,
@@ -22,7 +30,7 @@ def init_db():
         db.commit()
 
 
-def add_QA(question: str, answer: str):
+def add_qa(question: str, answer: str):
     """Add a question and answer to the database.
 
     Args:
@@ -34,7 +42,7 @@ def add_QA(question: str, answer: str):
     """
     with get_db() as db:
         cursor = db.cursor()
-        cursor.execute('INSERT INTO ratings (question, answer) VALUES (?, ?)',
+        cursor.execute('INSERT INTO QA (question, answer) VALUES (?, ?)',
                        (question, answer))
         db.commit()
         return cursor.lastrowid
@@ -49,6 +57,24 @@ def add_rating(id: int, rating: int):
     """
     with get_db() as db:
         cursor = db.cursor()
-        cursor.execute('UPDATE ratings SET rating = ? WHERE id = ?',
+        cursor.execute('UPDATE QA SET rating = ? WHERE id = ?',
                        (rating, id))
         db.commit()
+
+
+def get_qa():
+    """Get all QA.
+
+    Returns:
+        A list of all QA.
+    """
+    with get_db() as db:
+        cursor = db.cursor()
+        cursor.execute('SELECT * FROM QA')
+        # Get column names
+        columns = [col[0] for col in cursor.description]
+        # Create list of dictionaries
+        result = []
+        for row in cursor.fetchall():
+            result.append(dict(zip(columns, row)))
+        return result

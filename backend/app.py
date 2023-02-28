@@ -4,7 +4,7 @@ from flask import Flask, jsonify, request, make_response
 from flask import request
 import logging
 import sys
-from data import init_db, add_rating, add_QA
+from data import init_db, add_rating, add_qa, get_qa
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
@@ -48,7 +48,7 @@ def process_question():
 
     print(response)
 
-    id = add_QA(question, response)
+    id = add_qa(question, response)
 
     resp = {"response": response, "id": id}
     headers = {"Access-Control-Allow-Origin": "*"}
@@ -77,16 +77,14 @@ def simulate_question():
 
     response = "You asked: " + question
 
-    id = add_QA(question, response)
-
-    resp = {"response": response, "id": id}
+    resp = {"response": response, "id": 0}
     headers = {"Access-Control-Allow-Origin": "*"}
 
     return make_response(jsonify(resp), 200, headers)
 
 
 @app.route('/rate', methods=["OPTIONS", "POST"])
-def add_qa():
+def add_QA():
     if request.method == "OPTIONS":
         headers = {
             "Access-Control-Allow-Origin": "*",
@@ -104,6 +102,24 @@ def add_qa():
     headers = {"Access-Control-Allow-Origin": "*"}
 
     return make_response("", 200, headers)
+
+
+@app.route('/qa', methods=["OPTIONS", "GET"])
+def get_QA():
+    if request.method == "OPTIONS":
+        headers = {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "POST",
+            "Access-Control-Allow-Headers": "API-Key, Content-Type",
+            "Access-Control-Max-Age": "3600"
+        }
+        return make_response("", 204, headers)
+
+    QA = get_qa()
+
+    headers = {"Access-Control-Allow-Origin": "*"}
+
+    return make_response(jsonify(QA), 200, headers)
 
 
 if __name__ == "__main__":
