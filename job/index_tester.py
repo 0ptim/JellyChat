@@ -1,9 +1,9 @@
-from gpt_index import GPTSimpleVectorIndex
+from llama_index import GPTSimpleVectorIndex
 from dotenv import load_dotenv
 import logging
 import sys
 
-logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
 load_dotenv()

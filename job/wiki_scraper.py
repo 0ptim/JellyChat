@@ -1,4 +1,4 @@
-from gpt_index import SimpleWebPageReader, GPTSimpleVectorIndex
+from llama_index import SimpleWebPageReader, GPTSimpleVectorIndex
 from dotenv import load_dotenv
 from sitemap_parser import *
 import re
@@ -30,7 +30,7 @@ for document in documents:
     document.text = re.sub(
         r'(?<=\S)[^\s]{' + str(3714) + ',}(?=\S)', '', document.text)
 
-print('Get list index via GPT API..')
+print('Get simple vector index via GPT API..')
 index = GPTSimpleVectorIndex(documents)
 
 print('💾 Saving index to:', indexFileTarget)
