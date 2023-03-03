@@ -1,4 +1,4 @@
-from gpt_index import GPTSimpleVectorIndex
+from llama_index import GPTSimpleVectorIndex
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, make_response
 from flask import request
