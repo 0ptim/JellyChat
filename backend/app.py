@@ -1,5 +1,7 @@
-from llama_index import GPTSimpleVectorIndex
+from llama_index import GPTSimpleVectorIndex, LLMPredictor
 from dotenv import load_dotenv
+from langchain.llms import OpenAIChat
+from llama_index.prompts.chat_prompts import CHAT_REFINE_PROMPT
 from flask import Flask, jsonify, request, make_response
 from flask import request
 import logging
@@ -20,6 +22,9 @@ with app.app_context():
 
 index_from_disk = GPTSimpleVectorIndex.load_from_disk(
     './indices/index_wiki.json')
+
+llm_predictor = LLMPredictor(llm=OpenAIChat(
+    temperature=0, model_name="gpt-3.5-turbo"))
 
 
 @app.route("/ask", methods=["OPTIONS", "POST"])
@@ -42,7 +47,10 @@ def process_question():
         return make_response("No question provided", 400)
 
     indexResponse = index_from_disk.query(
-        question, similarity_top_k=1)
+        question,
+        llm_predictor=llm_predictor,
+        refine_template=CHAT_REFINE_PROMPT,
+        similarity_top_k=1)
 
     response = indexResponse.response.strip()
 
