@@ -5,7 +5,7 @@
 - On every push to `main`, the backend is deployed to Fly.io.
   - https://jellychat.fly.dev
 - All question and answers are stored in a SQLite database.
-  - Stored under `data/database.db`
+  - Stored under `data/database.db`.
   - Registered as mount on Fly.io
   - https://sqlitebrowser.org
 
