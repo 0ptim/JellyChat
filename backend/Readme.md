@@ -90,6 +90,8 @@ _Response body_
 # Environment Variables
 
 `OPENAI_API_KEY` - Your OpenAI API Key.
+`QDRANT_HOST` - Qdrant host URL of cluster.
+`QDRANT_API_KEY` - Qdrant API Key.
 
 # Python basic setup
 

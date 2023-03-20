@@ -1,26 +1,34 @@
-from llama_index import GPTSimpleVectorIndex, LLMPredictor
+import os
 from dotenv import load_dotenv
-from langchain.llms import OpenAIChat
-from llama_index.prompts.chat_prompts import CHAT_REFINE_PROMPT
-import logging
-import sys
-
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
+from qdrant_client import QdrantClient
+from langchain import VectorDBQA, OpenAI
+from langchain.vectorstores import Qdrant
+from langchain.embeddings.openai import OpenAIEmbeddings
 
 load_dotenv()
 
-index_from_disk = GPTSimpleVectorIndex.load_from_disk(
-    './indices/index_wiki.json')
+collection_name = 'DeFiChainWiki'
 
-llm_predictor = LLMPredictor(llm=OpenAIChat(
-    temperature=0, model_name="gpt-3.5-turbo"))
+
+client = QdrantClient(url=os.getenv('QDRANT_HOST'),
+                      api_key=os.getenv('QDRANT_API_KEY'),
+                      prefer_grpc=True)
+
+
+embeddings = OpenAIEmbeddings()
+qdrant = Qdrant(client=client,
+                collection_name=collection_name,
+                embedding_function=embeddings.embed_query)
+
+
+dbqa = VectorDBQA.from_chain_type(
+    llm=OpenAI(model_name="gpt-3.5-turbo"),
+    chain_type="stuff",
+    vectorstore=qdrant,
+    return_source_documents=False)
+
 
 while True:
     question = input('Ask anything about DeFiChain: ')
-    response = index_from_disk.query(
-        question,
-        llm_predictor=llm_predictor,
-        refine_template=CHAT_REFINE_PROMPT,
-        similarity_top_k=1)
+    response = dbqa.run(question)
     print(response)
