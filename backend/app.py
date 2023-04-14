@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, make_response
-from langchain import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
 from langchain.vectorstores import Qdrant
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -40,7 +40,7 @@ retriever = qdrant.as_retriever(search_type="similarity")
 
 # Create retrieval chain
 qa = RetrievalQA.from_chain_type(
-    llm=OpenAI(model_name="gpt-3.5-turbo"),
+    llm=ChatOpenAI(model_name="gpt-3.5-turbo"),
     chain_type="stuff",
     retriever=retriever,
     return_source_documents=False)

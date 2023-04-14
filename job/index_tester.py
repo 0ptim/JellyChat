@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient
-from langchain import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import Qdrant
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
@@ -30,7 +30,7 @@ retriever = qdrant.as_retriever(search_type="similarity")
 
 # Create retrieval chain
 qa = RetrievalQA.from_chain_type(
-    llm=OpenAI(model_name="gpt-3.5-turbo"),
+    llm=ChatOpenAI(model_name="gpt-3.5-turbo"),
     chain_type="stuff",
     retriever=retriever,
     return_source_documents=False)
