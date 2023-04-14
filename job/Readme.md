@@ -4,28 +4,34 @@
 `QDRANT_HOST` - Qdrant host URL of cluster.
 `QDRANT_API_KEY` - Qdrant API Key.
 
-# Python basic setup
+# Python basic commands
 
-Create virtual environment
+## Create virtual environment
 
 ```
 python -m venv venv
 ```
 
-Activate virtual environment
+## Activate virtual environment
 
 ```
 .\venv\Scripts\activate
 ```
 
-Deactivate virtual environment
+## Deactivate virtual environment
 
 ```
 Deactivate
 ```
 
-Install all project dependencies
+## Install all project dependencies
 
 ```
 pip install -r requirements.txt
+```
+
+## Freeze requirements
+
+```
+pip freeze > requirements.txt
 ```
