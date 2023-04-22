@@ -31,7 +31,7 @@ retriever = qdrant.as_retriever(search_type="similarity")
 
 # Create retrieval chain
 qa = RetrievalQA.from_chain_type(
-    llm=ChatOpenAI(model_name="gpt-3.5-turbo"),
+    llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0),
     chain_type="stuff",
     retriever=retriever)
 
