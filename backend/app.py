@@ -1,12 +1,7 @@
-import os
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, make_response
-from langchain.chat_models import ChatOpenAI
-from langchain.chains import RetrievalQA
-from langchain.vectorstores import Qdrant
-from langchain.embeddings.openai import OpenAIEmbeddings
-from qdrant_client import QdrantClient
 from data import init_db, add_rating, add_qa, get_qa
+from JellyChat import agent
 
 load_dotenv()
 
@@ -15,35 +10,6 @@ app = Flask(__name__)
 
 with app.app_context():
     init_db()
-
-
-# The name of the collection in Qdrant
-collection_name = 'DeFiChainWiki'
-
-
-# Create a Qdrant client
-client = QdrantClient(url=os.getenv('QDRANT_HOST'),
-                      api_key=os.getenv('QDRANT_API_KEY'),
-                      prefer_grpc=True)
-
-
-# Create a langchain qdrant object
-embeddings = OpenAIEmbeddings()
-qdrant = Qdrant(client=client,
-                collection_name=collection_name,
-                embedding_function=embeddings.embed_query)
-
-
-# Create a qdrant retriever
-retriever = qdrant.as_retriever(search_type="similarity")
-
-
-# Create retrieval chain
-qa = RetrievalQA.from_chain_type(
-    llm=ChatOpenAI(model_name="gpt-3.5-turbo"),
-    chain_type="stuff",
-    retriever=retriever,
-    return_source_documents=False)
 
 
 @app.route("/ask", methods=["OPTIONS", "POST"])
@@ -65,7 +31,7 @@ def process_question():
     if question == "":
         return make_response("No question provided", 400)
 
-    response = qa.run(question).strip()
+    response = agent(question)["output"].strip()
 
     print(response)
 

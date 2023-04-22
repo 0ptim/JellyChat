@@ -33,23 +33,20 @@ retriever = qdrant.as_retriever(search_type="similarity")
 qa = RetrievalQA.from_chain_type(
     llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0),
     chain_type="stuff",
-    retriever=retriever)
+    retriever=retriever
+)
 
 # Create a tool for agents to use
 wikiTool = Tool(
     name="DeFiChainWiki QA System",
-    description="For information all around the DeFiChain project with it's ecosystem of projects and products. Not useful, if you need to answer questions involving live-data. Input should be a fully formed question.",
+    description="Use this if you need to answer questions about the DeFiChain project. Not useful, if you need to answer questions involving live-data. Input should be a fully formed question.",
     func=qa.run
 )
 
 
-# Debugging
-# Add this to `RetrievalQA.from_chain_type`: source_documents=True
-# while True:
-#     question = input('Ask anything about DeFiChain: ')
-#     result = qa({"query": question})
-#     # Print the documents
-#     for document in result["source_documents"]:
-#         print("📑 Document", document)
-#     # Print the answer
-#     print("✅ Answer:", result["result"])
+if __name__ == '__main__':
+    while True:
+        question = input(
+            'Ask something, that can be answered using information from DeFiChainWiki: ')
+        result = qa({"query": question})
+        print("✅ Answer:", result["result"])
