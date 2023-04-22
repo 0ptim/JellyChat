@@ -10,6 +10,6 @@ def get_balance(query: str) -> str:
 
 balanceTool = Tool(
     name="Get UTXO Balance",
-    func=get_balance,
-    description="To get the UTXO balance of one specific address. Please provide the address as input."
+    description="To get the UTXO balance of one specific address. Please provide the address as input.",
+    func=get_balance
 )

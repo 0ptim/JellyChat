@@ -10,6 +10,6 @@ def get_vaults(query: str) -> str:
 
 vaultsTool = Tool(
     name="Get Vaults",
-    func=get_vaults,
-    description="To get the vaults of one specific address."
+    description="To get the vaults of one specific address.",
+    func=get_vaults
 )

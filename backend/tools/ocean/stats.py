@@ -10,6 +10,6 @@ def get_stats(query: str) -> str:
 
 statsTool = Tool(
     name="Get Stats",
-    func=get_stats,
-    description="Gets general real-time stats about the blockchain."
+    description="Gets general real-time stats about the blockchain.",
+    func=get_stats
 )

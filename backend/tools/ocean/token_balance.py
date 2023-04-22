@@ -10,6 +10,6 @@ def get_tokenbalance(query: str) -> str:
 
 tokenbalanceTool = Tool(
     name="Get Token Balance",
-    func=get_tokenbalance,
-    description="To get the token balance of one specific address. Please provide the address as input."
+    description="To get the token balance of one specific address. Please provide the address as input.",
+    func=get_tokenbalance
 )

@@ -38,8 +38,8 @@ qa = RetrievalQA.from_chain_type(
 # Create a tool for agents to use
 wikiTool = Tool(
     name="DeFiChainWiki QA System",
-    func=qa.run,
-    description="For information all around the DeFiChain project with it's ecosystem of projects and products. Not useful, if you need to answer questions involving live-data. Input should be a fully formed question."
+    description="For information all around the DeFiChain project with it's ecosystem of projects and products. Not useful, if you need to answer questions involving live-data. Input should be a fully formed question.",
+    func=qa.run
 )
 
 
