@@ -1,7 +1,8 @@
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, make_response
 from data import init_db, add_rating, add_qa, get_qa
-from JellyChat import agent
+from JellyChat import jelly_chat_agent
+from langchain.callbacks import get_openai_callback
 
 load_dotenv()
 
@@ -31,9 +32,17 @@ def process_question():
     if question == "":
         return make_response("No question provided", 400)
 
-    response = agent(question)["output"].strip()
+    with get_openai_callback() as cb:
+        responseObj = jelly_chat_agent(question)
+        print("🔥 Response object:", responseObj)
+        print(f"Total Tokens: {cb.total_tokens}")
+        print(f"Prompt Tokens: {cb.prompt_tokens}")
+        print(f"Completion Tokens: {cb.completion_tokens}")
+        print(f"Total Cost (USD): ${cb.total_cost}")
 
-    print(response)
+    response = responseObj["output"].strip()
+
+    print("❤ Respone", response)
 
     id = add_qa(question, response)
 

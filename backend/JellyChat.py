@@ -28,7 +28,7 @@ tools = [wikiTool, statsTool, tokenbalanceTool,
          transactionTool, balanceTool, vaultsTool] + load_tools(["llm-math"], llm=llm)
 
 print("🤖 Initializing JellyChat agent...")
-agent = initialize_agent(
+jelly_chat_agent = initialize_agent(
     agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
     tools=tools,
     llm=llm,
@@ -50,18 +50,18 @@ can use this knowledge to provide accurate and informative responses to a wide r
 Overall, JellyChat is a powerful system that can help with a wide range of tasks around DeFiChain and provide valuable insights and information on a wide range of topics around DeFiChain. Whether you need help with a specific question or just want to have a conversation about a particular topic, JellyChat is here to assist.
 """
 
-prompt = agent.agent.create_prompt(
+prompt = jelly_chat_agent.agent.create_prompt(
     system_message=sys_msg,
     tools=tools
 )
 
-agent.agent.llm_chain.prompt = prompt
+jelly_chat_agent.agent.llm_chain.prompt = prompt
 
 if __name__ == '__main__':
     while True:
         question = input('Ask anything about DeFiChain: ')
         with get_openai_callback() as cb:
-            response = agent(question)
+            response = jelly_chat_agent(question)
             print(response)
             print(f"Total Tokens: {cb.total_tokens}")
             print(f"Prompt Tokens: {cb.prompt_tokens}")
