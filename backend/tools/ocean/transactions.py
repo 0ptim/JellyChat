@@ -15,8 +15,13 @@ def parsing_transaction(query: str) -> str:
     return get_transactions(address, int(size))
 
 
+description = """
+To get the transactions of one specific address.
+The input to this tool should be in the format of 'address,size', where size is the amount of transactions needed.
+"""
+
 transactionTool = Tool(
     name="Get Transactions",
-    description="To get the transactions of one specific address. The input to this tool should be in the format of 'address,size', where size is the amount of transactions needed.",
+    description=description,
     func=parsing_transaction
 )

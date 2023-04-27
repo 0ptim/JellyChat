@@ -36,10 +36,18 @@ qa = RetrievalQA.from_chain_type(
     retriever=retriever
 )
 
+description = """
+Use this if you need to:
+- Answer questions about the DeFiChain project.
+- Lookup addresses of people.
+Not useful, if you need to answer questions involving live-data.
+Input should be a fully formed question."
+"""
+
 # Create a tool for agents to use
 wikiTool = Tool(
     name="DeFiChainWiki QA System",
-    description="Use this if you need to answer questions about the DeFiChain project. Not useful, if you need to answer questions involving live-data. Input should be a fully formed question.",
+    description=description,
     func=qa.run
 )
 

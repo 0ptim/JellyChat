@@ -8,8 +8,12 @@ def get_vaults(query: str) -> str:
     return requests.get(f"https://ocean.defichain.com/v0/mainnet/address/{query}/vaults")
 
 
+description = """
+To get the vaults of one specific address.
+"""
+
 vaultsTool = Tool(
     name="Get Vaults",
-    description="To get the vaults of one specific address.",
+    description=description,
     func=get_vaults
 )

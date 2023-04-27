@@ -8,8 +8,12 @@ def get_balance(query: str) -> str:
     return requests.get(f"https://ocean.defichain.com/v0/mainnet/address/{query}/balance")
 
 
+description = """
+To get the UTXO balance of one specific address. Please provide the address as input.
+"""
+
 balanceTool = Tool(
     name="Get UTXO Balance",
-    description="To get the UTXO balance of one specific address. Please provide the address as input.",
+    description=description,
     func=get_balance
 )

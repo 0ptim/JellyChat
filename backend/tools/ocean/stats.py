@@ -8,8 +8,12 @@ def get_stats(query: str) -> str:
     return requests.get("https://ocean.defichain.com/v0/mainnet/stats")
 
 
+description = """
+Gets general real-time stats about the blockchain.
+"""
+
 statsTool = Tool(
     name="Get Stats",
-    description="Gets general real-time stats about the blockchain.",
+    description=description,
     func=get_stats
 )

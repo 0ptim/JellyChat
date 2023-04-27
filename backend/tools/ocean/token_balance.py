@@ -8,8 +8,13 @@ def get_tokenbalance(query: str) -> str:
     return requests.get(f"https://ocean.defichain.com/v0/mainnet/address/{query}/tokens")
 
 
+description = """
+To get the token balance of one specific address.
+Provide the address as input.
+"""
+
 tokenbalanceTool = Tool(
     name="Get Token Balance",
-    description="To get the token balance of one specific address. Please provide the address as input.",
+    description=description,
     func=get_tokenbalance
 )
