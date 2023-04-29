@@ -4,7 +4,7 @@ from langchain.agents import initialize_agent
 from langchain.agents import load_tools
 from langchain.agents import AgentType
 from langchain.callbacks import get_openai_callback
-from langchain.chains.conversation.memory import ConversationBufferWindowMemory
+from langchain.chains.conversation.memory import ConversationBufferMemory
 
 from tools.wiki_qa import wikiTool
 from tools.ocean.stats import statsTool
@@ -16,9 +16,8 @@ from tools.ocean.vaults import vaultsTool
 
 load_dotenv()
 
-memory = ConversationBufferWindowMemory(
+memory = ConversationBufferMemory(
     memory_key="chat_history",  # Important to align with agent prompt (blow)
-    k=5,
     return_messages=True,
 )
 
