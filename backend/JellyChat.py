@@ -17,7 +17,7 @@ from tools.ocean.vaults import vaultsTool
 load_dotenv()
 
 memory = ConversationBufferMemory(
-    memory_key="chat_history",  # Important to align with agent prompt (blow)
+    memory_key="chat_history",  # Important to align with agent prompt (below)
     return_messages=True,
 )
 
