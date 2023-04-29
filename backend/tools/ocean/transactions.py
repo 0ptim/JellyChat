@@ -17,7 +17,7 @@ def parsing_transaction(query: str) -> str:
 
 description = """
 To get the transactions of one specific address.
-The input to this tool should be in the format of 'address,size', where size is the amount of transactions needed. Example: df1qgq0rjw09hr6vr7sny2m55hkr5qgze5l9hcm0lg,10
+The input to this tool should be in the format of 'address,size', where size is the amount of transactions needed. Example: df1...,10
 """
 
 transactionsTool = Tool(
