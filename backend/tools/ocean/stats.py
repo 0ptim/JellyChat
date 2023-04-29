@@ -10,6 +10,7 @@ def get_stats(query: str) -> str:
 
 description = """
 Gets general real-time stats about the blockchain.
+Block count, Burned coins, TVL, DFI Price, Masternode-Count, Difficulty etc.
 """
 
 statsTool = Tool(
