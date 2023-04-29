@@ -9,9 +9,9 @@ from langchain.chains.conversation.memory import ConversationBufferMemory
 from tools.wiki_qa import wikiTool
 from tools.ocean.stats import statsTool
 from tools.ocean.token_balance import tokenbalanceTool
-from tools.ocean.transactions import transactionTool
-from tools.ocean.utxo_balance import balanceTool
-from tools.ocean.vaults import vaultsTool
+from tools.ocean.transactions import transactionsTool
+from tools.ocean.utxo_balance import utxoTool
+from tools.ocean.vaults import vaultsForAddressTool
 
 
 load_dotenv()
@@ -24,7 +24,7 @@ memory = ConversationBufferMemory(
 llm = ChatOpenAI(model_name="gpt-3.5-turbo")
 
 tools = [wikiTool, statsTool, tokenbalanceTool,
-         transactionTool, balanceTool, vaultsTool] + load_tools(["llm-math"], llm=llm)
+         transactionsTool, utxoTool, vaultsForAddressTool] + load_tools(["llm-math"], llm=llm)
 
 print("🤖 Initializing JellyChat agent...")
 jelly_chat_agent = initialize_agent(

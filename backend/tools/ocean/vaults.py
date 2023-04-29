@@ -13,8 +13,8 @@ To get the vaults of one specific address.
 Provide the address as input. Example: df1qgq0rjw09hr6vr7sny2m55hkr5qgze5l9hcm0lg
 """
 
-vaultsTool = Tool(
-    name="Get Vaults",
+vaultsForAddressTool = Tool(
+    name="Get Vaults for Address",
     description=description,
     func=get_vaults
 )
