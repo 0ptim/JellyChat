@@ -41,3 +41,5 @@ Questions for each ocean API tool.
 > What's Kügi's donation address?
 
 > How many UTXOs are on his address?
+
+> How many vaults are on his address?
