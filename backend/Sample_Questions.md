@@ -30,6 +30,10 @@ Questions for each ocean API tool.
 
 > What is the donation address for Kügi?
 
+## Calculator
+
+> What is 20000 divided by 33.3?
+
 ## Multi-Tool Questions
 
 ### Kügi UTXO / 2
