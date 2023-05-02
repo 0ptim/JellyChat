@@ -1,8 +1,9 @@
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, make_response
-from data import init_db, add_rating, add_qa, get_qa
-from JellyChat import jelly_chat_agent
 from langchain.callbacks import get_openai_callback
+
+from data import init_db, add_rating, add_qa, get_qa
+from JellyChat import create_jelly_chat_agent
 
 load_dotenv()
 
@@ -11,6 +12,19 @@ app = Flask(__name__)
 
 with app.app_context():
     init_db()
+
+
+agents_by_user = {}
+
+
+def agent_for_user(user_token):
+    jelly_chat_agent = agents_by_user.get(user_token)
+
+    if jelly_chat_agent is None:
+        jelly_chat_agent = create_jelly_chat_agent()
+        agents_by_user[user_token] = jelly_chat_agent
+
+    return jelly_chat_agent
 
 
 @app.route("/ask", methods=["OPTIONS", "POST"])
@@ -23,6 +37,12 @@ def process_question():
             "Access-Control-Max-Age": "3600"
         }
         return make_response("", 204, headers)
+
+    user_token = request.json.get('user_token', '').strip()
+    if not user_token:
+        return jsonify({'error': 'User token is required'}), 400
+
+    jelly_chat_agent = agent_for_user(user_token)
 
     question: str = ""
     if request.is_json and 'question' in request.json:
