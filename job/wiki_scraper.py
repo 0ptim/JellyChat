@@ -3,17 +3,19 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.document_loaders import UnstructuredURLLoader
 from langchain.text_splitter import CharacterTextSplitter
 from dotenv import load_dotenv, get_key
-from sitemap_parser import *
+from sitemap_parser import get_urls
 import re
 
 load_dotenv()
 
 scrapeUrl = 'https://www.defichainwiki.com/'
-indexFileTarget = './indices/index_wiki.json'
 chunk_size = 2000
 chunk_overlap = 200
 
-urls = getUrlsToScrape(scrapeUrl)
+urls = get_urls(scrapeUrl)
+
+# Remove duplicates
+urls = list(dict.fromkeys(urls))
 
 for url in urls:
     if "Updated_White_Paper" in url:
