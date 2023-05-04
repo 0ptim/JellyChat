@@ -4,13 +4,15 @@ import os
 
 def get_db():
     """Opens a new database connection (or creates a new database) if there is none yet for the current application context."""
-    try:
-        conn = sqlite3.connect('data/database.db')
-    except sqlite3.OperationalError:
-        os.mkdir('data')
-    finally:
-        conn = sqlite3.connect('data/database.db')
 
+    db_directory = 'data'
+    db_name = 'database.db'
+    db_path = os.path.join(db_directory, db_name)
+
+    if not os.path.exists(db_directory):
+        os.makedirs(db_directory)
+
+    conn = sqlite3.connect(db_path)
     return conn
 
 
