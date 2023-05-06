@@ -11,7 +11,7 @@ for entry in data:
 
 # write the filtered data to a CSV file
 with open('qa.csv', mode='w', newline='', encoding='utf-8') as f:
-    writer = csv.writer(f)
+    writer = csv.writer(f, delimiter=';')
     # write header row
     writer.writerow(['id', 'question', 'answer', 'rating', 'date'])
     for entry in data:
