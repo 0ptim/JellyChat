@@ -1,11 +1,12 @@
 from langchain.utilities import TextRequestsWrapper
 from langchain.agents import Tool
 
+from . import getOcean, Network
+
 
 def get_stats(query: str) -> str:
     """Gets general stats about the blockchain."""
-    requests = TextRequestsWrapper()
-    return requests.get("https://ocean.defichain.com/v0/mainnet/stats")
+    return getOcean().stats.get()
 
 
 description = """

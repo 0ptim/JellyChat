@@ -1,11 +1,11 @@
 from langchain.utilities import TextRequestsWrapper
 from langchain.agents import Tool
 
+from . import getOcean, Network
 
 def get_transactions(address: str, size: str) -> str:
     """Returns the transactions of an address."""
-    requests = TextRequestsWrapper()
-    return requests.get(f"https://ocean.defichain.com/v0/mainnet/address/{address}/transactions?size={size}")
+    return getOcean().address.listTransaction(address=address, size=size)
 
 
 def parsing_transaction(query: str) -> str:

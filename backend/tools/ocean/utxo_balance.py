@@ -1,11 +1,12 @@
 from langchain.utilities import TextRequestsWrapper
 from langchain.agents import Tool
 
+from . import getOcean, Network
+
 
 def get_balance(query: str) -> str:
     """Returns the UTXO balance of an address."""
-    requests = TextRequestsWrapper()
-    return requests.get(f"https://ocean.defichain.com/v0/mainnet/address/{query}/balance")
+    return getOcean().address.getBalance(query)
 
 
 description = """

@@ -1,11 +1,12 @@
 from langchain.utilities import TextRequestsWrapper
 from langchain.agents import Tool
 
+from . import getOcean, Network
+
 
 def get_vaults(query: str) -> str:
     """Returns information about a vault."""
-    requests = TextRequestsWrapper()
-    return requests.get(f"https://ocean.defichain.com/v0/mainnet/loans/vaults/{query}")
+    return getOcean().loan.getVault(query)
 
 
 description = """
