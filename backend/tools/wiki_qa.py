@@ -5,6 +5,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import Qdrant
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
+from langchain.agents import Tool
 
 load_dotenv()
 
@@ -30,13 +31,30 @@ retriever = qdrant.as_retriever(search_type="similarity")
 
 # Create retrieval chain
 qa = RetrievalQA.from_chain_type(
-    llm=ChatOpenAI(model_name="gpt-3.5-turbo"),
+    llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0),
     chain_type="stuff",
-    retriever=retriever,
-    return_source_documents=False)
+    retriever=retriever
+)
+
+description = """
+Use this if you need to:
+- Answer questions about the DeFiChain project.
+- Lookup addresses of people.
+Not useful, if you need to answer questions involving live-data.
+Input should be a fully formed question."
+"""
+
+# Create a tool for agents to use
+wikiTool = Tool(
+    name="DeFiChainWiki QA System",
+    description=description,
+    func=qa.run
+)
 
 
-while True:
-    question = input('Ask anything about DeFiChain: ')
-    response = qa.run(question)
-    print(response)
+if __name__ == '__main__':
+    while True:
+        question = input(
+            'Ask something, that can be answered using information from DeFiChainWiki: ')
+        result = qa({"query": question})
+        print("✅ Answer:", result["result"])
