@@ -2,7 +2,7 @@
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, make_response
 from langchain.callbacks import get_openai_callback
-from chat_agent import agent_for_user
+from session_agents import agent_for_user
 from data import init_db, add_rating, add_qa, get_qa
 
 # Setup
