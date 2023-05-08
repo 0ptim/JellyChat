@@ -1,10 +1,10 @@
 from langchain.utilities import TextRequestsWrapper
 from langchain.agents import Tool
 
-from . import getOcean, Network
+from ..utils import getOcean, Network
 
 
-def get_vaults(query: str) -> str:
+def get_vault(query: str) -> str:
     """Returns information about a vault."""
     return getOcean().loan.getVault(query)
 
@@ -14,8 +14,8 @@ Get information about one specific vault.
 Provide the vault ID as input.
 """
 
-vaultInformationTool = Tool(
+loanGetVaultTool = Tool(
     name="Get Vault Information",
     description=description,
-    func=get_vaults
+    func=get_vault
 )

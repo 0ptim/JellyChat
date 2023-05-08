@@ -1,10 +1,9 @@
-from langchain.utilities import TextRequestsWrapper
 from langchain.agents import Tool
 
-from . import getOcean, Network
+from ..utils import getOcean, Network
 
 
-def get_tokenbalance(query: str) -> str:
+def list_token(query: str) -> str:
     """Returns the token balance of an address."""
     return getOcean().address.listToken(query)
 
@@ -14,8 +13,8 @@ To get the token balance of one specific address.
 Provide the address as input. Example: df1...
 """
 
-tokenbalanceTool = Tool(
+addressListTokenTool = Tool(
     name="Get Token Balance",
     description=description,
-    func=get_tokenbalance
+    func=list_token
 )

@@ -1,10 +1,9 @@
-from langchain.utilities import TextRequestsWrapper
 from langchain.agents import Tool
 
-from . import getOcean, Network
+from ..utils import getOcean, Network
 
 
-def get_vaults(query: str) -> str:
+def list_vault(query: str) -> str:
     """Returns the vaults of an address."""
     return getOcean().address.listVault(query)
 
@@ -14,8 +13,8 @@ To get the vaults of one specific address.
 Provide the address as input. Example: df1...
 """
 
-vaultsForAddressTool = Tool(
+addressListVaultTool = Tool(
     name="Get Vaults for Address",
     description=description,
-    func=get_vaults
+    func=list_vault
 )

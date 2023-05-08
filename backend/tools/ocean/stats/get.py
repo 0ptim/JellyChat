@@ -1,10 +1,10 @@
 from langchain.utilities import TextRequestsWrapper
 from langchain.agents import Tool
 
-from . import getOcean, Network
+from ..utils import getOcean, Network
 
 
-def get_stats(query: str) -> str:
+def get(query: str) -> str:
     """Gets general stats about the blockchain."""
     return getOcean().stats.get()
 
@@ -14,8 +14,8 @@ Gets general real-time stats about the blockchain.
 Block count, Burned coins, TVL, DFI Price, Masternode-Count, Difficulty etc.
 """
 
-statsTool = Tool(
+statsGetTool = Tool(
     name="Get Stats",
     description=description,
-    func=get_stats
+    func=get
 )

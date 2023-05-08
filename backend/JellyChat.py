@@ -7,13 +7,7 @@ from langchain.callbacks import get_openai_callback
 from langchain.chains.conversation.memory import ConversationBufferMemory
 
 from tools.wiki_qa import wikiTool
-from tools.ocean.stats import statsTool
-from tools.ocean.token_balance import tokenbalanceTool
-from tools.ocean.transactions import transactionsTool
-from tools.ocean.utxo_balance import utxoTool
-from tools.ocean.vaults import vaultsForAddressTool
-from tools.ocean.vault import vaultInformationTool
-
+from tools.ocean import *
 
 load_dotenv()
 
@@ -27,8 +21,8 @@ def create_jelly_chat_agent():
 
     llm = ChatOpenAI(model_name="gpt-3.5-turbo")
 
-    tools = [wikiTool, statsTool, tokenbalanceTool,
-             transactionsTool, utxoTool, vaultsForAddressTool, vaultInformationTool] + load_tools(["llm-math"], llm=llm)
+
+    tools = [wikiTool] + oceanTools + load_tools(["llm-math"], llm=llm)
 
     print("🤖 Initializing JellyChat agent...")
     jelly_chat_agent = initialize_agent(
