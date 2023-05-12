@@ -21,7 +21,6 @@ def create_jelly_chat_agent():
 
     llm = ChatOpenAI(model_name="gpt-3.5-turbo")
 
-
     tools = [wikiTool] + oceanTools + load_tools(["llm-math"], llm=llm)
 
     print("🤖 Initializing JellyChat agent...")

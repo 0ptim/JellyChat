@@ -9,6 +9,7 @@ class Network:
 oceanMainnet = Ocean(network="mainnet")
 oceanTestnet = Ocean(network="testnet")
 
+
 def getOcean(network: str = Network.MAINNET) -> Ocean:
     if network == Network.MAINNET:
         return oceanMainnet
@@ -16,4 +17,11 @@ def getOcean(network: str = Network.MAINNET) -> Ocean:
         return oceanTestnet
     else:
         raise Exception("The selected network does not exist!")
+
+
+def filterJson(json: {}, keys: []):
+    result = {}
+    for key in keys:
+        result.update({key: json[key]})
+    return result
     
