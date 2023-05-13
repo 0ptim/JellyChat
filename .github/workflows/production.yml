@@ -23,5 +23,6 @@ jobs:
           version: latest
 
       - run: supabase link --project-ref $PROJECT_ID
+        working-directory: data
       - run: supabase db push
         working-directory: data
