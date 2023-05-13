@@ -24,3 +24,4 @@ jobs:
 
       - run: supabase link --project-ref $PROJECT_ID
       - run: supabase db push
+        working-directory: data
