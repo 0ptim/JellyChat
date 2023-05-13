@@ -1,13 +1,14 @@
-name: Release
+name: Apply supabase migrations
 
 on:
   push:
     branches:
-      - 0ptim/supabase
+      - main
   workflow_dispatch:
 
 jobs:
   release:
+    name: Apply supabase migrations
     runs-on: ubuntu-latest
 
     env:
