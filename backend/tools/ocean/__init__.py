@@ -16,7 +16,7 @@ from .blocks.list import blocksListTool
 oceanTools.extend([blocksListTool])
 
 # Loan
-from .loan.get_vault import loanGetVaultTool
+from .loan.getVault import loanGetVaultTool
 
 oceanTools.extend([loanGetVaultTool])
 
@@ -25,6 +25,11 @@ oceanTools.extend([loanGetVaultTool])
 #from .poolpairs.list import poolpairsListTool
 
 #oceanTools.extend([poolpairsGetTool, poolpairsListTool])
+
+# Prices
+from .prices.get import priceGetTool
+
+oceanTools.extend([priceGetTool])
 
 # Stats
 from .stats.get import statsGetTool
