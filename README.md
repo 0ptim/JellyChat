@@ -1,5 +1,7 @@
 # ChatDeFiChain
 
+![](./redme_files/process.drawio.png)
+
 ## 1. `/job`
 
 Code related to scraping defichainwiki.com and creating an index, which then can be used to answer DeFiChain-specific questions.
