@@ -1,4 +1,0 @@
-ALTER TABLE
-    QA
-ADD
-    COLUMN test_01 TEXT;
