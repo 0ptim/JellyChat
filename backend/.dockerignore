@@ -1,9 +1,3 @@
 .env
 /__pycache__/
 /venv/
-
-# Ignore SQLite databases
-*.db
-*.db3
-*.sqlite
-*.sqlite3

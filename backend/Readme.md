@@ -6,10 +6,8 @@ This is JellyChat's backend. It is a simple API that allows to send questions wh
 - It is connected to the OpenAI API.
 - On every push to `main`, the backend is deployed to Fly.io.
   - https://jellychat.fly.dev
-- All question and answers are stored in a SQLite database.
+- All question and answers are stored in a Supabase PostgreSQL database.
   - Stored under `data/database.db`.
-  - Registered as mount on Fly.io
-  - https://sqlitebrowser.org
 
 # Endpoints
 
@@ -71,9 +69,11 @@ _Response body_
 
 # Environment Variables
 
-- `OPENAI_API_KEY` - Your OpenAI API Key.
+- `OPENAI_API_KEY` - Your OpenAI API key.
 - `QDRANT_HOST` - Qdrant host URL of cluster.
-- `QDRANT_API_KEY` - Qdrant API Key.
+- `QDRANT_API_KEY` - Qdrant API key.
+- `SUPABASE_URL` - Supabase API URL.
+- `SUPABASE_KEY` - Supabase anon key.
 
 # Basic commands
 
