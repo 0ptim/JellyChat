@@ -23,7 +23,7 @@ client = QdrantClient(url=os.getenv('QDRANT_HOST'),
 embeddings = OpenAIEmbeddings()
 qdrant = Qdrant(client=client,
                 collection_name=collection_name,
-                embedding_function=embeddings.embed_query)
+                embeddings=embeddings)
 
 # Create a qdrant retriever
 retriever = qdrant.as_retriever(search_type="similarity")
