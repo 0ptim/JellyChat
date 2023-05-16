@@ -1,3 +1,14 @@
+# JellyChat - Data
+
+> TODO: Supabase address
+
+We use Supabase to store all questions and final answers together with their rating.
+
+### Technologies
+
+- Supabase
+- Postgres
+
 # Database
 
 This directory contains the database schema and migrations for Supabase.

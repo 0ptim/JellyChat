@@ -1,17 +1,43 @@
-# Introduction
+[![Deploy backend to Fly.io](https://github.com/0ptim/JellyChat/actions/workflows/fly.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly.yml)
 
-This is JellyChat's backend. It is a simple API that allows to send questions which are then answered. It is connected to the OpenAI API.
+# JellyChat - Backend
 
-- Implemented with Python and Flask.
-- It is connected to the OpenAI API.
-- On every push to `main`, the backend is deployed to Fly.io.
-  - https://jellychat.fly.dev
-- All question and answers are stored in a Supabase PostgreSQL database.
-  - Stored under `data/database.db`.
+> https://jellychat.fly.dev
 
-# Endpoints
+The backend is a Flask API that receives questions and returns answers. It uses a LangChain agent to analyze the question and then uses various tools to best answer the question.
 
-## /ask `POST`
+## Process
+
+- Receives question
+- Uses a LangChain agent to analyze the question
+- Uses various tools to best answer the question
+  - Ocean API tools
+    - Calls the Ocean API via DefichainPython
+  - Wiki tool
+    - Embedds the question
+    - Uses Qdrant to find the best matching document
+    - Generates an answer
+  - Math tool
+- Comes up with the final answer
+- Saves the final answer to Supabase
+- Returns the answer
+
+## Technologies
+
+- Python
+- LangChain
+- Flask
+- OpenAI API
+- DefichainPython
+- Qdrant
+
+## Deployment
+
+On every push to `main`, the backend is deployed to Fly.io.
+
+## Endpoints
+
+### /ask `POST`
 
 Main endpoint to ask a question.
 
@@ -33,7 +59,7 @@ _Response body_
 }
 ```
 
-## /rate `POST`
+### /rate `POST`
 
 Rate the answer.
 
@@ -48,7 +74,7 @@ _Request body_
 }
 ```
 
-## /qa `GET`
+### /qa `GET`
 
 Get all questions and answers.
 
@@ -122,11 +148,11 @@ flask --debug run
 Create image
 
 ```
-docker build -t chatdefichain-backend .
+docker build -t jellychat-backend .
 ```
 
 Run the image
 
 ```
-docker container run --env-file .env -d -p 8080:8080 chatdefichain-backend
+docker container run --env-file .env -d -p 8080:8080 jellychat-backend
 ```
