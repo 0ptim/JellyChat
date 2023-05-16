@@ -1,17 +1,15 @@
+[![Apply supabase migrations](https://github.com/0ptim/JellyChat/actions/workflows/supabase.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase.yml)
+
 # JellyChat - Data
 
-> TODO: Supabase address
+> https://cofmxsabxteiidryklyg.supabase.co
 
 We use Supabase to store all questions and final answers together with their rating.
 
-### Technologies
+## Technologies
 
 - Supabase
 - Postgres
-
-# Database
-
-This directory contains the database schema and migrations for Supabase.
 
 ## Local development
 
