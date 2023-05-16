@@ -1,17 +1,43 @@
-# Introduction
+[![Deploy backend to Fly.io](https://github.com/0ptim/JellyChat/actions/workflows/fly.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly.yml)
 
-This is JellyChat's backend. It is a simple API that allows to send questions which are then answered. It is connected to the OpenAI API.
+# JellyChat - Backend
 
-- Implemented with Python and Flask.
-- It is connected to the OpenAI API.
-- On every push to `main`, the backend is deployed to Fly.io.
-  - https://jellychat.fly.dev
-- All question and answers are stored in a Supabase PostgreSQL database.
-  - Stored under `data/database.db`.
+> https://jellychat.fly.dev
 
-# Endpoints
+The backend is a Flask API that receives questions and returns answers. It uses a LangChain agent to analyze the question and then uses various tools to best answer the question.
 
-## /ask `POST`
+## Process
+
+- Receives question
+- Uses a LangChain agent to analyze the question
+- Uses various tools to best answer the question
+  - Ocean API tools
+    - Calls the Ocean API via DefichainPython
+  - Wiki tool
+    - Embedds the question
+    - Uses Qdrant to find the best matching document
+    - Generates an answer
+  - Math tool
+- Comes up with the final answer
+- Saves the final answer to Supabase
+- Returns the answer
+
+## Technologies
+
+- Python
+- LangChain
+- Flask
+- OpenAI API
+- DefichainPython
+- Qdrant
+
+## Deployment
+
+On every push to `main`, the backend is deployed to Fly.io.
+
+## Endpoints
+
+### /ask `POST`
 
 Main endpoint to ask a question.
 
@@ -33,7 +59,7 @@ _Response body_
 }
 ```
 
-## /rate `POST`
+### /rate `POST`
 
 Rate the answer.
 
@@ -48,7 +74,7 @@ _Request body_
 }
 ```
 
-## /qa `GET`
+### /qa `GET`
 
 Get all questions and answers.
 
@@ -67,66 +93,84 @@ _Response body_
 ]
 ```
 
-# Environment Variables
+## Environment Variables
 
 - `OPENAI_API_KEY` - Your OpenAI API key.
+  - Used to embed incoming questions.
+  - Used to generate text.
+  - Can be obtained here: [platform.openai.com](https://platform.openai.com/)
 - `QDRANT_HOST` - Qdrant host URL of cluster.
+  - Used to find the best matching documents.
+  - Can be obtained here: [cloud.qdrant.io](https://cloud.qdrant.io/)
+  - The URL looks like: https://XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.eu-central-1-0.aws.cloud.qdrant.io:6333
 - `QDRANT_API_KEY` - Qdrant API key.
+  - Used to find the best matching documents.
+  - Can be obtained here: [cloud.qdrant.io](https://cloud.qdrant./)
 - `SUPABASE_URL` - Supabase API URL.
+  - Used to save questions and answers with their rating.
+  - Can be obtained here: [app.supabase.io](https://app.supabase.com/)
 - `SUPABASE_KEY` - Supabase anon key.
+  - Used to save questions and answers with their rating.
+  - Can be obtained here: [app.supabase.io](https://app.supabase.com/)
 
-# Basic commands
+## Basic commands
 
-## Create virtual environment
+### Create virtual environment
 
 ```
 python -m venv venv
 ```
 
-## Activate virtual environment
+### Activate virtual environment
 
 ```
 .\venv\Scripts\activate
 ```
 
-## Deactivate virtual environment
+### Deactivate virtual environment
 
 ```
 Deactivate
 ```
 
-## Install all project dependencies
+### Install all project dependencies
 
 ```
 pip install -r requirements.txt
 ```
 
-## Freeze requirements
+### Freeze requirements
 
 ```
 pip freeze > requirements.txt
 ```
 
-# Flask
+## Flask
 
-Docs: https://flask.palletsprojects.com/en/2.2.x/quickstart/
+We use Flask to create the API. It is a micro web framework written in Python.
 
-Run Flask app in debug mode
+_Docs: https://flask.palletsprojects.com/en/2.2.x/quickstart/_
+
+To develop locally, run Flask app in debug mode. This will automatically reload the app when changes are made and is best to develop locally.
 
 ```
 flask --debug run
 ```
 
-# Docker
+## Docker
 
-Create image
+We use Docker to package and run the backend. This makes the deployment more reliable and easier.
 
-```
-docker build -t chatdefichain-backend .
-```
+When deploying to Fly.io, we don't use Docker commands ourselves. The generation of the Docker image is done by Fly.io.
 
-Run the image
+### Create image
 
 ```
-docker container run --env-file .env -d -p 8080:8080 chatdefichain-backend
+docker build -t jellychat-backend .
+```
+
+### Run the image
+
+```
+docker container run --env-file .env -d -p 8080:8080 jellychat-backend
 ```
