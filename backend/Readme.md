@@ -1,13 +1,13 @@
 # Introduction
 
-- It is implemented with Python and Flask. It is a simple API that allows to send questions which are then answered.
+This is JellyChat's backend. It is a simple API that allows to send questions which are then answered. It is connected to the OpenAI API.
+
+- Implemented with Python and Flask.
 - It is connected to the OpenAI API.
 - On every push to `main`, the backend is deployed to Fly.io.
   - https://jellychat.fly.dev
-- All question and answers are stored in a SQLite database.
+- All question and answers are stored in a Supabase PostgreSQL database.
   - Stored under `data/database.db`.
-  - Registered as mount on Fly.io
-  - https://sqlitebrowser.org
 
 # Endpoints
 
@@ -19,7 +19,8 @@ _Request body_
 
 ```json
 {
-  "question": "How many DFI do I need to create a masternode?"
+  "question": "How many DFI do I need to create a masternode?",
+  "user_token": "usertoken"
 }
 ```
 
@@ -29,27 +30,6 @@ _Response body_
 {
   "id": 1,
   "response": "You need 20,011 DFI to create a masternode."
-}
-```
-
-## /simulate `POST`
-
-For testing purposes. This way no OpenAI API calls are made (safes costs).
-
-_Request body_
-
-```json
-{
-  "question": "How many DFI do I need to create a masternode?"
-}
-```
-
-_Response body_
-
-```json
-{
-  "id": 0,
-  "response": "You asked: How many DFI do I need to create a masternode?"
 }
 ```
 
@@ -89,11 +69,13 @@ _Response body_
 
 # Environment Variables
 
-`OPENAI_API_KEY` - Your OpenAI API Key.
-`QDRANT_HOST` - Qdrant host URL of cluster.
-`QDRANT_API_KEY` - Qdrant API Key.
+- `OPENAI_API_KEY` - Your OpenAI API key.
+- `QDRANT_HOST` - Qdrant host URL of cluster.
+- `QDRANT_API_KEY` - Qdrant API key.
+- `SUPABASE_URL` - Supabase API URL.
+- `SUPABASE_KEY` - Supabase anon key.
 
-# Python basic commands
+# Basic commands
 
 ## Create virtual environment
 

@@ -2,15 +2,14 @@
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request, make_response
 from langchain.callbacks import get_openai_callback
-from chat_agent import agent_for_user
-from data import init_db, add_rating, add_qa, get_qa
+from session_agents import agent_for_user
+from data import SupabaseManager
 
 # Setup
 load_dotenv()
 app = Flask(__name__)
 
-with app.app_context():
-    init_db()
+manager = SupabaseManager()
 
 # CORS headers
 headers_cors = {
@@ -49,7 +48,7 @@ def process_question():
         log_response_info(response_obj, cb)
 
     response = response_obj["output"].strip()
-    qa_id = add_qa(question, response)
+    qa_id = manager.add_qa(question, response)
 
     return make_response(jsonify({"response": response, "id": qa_id}), 200, headers_cors)
 
@@ -70,7 +69,7 @@ def add_rating():
     id = request.json['id']
     rating = request.json['rating']
 
-    add_rating(id, rating)
+    manager.add_rating(id, rating)
 
     return make_response("", 200, headers_cors)
 
@@ -80,7 +79,7 @@ def get_all_qa():
     if request.method == "OPTIONS":
         return make_response("", 204, headers_cors)
 
-    QA = get_qa()
+    QA = manager.get_qa()
 
     return make_response(jsonify(QA), 200, headers_cors)
 

@@ -18,7 +18,7 @@ from tools.ocean.vault import vaultInformationTool
 load_dotenv()
 
 
-def create_jelly_chat_agent():
+def create_agent():
     memory = ConversationBufferMemory(
         # Important to align with agent prompt (below)
         memory_key="chat_history",
@@ -30,8 +30,8 @@ def create_jelly_chat_agent():
     tools = [wikiTool, statsTool, tokenbalanceTool,
              transactionsTool, utxoTool, vaultsForAddressTool, vaultInformationTool] + load_tools(["llm-math"], llm=llm)
 
-    print("🤖 Initializing JellyChat agent...")
-    jelly_chat_agent = initialize_agent(
+    print("🤖 Initializing main agent...")
+    main_agent_instance = initialize_agent(
         agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
         tools=tools,
         llm=llm,
@@ -53,21 +53,21 @@ def create_jelly_chat_agent():
     Overall, Assistant is a powerful system that can help with a wide range of tasks and provide valuable insights and information on a wide range of topics. Whether you need help with a specific question or just want to have a conversation about a particular topic, Assistant is here to assist.
     """
 
-    custom_prompt = jelly_chat_agent.agent.create_prompt(
+    custom_prompt = main_agent_instance.agent.create_prompt(
         system_message=sys_msg,
         tools=tools
     )
 
-    jelly_chat_agent.agent.llm_chain.prompt = custom_prompt
+    main_agent_instance.agent.llm_chain.prompt = custom_prompt
 
-    return jelly_chat_agent
+    return main_agent_instance
 
 
 if __name__ == '__main__':
-    local_agent = create_jelly_chat_agent()
+    local_agent = create_agent()
 
     while True:
-        question = input('Ask anything about DeFiChain: ')
+        question = input('Testing main agent: ')
         with get_openai_callback() as cb:
             response = local_agent(question)
             print(response)
