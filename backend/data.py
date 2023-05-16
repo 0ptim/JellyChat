@@ -1,6 +1,9 @@
-from dotenv import get_key
+import os
+from dotenv import load_dotenv
 from supabase import create_client, Client
 from typing import List, Dict, Union
+
+load_dotenv()
 
 
 class SupabaseManager():
@@ -8,8 +11,8 @@ class SupabaseManager():
         self.supabase: Client = self._init_supabase()
 
     def _init_supabase(self) -> Client:
-        url = get_key('.env', 'SUPABASE_URL')
-        key = get_key('.env', 'SUPABASE_KEY')
+        url = os.getenv('SUPABASE_URL')
+        key = os.getenv('SUPABASE_KEY')
         return create_client(url, key)
 
     def add_qa(self, question: str, answer: str) -> int:
