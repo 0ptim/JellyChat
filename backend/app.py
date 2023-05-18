@@ -4,6 +4,8 @@ from flask import Flask, jsonify, request, make_response
 from langchain.callbacks import get_openai_callback
 from session_agents import agent_for_user
 from data import SupabaseManager
+from functools import wraps
+
 
 # Setup
 load_dotenv()
@@ -11,24 +13,30 @@ app = Flask(__name__)
 
 manager = SupabaseManager()
 
-# CORS headers
-headers_cors = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "POST",
-    "Access-Control-Allow-Headers": "API-Key, Content-Type",
-    "Access-Control-Max-Age": "3600",
-}
 
-
-# Helper function to extract data from JSON request
 def extract_data(json_request, field):
     return json_request.get(field, "").strip()
 
 
+def cors_headers(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        response = f(*args, **kwargs)
+        response.headers.set('Access-Control-Allow-Origin', '*')
+        response.headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        response.headers.set('Access-Control-Allow-Headers',
+                             'API-Key, Content-Type')
+        response.headers.set('Access-Control-Max-Age', '3600')
+        return response
+
+    return decorated_function
+
+
 @app.route("/ask", methods=["OPTIONS", "POST"])
+@cors_headers
 def process_question():
     if request.method == "OPTIONS":
-        return make_response("", 204, headers_cors)
+        return make_response("", 204)
 
     if not request.is_json:
         return make_response("Request should be in JSON format", 400)
@@ -50,7 +58,7 @@ def process_question():
     response = response_obj["output"].strip()
     qa_id = manager.add_qa(question, response)
 
-    return make_response(jsonify({"response": response, "id": qa_id}), 200, headers_cors)
+    return make_response(jsonify({"response": response, "id": qa_id}), 200)
 
 
 def log_response_info(response_obj, callback_obj):
@@ -64,24 +72,24 @@ def log_response_info(response_obj, callback_obj):
 @app.route('/rate', methods=["OPTIONS", "POST"])
 def add_rating():
     if request.method == "OPTIONS":
-        return make_response("", 204, headers_cors)
+        return make_response("", 204)
 
     id = request.json['id']
     rating = request.json['rating']
 
     manager.add_rating(id, rating)
 
-    return make_response("", 200, headers_cors)
+    return make_response("", 200)
 
 
 @app.route('/qa', methods=["OPTIONS", "GET"])
 def get_all_qa():
     if request.method == "OPTIONS":
-        return make_response("", 204, headers_cors)
+        return make_response("", 204)
 
     QA = manager.get_qa()
 
-    return make_response(jsonify(QA), 200, headers_cors)
+    return make_response(jsonify(QA), 200)
 
 
 if __name__ == "__main__":
