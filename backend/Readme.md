@@ -59,21 +59,6 @@ _Response body_
 }
 ```
 
-### /rate `POST`
-
-Rate the answer.
-
-- rating: 0 = bad, 1 = good
-
-_Request body_
-
-```json
-{
-  "id": 1,
-  "rating": 1
-}
-```
-
 ### /qa `GET`
 
 Get all questions and answers.
@@ -172,5 +157,5 @@ docker build -t jellychat-backend .
 ### Run the image
 
 ```
-docker container run --env-file .env -d -p 8080:8080 jellychat-backend
+docker container run --name JellyChat_Backend --env-file .env -d -p 8080:8080 jellychat-backend
 ```
