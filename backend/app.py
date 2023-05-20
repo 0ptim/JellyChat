@@ -37,6 +37,8 @@ class CustomHandler(BaseCallbackHandler):
         """ Emit the action name to the client, so the user can see what jellychat is doing."""
         print(f"🔥 Tool started: {serialized}")
         emit("tool_start", {"tool_name": serialized["name"]})
+        # Yield control back to the caller, so the client can receive the event instantly.
+        socketio.sleep(0)
 
 
 def log_response_info(response_obj, callback_obj):
