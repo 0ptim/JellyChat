@@ -4,17 +4,17 @@
 
 > https://jellychat.fly.dev
 
-The backend is a Flask API that receives questions and returns answers. It uses a LangChain agent to analyze the question and then uses various tools to best answer the question.
+The backend is a Flask API that provices both a web socket connection and a REST endpoint to receive and return messages. It uses a LangChain agent to analyze the input and then uses various tools to best respond to the input.
 
 ## Process
 
-- Receives question
-- Uses a LangChain agent to analyze the question
-- Uses various tools to best answer the question
+- Receives input
+- Uses a LangChain agent to analyze the input
+- Uses various tools to best answer the input
   - Ocean API tools
     - Calls the Ocean API via DefichainPython
   - Wiki tool
-    - Embedds the question
+    - Embedds the input
     - Uses Qdrant to find the best matching document
     - Generates an answer
   - Math tool
@@ -27,6 +27,7 @@ The backend is a Flask API that receives questions and returns answers. It uses 
 - Python
 - LangChain
 - Flask
+- Web sockets
 - OpenAI API
 - DefichainPython
 - Qdrant
@@ -35,9 +36,32 @@ The backend is a Flask API that receives questions and returns answers. It uses 
 
 On every push to `main`, the backend is deployed to Fly.io.
 
-## Endpoints
+## Web socket
 
-### /ask `POST`
+The web socket is used to send messages to the backend and receive answers over the same connection. We use the [Socket.IO](https://socket.io/) protocol.
+
+To connect to the web socket, use the following URL: `https://jellychat.fly.dev`.
+
+The library used on the backend is [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/). There are librarys for many languages available on the Socket.IO website.
+
+**To send a message, emit an event called `user_message` with the data.**
+
+- `user_token` - The user token to identify the user/session.
+- `message` - The message to send.
+
+You can listen to the following two events.
+
+### Event: `tool_start`
+
+This event is emitted, when the agent starts using a tool. You can use this to display an information to the user, so he knows what is happening.
+
+### Event: `final_message`
+
+This event is emitted, when the agent has come up with a final answer. You can use this to display the answer to the user.
+
+## REST Endpoints
+
+### /user_message `POST`
 
 Main endpoint to ask a question.
 
@@ -45,8 +69,8 @@ _Request body_
 
 ```json
 {
-  "question": "How many DFI do I need to create a masternode?",
-  "user_token": "usertoken"
+  "message": "How many DFI do I need to create a masternode?",
+  "user_token": "{usertoken}"
 }
 ```
 
@@ -54,25 +78,22 @@ _Response body_
 
 ```json
 {
-  "id": 1,
   "response": "You need 20,011 DFI to create a masternode."
 }
 ```
 
-### /qa `GET`
+### /messages_answers `GET`
 
-Get all questions and answers.
+Get all messages and answers.
 
 _Response body_
 
 ```json
 [
   {
-    "id": 1,
     "date": "2023-02-18 23:38:50",
     "question": "How many DFI do I need to create a masternode?",
-    "answer": "You need 20,011 DFI to create a masternode.",
-    "rating": 1
+    "answer": "You need 20,011 DFI to create a masternode."
   },
   ...
 ]
