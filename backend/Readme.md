@@ -157,11 +157,13 @@ We use Flask to create the API. It is a micro web framework written in Python.
 
 _Docs: https://flask.palletsprojects.com/en/2.2.x/quickstart/_
 
-To develop locally, run Flask app in debug mode. This will automatically reload the app when changes are made and is best to develop locally.
+To develop locally, run the app.py file.
 
 ```
-flask --debug run
+python .\app.py
 ```
+
+> The app will be available at http://localhost:8080
 
 ## Docker
 
