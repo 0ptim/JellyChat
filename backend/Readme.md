@@ -139,6 +139,12 @@ python -m venv venv
 Deactivate
 ```
 
+### Uninstall all project dependencies
+
+```
+pip freeze | ForEach-Object { pip uninstall -y $_.Trim() }
+```
+
 ### Install all project dependencies
 
 ```
@@ -182,3 +188,9 @@ docker build -t jellychat-backend .
 ```
 docker container run --name JellyChat_Backend --env-file .env -d -p 8080:8080 jellychat-backend
 ```
+
+### LangChain
+
+The main Agent is in `main_agent.py`. You can run it directly to test it.
+
+To debug, make sure `langchain.debug = True` is active in `main_agent.py`.

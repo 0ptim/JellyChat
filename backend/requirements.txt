@@ -46,7 +46,7 @@ jaraco.classes==3.2.3
 Jinja2==3.1.2
 joblib==1.2.0
 keyring==23.13.1
-langchain==0.0.164
+langchain==0.0.175
 lxml==4.9.2
 MarkupSafe==2.1.2
 marshmallow==3.19.0
