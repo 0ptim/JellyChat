@@ -39,11 +39,11 @@ supabase stop --backup
 
 To create a new migration, run:
 
-> `{description}` should be a short description of the migration, e.g. `create_users_table`.
-
 ```bash
 supabase migration new {description}
 ```
+
+> ℹ `{description}` should be a short description of the migration, e.g. `create_users_table`.
 
 This will create a new migration file in `/migrations`. Insert your SQL there.
 

@@ -5,6 +5,7 @@ from langchain.agents import load_tools
 from langchain.agents import AgentType
 from langchain.callbacks import get_openai_callback
 from langchain.chains.conversation.memory import ConversationBufferMemory
+import langchain
 
 from tools.wiki_qa import wikiTool
 from tools.ocean.stats import statsTool
@@ -65,7 +66,8 @@ def create_agent():
 
 if __name__ == '__main__':
     local_agent = create_agent()
-
+    # Set debug to True to see A LOT of details of the agent's inner workings
+    # langchain.debug = True
     while True:
         question = input('Testing main agent: ')
         with get_openai_callback() as cb:
