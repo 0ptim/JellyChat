@@ -15,7 +15,7 @@ class SupabaseManager():
         key = os.getenv('SUPABASE_KEY')
         return create_client(url, key)
 
-    def add_qa(self, question: str, answer: str) -> int:
+    def add_message_response(self, question: str, answer: str) -> int:
         """Add a question and answer to the database.
 
         Args:
@@ -29,17 +29,7 @@ class SupabaseManager():
             {"question": question, "answer": answer}).execute()
         return data.data[0]["id"]
 
-    def add_rating(self, id: int, rating: int) -> None:
-        """Add a rating to a question and answer.
-
-        Args:
-            id: The id of the question and answer.
-            rating: The rating (0 or 1).
-        """
-        self.supabase.table("qa").update(
-            {"rating": rating}).eq("id", id).execute()
-
-    def get_qa(self) -> List[Dict[str, Union[int, str]]]:
+    def get_messages_answers(self) -> List[Dict[str, Union[int, str]]]:
         """Get all QA.
 
         Returns:
