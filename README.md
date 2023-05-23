@@ -23,7 +23,9 @@ JellyChat is a project that aims to create a chatbot that can answer questions a
 
 This gives a high-level overview of the architecture. It will be extended as the project progresses.
 
-![Architectural Overview of all components](./redme_files/process.png)
+![Architectural Overview of all components](./docs/process.png)
+
+[📂 Download diagram source](./docs/process.drawio)
 
 ## Key Components
 
