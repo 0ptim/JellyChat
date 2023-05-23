@@ -34,7 +34,7 @@ def cors_headers(f):
 
 class CustomHandler(BaseCallbackHandler):
     def on_tool_start(self, serialized: Dict[str, Any], input_str: str, **kwargs: Any) -> Any:
-        """ Emit the action name to the client, so the user can see what jellychat is doing."""
+        """ Emit the action name to the client, so the user can see what the agent is doing."""
         print(f"🔥 Tool started: {serialized}")
         tool_message = get_tool_message(serialized["name"])
         emit("tool_start", {"tool_name": tool_message})
@@ -86,10 +86,10 @@ def process_input(user_token, message):
         emit("error", {"error": "Input is required"})
         return
 
-    jelly_chat_agent = agent_for_user(user_token)
+    chat_agent = agent_for_user(user_token)
 
     with get_openai_callback() as cb:
-        response_obj = jelly_chat_agent(
+        response_obj = chat_agent(
             message, callbacks=[CustomHandler()])
         log_response_info(response_obj, cb)
 
@@ -116,10 +116,10 @@ def process_input():
     if not message:
         return jsonify({"error": "Message is required"}), 400
 
-    jelly_chat_agent = agent_for_user(user_token)
+    chat_agent = agent_for_user(user_token)
 
     with get_openai_callback() as cb:
-        response_obj = jelly_chat_agent(message)
+        response_obj = chat_agent(message)
         log_response_info(response_obj, cb)
 
     response = response_obj["output"].strip()
