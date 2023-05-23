@@ -9,7 +9,6 @@ import re
 load_dotenv()
 
 scrapeUrl = 'https://www.defichainwiki.com/'
-indexFileTarget = './indices/index_wiki.json'
 chunk_size = 2000
 chunk_overlap = 200
 
