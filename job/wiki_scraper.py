@@ -3,17 +3,24 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.document_loaders import UnstructuredURLLoader
 from langchain.text_splitter import CharacterTextSplitter
 from dotenv import load_dotenv, get_key
-from sitemap_parser import *
+from sitemap_parser import get_urls
 import re
 
 load_dotenv()
 
-scrapeUrl = 'https://www.defichainwiki.com/'
+scrapeUrls = ['https://www.defichainwiki.com/sitemap.xml']
 chunk_size = 2000
 chunk_overlap = 200
 
-urls = getUrlsToScrape(scrapeUrl)
+urls = []
 
+for url in scrapeUrls:
+    urls.extend(get_urls(url))
+
+# Remove duplicates
+urls = list(dict.fromkeys(urls))
+
+# Remove Updated_White_Paper because it contains very old data
 for url in urls:
     if "Updated_White_Paper" in url:
         print("Remove", url)
@@ -38,6 +45,7 @@ text_splitter = CharacterTextSplitter(
     chunk_size=chunk_size, chunk_overlap=chunk_overlap)
 docs = text_splitter.split_documents(docs)
 print('✅ Split into %s chunks' % len(docs))
+
 
 print('🔮 Embedding..')
 embeddings = OpenAIEmbeddings()
