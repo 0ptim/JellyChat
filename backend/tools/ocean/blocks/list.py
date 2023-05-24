@@ -10,7 +10,7 @@ def list(query: str) -> str:
 
 description = """
 Lists the latest blocks with the corresponding information.
-Information: ID, Hash, PreviousHash, Height, Version, Time, MedianTime, TransactionCount, Difficulty, Masternode, 
+Return Information: ID, Hash, PreviousHash, Height, Version, Time, MedianTime, TransactionCount, Difficulty, Masternode, 
 Minter, MinterBlockCount, StakeModifier, MerkleRoot, Size, SizeStripped, Weight, Reward
 Provides the number of blocks as an input.
 The input has to be a string. 

@@ -11,7 +11,7 @@ def get_vault(query: str) -> str:
 
 description = """
 Get information about a vault with given vault id
-Information: (vaultId: str, loanScheme: (id: str, minColRatio: int, interestRate: int), ownerAddress: str, state: str, 
+Return Information: (vaultId: str, loanScheme: (id: str, minColRatio: int, interestRate: int), ownerAddress: str, state: str, 
 informativeRatio: float, collateralRatio: int, collateralValue: float, loanValue: float, interestValue: float, 
 collateralAmounts: [(id: int, amount: float, symbol: str, symbolKey: str, name: str, displaySymbol: str, 
 activePrice: (id: str, key: str, isLive: bool, block: (hash: str, height: int, medianTime: int, time: int), 

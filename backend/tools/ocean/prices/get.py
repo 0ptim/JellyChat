@@ -10,7 +10,7 @@ def get(query: str) -> [{}]:
 
 description = """
 Gets a price ticker and the corresponding information.
-Information: id: str, sort: str, price: PriceFeed
+Return Information: id: str, sort: str, price: PriceFeed
 Provides the name of the token as an input.
 """
 
