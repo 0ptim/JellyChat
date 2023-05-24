@@ -38,3 +38,17 @@ from .stats.getRewardDistribution import statsGetRewardDistributionTool
 from .stats.getSupply import statsGetSupplyTool
 
 oceanTools.extend([statsGetTool, statsGetBurnTool, statsGetRewardDistributionTool, statsGetSupplyTool])
+
+# Tokens
+#from .tokens.get import tokenGetTool
+
+#oceanTools.extend((tokenGetTool, ))
+
+# Transaction
+from .transactions.get import transactionGetTool
+from .transactions.get_vins import transactionGetVinsTool
+from .transactions.get_vouts import transactionGetVoutsTool
+
+oceanTools.extend((transactionGetTool, transactionGetVinsTool, transactionGetVoutsTool))
+
+

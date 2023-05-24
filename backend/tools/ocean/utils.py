@@ -19,9 +19,9 @@ def getOcean(network: str = Network.MAINNET) -> Ocean:
         raise Exception("The selected network does not exist!")
 
 
-def filterJson(json: {}, keys: []):
+def filterJson(json: {}, keys: []) -> {}:
     result = {}
     for key in keys:
-        result.update({key: json[key]})
+        result.update({key: json.get(key)})
     return result
     
