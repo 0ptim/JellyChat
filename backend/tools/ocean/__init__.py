@@ -40,9 +40,9 @@ from .stats.getSupply import statsGetSupplyTool
 oceanTools.extend([statsGetTool, statsGetBurnTool, statsGetRewardDistributionTool, statsGetSupplyTool])
 
 # Tokens
-#from .tokens.get import tokenGetTool
+from .tokens.get import tokenGetTool
 
-#oceanTools.extend((tokenGetTool, ))
+oceanTools.extend((tokenGetTool, ))
 
 # Transaction
 from .transactions.get import transactionGetTool
