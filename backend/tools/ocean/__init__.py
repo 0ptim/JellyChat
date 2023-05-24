@@ -31,6 +31,13 @@ from .prices.get import priceGetTool
 
 oceanTools.extend([priceGetTool])
 
+# RawTX
+from .rawtx.get import rawTxGetTool
+from .rawtx.send import rawTxSendTool
+from .rawtx.test import rawTxTestTool
+
+oceanTools.extend((rawTxGetTool, rawTxSendTool, rawTxTestTool))
+
 # Stats
 from .stats.get import statsGetTool
 from .stats.getBurn import statsGetBurnTool
