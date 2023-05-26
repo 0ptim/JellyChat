@@ -1,0 +1,238 @@
+# Whitepaper JellyUSD (work in progress)
+
+This paper serves the purpose to describe the technical functionality and design principles of a decentralized stable coin jUSD (Jelly USD). 
+
+JellyUSD is a fork of the Liquity protocol which has been deployed on the Ethereum network in Q2 2021. In appreciation of the work the Liquity Team provided for the decentralized finance industry, we will introduce an opted out version for DeFi Meta Chain. This paper may contain wording and content of the original white paper written by Robert Lauko and Richard Pardoe. 
+
+# Abstract
+
+JellyUSD is a decentralized lending protocol that enables its users to create jUSD, a stablecoin pegged to the value of 1 US dollar. JellyUSD is a fork of the Liquity protocol, deployed on the Ethereum network in the first quarter of 2021. JellyUSD offers a unique solution for obtaining maximum liquidity without incurring interest charges. Similar to loans in the DeFiChain ecosystem, users secure their crypto collateral in "Vaults." With the ability to mint jUSD, a stablecoin pegged to the US dollar, users gain access to immediate liquidity. The minimum collateralization ratio is set at 110%. Holders of jUSD can redeem their stablecoins for the underlying collateral at any time, thanks to JellyUSD's innovative redemption mechanism and algorithmically adjusted fees.
+
+The key difference between jUSD and the loan system on DeFiChain lies in its liquidation mechanism, which is based on incentivized stability deposits and a redistribution cycle from higher risk to lower risk Vaults. This allows for a lower collateralization ratio while maintaining stability through economically-driven user interactions and arbitrage, rather than through active governance or monetary interventions. The stability of Liquity's mechanism to keep LUSD pegged to 1 US dollar has been rigorously tested and proven.
+
+## Introduction and competitive landscape
+
+### 1.1 Stablecoins and collateralized debt platforms
+
+Cryptocurrencies such as Bitcoin and Ether have experienced much greater price swings than traditional investments such as stocks or bonds. Despite this, many people use these tokens for various purposes, such as investing, making payments, trading, or speculating. To address this volatility, centralized stablecoins backed by fiat currencies, like Tether, USDC, Paxos, and TrueUSD, have been introduced as a more stable alternative. However, these centralized stablecoins have faced challenges, with the recent case of the SEC claiming BUSD as a security being a prominent example.
+
+Over the last two years, crypto-backed stablecoins have gained in popularity and become a key driver behind the Decentralized Finance (DeFi) movement. DeFiChain, MakerDAO, Equilibrium, Synthetix, and others protocols provide holders with the opportunity to deposit their volatile tokens as collateral for newly generated stablecoins. By doing so, token holders can unlock the economic value of their tokens while still maintaining exposure to the underlying asset used as collateral. Furthermore, users can also use the liquidity received to add additional collateral, allowing them to achieve further leverage.
+
+### 1.2 Shortcomings of collateralized debt platforms
+
+Collateralized debt protocols, such as DeFiChain, MakerDAO, Equilibrium, and Synthetix, provide a decentralized alternative to traditional lending by minting stablecoins themselves without relying on outside lenders. This allows to generate liquidity without incurring refinancing costs. However, these platforms often charge stability fees, which function as interest rates, to regulate coin supply and maintain the peg of the issued stablecoin. Stability fees indirectly affect new and existing loans and can impact the monetary supply in the long term, although their immediate effect may be limited as borrowers with existing loans may not have the means to repay and short-term speculators may not be greatly impacted. The governance of these systems, such as setting the fee rate, is typically left to the holders of the platform's governance token. However, changing the economic rules of a running system can be a difficult and controversial task.
+
+Additionally, collateralized debt platforms typically require the individual borrower's position to be significantly overcollateralized, i.e. with a minimum collateralization ratio of 150% on DeFiChain. This requirement leads to capital inefficiency as borrowers tend to maintain higher collateral ratios than the minimum. The liquidation mechanisms applied to undercollateralized positions, such as collateral auctions and fixed-price sell-offs, are often inefficient.
+
+Crypto-backed stablecoins, unlike fiat-backed stablecoins, are not redeemable at face value and cannot guarantee a hard price peg due to the absence of direct arbitrage cycles. Instead, they rely on a less effective soft peg mechanism, which stabilizes the exchange rate by adjusting the fees to make borrowing more or less attractive. This results in higher price volatility for crypto-backed stablecoins compared to fiat-backed stablecoins.
+
+To summarize, existing collateralized debt platforms have the following downsides:
+
+- High and unpredictable interest fees for borrowers
+- Problematic governance mechanisms
+- Necessarily high collateral ratios, due to inefficient liquidation processes
+- No direct redemption mechanism to ensure price stability
+
+### 1.3 DeFiChains native dUSD
+
+On DeFiChain, the DFIP-XXXX loan program allowed dUSD loans to be repaid with DFI, resulting in unbacked dUSD tokens. This led to dUSD trading below its $1 peg, and a significant portion of the dUSD token supply (74%) became unbacked. The community has proposed several proposals to reposition dUSD at its $1 peg, and the situation continues to be monitored. The proposals aim to increase the backing ratio of dUSD, but as of today there is no clear evidence if the targeted goals will be reached or how long it will take. In light of recent instability in algorithmic stablecoins, such as Terra Luna, some users have become wary of such coins and their potential for a bank run scenario. As an alternative, JellyUSD aims to provide a fully crypto-backed stablecoin option for users who may not trust the mechanisms of dUSD. JellyUSD should not be considered as competition to dUSD. Jellyverse supports and introduces new measures  to re-peg dUSD and increase its backing ratio. 
+
+## 2. Key benefits of the jUSD protocol
+
+A better system is possible. jUSD improves upon the mentioned issues by offering the following key benefits:
+
+- Interest-free liquidity
+- Low collateral ratio (110%)
+- Hard price floor
+- Governance-free algorithmic monetary policy
+- Fully crypto backed
+- Censorship resistance
+- Growth incentives
+
+### 2.1 Interest-free liquidity
+
+JellyUSD offers a seamless way to obtain liquidity without incurring interest charges or recurring fees for borrowers. By using their assets as collateral, users can access liquidity at no cost. Despite being an algorithm-driven monetary instrument, JellyUSD does impose a one-time Borrowing Fee for newly acquired liquidity to ensure stability and maintain its peg with the US dollar. With jUSD stablecoin, users have the flexibility to participate in the thriving DeFi market and explore a wide range of yield-generating products and opportunities.
+
+### 2.2 Low collateral ratio (110%)
+
+To maintain the full backing of a stablecoin supply, a lending system must take action when an individual's collateral ratio drops below a certain threshold. In traditional systems, this is achieved through the liquidation of the position in an interactive process that is inherently inefficient. This is because the sale of collateral from undercollateralized positions must occur at a fixed price that is significantly lower than the current collateral price to ensure a quick sale, even in challenging market conditions. 
+
+Collateral auctions, on the other hand, aim to provide a fairer economic outcome, but can be a lengthy and error-prone process. The longer it takes to sell the collateral, the greater the risk of its value decreasing even further. To mitigate this risk, auction-based systems, such as DeFiChain, must set their liquidation ratios high enough to account for potential price drops during liquidation. Unfortunately, these systems are often dominated by bots, leaving little room for normal users to participate and profit from the liquidation process.
+
+jUSD introduces a cutting-edge two-step liquidation process that is designed to instantly liquidate undercollateralized positions. The unique aspect of this mechanism is that the acquirers are predetermined, eliminating the need to find a buyer in real-time. This enables a substantial reduction in the collateral ratio, while maintaining stability. Additionally, the system prioritizes the overall collateralization of all positions, rather than relying on the collateral of individual positions.
+
+### 2.3 Hard price floor
+
+JellyUSD adopts a highly expansive monetary policy by offering free liquidity with no issuance costs by default. At the same time, jUSD tokens can be fully redeemed against the underlying collateral. This allows for rapid growth of the protocol while still maintaining control over the peg. To redeem jUSD, users can return the tokens to the protocol in exchange for the face value of the redeemed jUSD, minus a Redemption Fee. This direct price stability mechanism creates a price floor of $1. When the price dips below this level, arbitrageurs can profit by redeeming jUSD for the underlying collateral and immediately sell it at a higher dollar price than the current value of the redeemed jUSD. The Redemption Fees are structured to incentivize arbitrage activity, thereby helping to restore the peg whenever it is broken.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0fcd6e07-5486-401b-a637-50b9653906ac/Untitled.png)
+
+LUSD has demonstrated stability in both bullish and bearish market conditions. Its performance is more consistent compared to centralized stablecoins. The lowest value ever recorded for LUSD was 0.9491$, while the highest was 1.0559
+
+### 2.4 Governance-free algorithmic monetary policy
+
+JellyUSD operates differently from its competitors in that it does not rely on a governance mechanism to make decisions regarding monetary interventions, such as changing interest rates. Instead, all protocol parameters are either preset and unalterable or algorithmically controlled by the protocol itself, making governance unnecessary. JellyUSD uses the fraction of redeemed jUSD as an indicator of a peg deviation, allowing it to autonomously set the base rate, which determines both the Redemption Fee and the Borrowing Fee. The base rate increases with the number of redeemed tokens and tends to decrease back to 0% when there are no redemptions. Unlike an unpredictable, fluctuating interest rate, the Borrowing Fee quickly and predictably reduces the appeal of new loans and limits the generation of fresh jUSD. In addition, the redemption of jUSD reduces the current stablecoin supply and may encourage low-collateral borrowers to repay their loans, which has a similar effect. These measures create upward pressure on the value of jUSD whenever it is less than $1 and help to stabilize its price.
+
+### 2.5 Censorship resistance
+
+JellyLend is a protocol rather than a platform. There is no administrator with special privileges that could interfere with, alter, or halt the operation of the protocol in any way. 
+
+- On March 12 (“Black Thursday”) and 13, 2020, 35 000 ETH worth $8.32 million were withdrawn through zero bids in MakerDAO’s collateral auctions due to the dramatic increase of the Ethereum gas price. See https://medium.com/@whiterabbit/black-thursday-for-makerdao-8-32-million-was-liquidated-for-0-dai-36b83cac56b6
+- The duration of the auction usually depends on the number of bidders, which creates an unfortunate tradeoff since a large number of bidders is good for the auction, but potentially leads to longer auctions and higher exogenous price risks.
+- The ratio between the current collateral value (in USD) and the debt below which a liquidation may occur. The liquidation ratio may or may not equal the Minimum Collateral Ratio needed to open a position.
+- Frontend operation is provided by third parties which make the system decentralized and resistant to censorship, while benefiting from growth incentives. Frontend Operators can either download the web interface provided as a launch kit or opt for creating their own custom user interface and integrate it with other services.
+
+### 2.6 Growth and early adopter incentives
+
+Users who contribute to the stability and growth of the system are rewarded with JLY, the primary governance and utility token of Jellyverse. JLY can be used for various purposes within Jellyverse and DeFiChain, such as earning a share of all protocol revenues (Jellyswap, JellyUSD, Jellybond,..) by staking JLY, using it as a utility token within Jellyswap, or as collateral. Jellyverse continuously distributes JLY to both front-end operators and users who deposit jUSD into the stability pool. The distribution of jUSD follows a declining issuance schedule offering greater benefits to early adopters. The allocation of JLY between front-end operators and users is based on a kickback rate, which the front-end operator can set freely between 0% and 100%. This competition among front-end operators through their respective kickback rates makes the system appealing to both users and early adopters.
+
+## 3 System functionality
+
+### 3.1 Borrower operations
+
+With JellyUSD, users can access liquidity anytime in a decentralized and accessible manner by depositing collateral into a "Vault." The collateral deposited is locked up and allows the owner to withdraw up to 90.91% of its current dollar value in the form of LUSD stablecoins. To maintain stability, a Vault must always maintain a Minimum Collateral Ratio (MCR) of 110%, which is calculated as the ratio of the current dollar value of the collateral to the withdrawn liquidity. Borrowers have the flexibility to repay or borrow more liquidity within the limits of the MCR and retrieve their collateral as needed. Additionally, Vaults can be topped up with more collateral as needed. However, there is a minimum debt requirement of 2,000 jUSD, so Vaults can only be opened with an initial debt of at least 2,000 jUSD and can never go below this amount unless fully repaid and closed.
+
+To ensure the cost of potential liquidations is covered, a Liquidation Reserve of 200 jUSD is reserved and held back by the protocol when a borrower opens a new Trove. This amount is added to the Vaults debt, impacting its collateral ratio. Upon closing a Vault, the Liquidation Reserve is refunded, reducing the borrower's debt by 200 jUSD. This system helps to mitigate potential losses and ensure stability within the JellyUSD system.
+
+### 3.2 Borrowing Fee
+
+The protocol imposes a one-time fee for borrowed liquidity, known as the Borrowing Fee. This fee, which is added to the borrower's debt, is calculated by multiplying the amount of borrowed liquidity by the base rate plus an additional 0.5% (as specified in the "Redemption fee and base rate" section). The minimum Borrowing Fee is 0.5%, while the maximum fee is capped at 5%.
+
+### Example
+
+The borrower opens a new Vault by depositing 4 ETH and borrowing 4,000 jUSD. The base rate is 0.5%, and the borrower is charged a one-time Borrowing Fee of 1% on the borrowed amount, resulting in a debt of 4,040 jUSD (4,000 + 40). In addition, the protocol reserves 200 jUSD as a Liquidation Reserve, bringing the total debt to 4,240 jUSD (4,000 + 200 + 40). The Liquidation Reserve compensates for potential gas costs in case the Vault needs to be liquidated. To repay the debt and fully retrieve the collateral, the borrower must pay back 4,040 jUSD, as the Liquidation Reserve is refunded upon closing the Vault. To prevent spamming and ensure sufficient collateralization, each Vault is linked to a unique Ethereum address, and the loan-to-value ratio (LTV) is strictly maintained.
+
+## Restrictions due to Recovery Mode
+
+Borrower operations are restricted in several respects when the system is in Recovery Mode or at the verge of it (see 5 Recovery Mode). To avoid liquidation despite ETH price changes, it is highly recommended to keep the collateral ratio of a Vault well above the MCR. Given that in Recovery Mode, liquidations may even affect Vaults with higher collateral ratios (maximally up to 150%), risk averse borrowers should sufficiently collateralize their Troves to avoid being near the bottom tiers of collateralization relative to other Vaults whenever the system is close to Recovery Mode. Maintaining a relatively high collateral ratio also reduces the risk of getting hit by a redemption (see 3.3 Redemption mechanism).
+
+### 3.2 Stability Pool operations
+
+The Stability Pool plays a crucial role in ensuring the stability of the system by absorbing and neutralizing debt from defaulted Vaults. Participants in the stability Pool are rewarded with collateral from liquidated Vaults at a significant discount and a continuous allocation of JLY tokens. To become a stability Provider, a user simply needs to deposit their jUSD tokens into the stability Pool. It's important to note that while these deposits can be withdrawn at any time, they will be temporarily disabled if there are undercollateralized Vaults that need to be liquidated.
+
+When a Vault is liquidated, the corresponding debt of the Vault is burned and the stability Pool receives all of its collateral. This allows participants to receive a collateral gain. The share of the collateral received by a stability provider depends on their current deposit size in proportion to the total jUSD in the pool. Stability Providers have the option to withdraw their remaining jUSD deposit or transfer their collateral gain to their own Vaults for additional collateralization. The system always pays out the entire collateral gain, providing stability Providers with greater flexibility and control over their assets.
+
+### 3.3 Redemption mechanism
+
+JellyLend’s token, jUSD, is a fully redeemable stablecoin. At any time, the system allows holders to redeem their jUSD tokens for the underlying collateral based on the face value of the redeemed tokens, the current USD rate and the current base rate. This enables direct arbitrage whenever jUSD trades for less than $1, by creating a price floor for LUSD. When redeemed, the system uses the jUSD to repay the riskiest Vault(s) with the currently lowest collateral ratio, and transfers the respective collateral from the affected positions to the redeemer. The amount taken from each borrower is capped by their corresponding debt, so the affected borrowers can keep their collateral surpluses. In other words, borrowers lose the same nominal amount of debt (in jUSD) as they lose collateral (in USD) and do not suffer a net loss from redemptions. On the flipside, redemptions have a positive effect on the total collateralization of the system, increasing robustness and price stability.
+
+Vaults that are fully redeemed from, i.e. whose debt is 0, are automatically closed, and the borrower can reclaim the collateral surplus. The protocol enforces by truncating the redeemed amount that no Vault can be left with a non-zero debt below 2,000 jUSD.
+
+## Redemption Fee and base rate
+
+JellyUSD aims to determine the Redemption Fee in function of the current base rate and the redeemed LUSD amount as a proportion of the entire stablecoin supply. The base rate is initialized to 0% at system launch. 
+
+> As a deposit will shrink over time by absorbing liquidations, the reward calculation results in a “negative” compounding of the deposited jUSD.
+> 
+
+> To protect the system from bank run-like situations, redemptions are suspended if the Total Collateral Ratio (TCR) is below 110%.
+> 
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c25bb9a0-4ac8-4bc8-8e03-91f0eabe4d24/Untitled.png)
+
+Upon every redemption, the base rate is increased by the proportion of redeemed jUSD and then applied to the current redemption as follows
+
+$$
+b(t) := b(t-1) + \alpha \cdot  \frac{m}{n}
+$$
+
+where $b(t)$ is the base rate at time $t$, $m$ the amount of redeemed jUSD, $n$ the current supply of jUSD and $α$ a constant parameter set to 0.5. 
+
+The base rate decays over time due to a decay factor that is applied with every redemption and issuance of jUSD prior to calculating the resulting fee. The decay is of the form:
+
+$$
+b(t) := b(t − 1) \cdot δ^{∆t}
+$$
+
+where $δ$ is a decay factor (e.g. 0.94) and $∆t$ the time elapsed since the last redemption or loan issuance. The decay factor $δ$ is chosen such that the half-life of the base rate is 12 hours. 
+
+"Redemptions are subject to a Redemption Fee, which is calculated based on the base rate and the amount of jUSD being redeemed. The fee is minimum 0.5% and it is deducted from the redeemed jUSD, thereby reducing the amount of collateral the redeemer will receive in return.”
+
+### Example
+
+`jUSD currently trades at $0.95, and the current base rate is 1.4%. An arbitrageur redeems 150,000 jUSD, while the total jUSD supply is 10 million. The last redemption happened 2 hours ago and no liquidity has been issued in the meantime. The hourly decay factor is 0.94. The system first applies the decay rate to the current base rate:` 
+
+$$
+b(t) := b(t-1)δ^{∆t} = 0.014 \ \cdot \ 0.94^2 = 0.01237
+$$
+
+`It then increases the base rate in proportion to the fraction of total supply redeemed $(α = 0.5)$:`
+
+$$
+b(t) := b(t-1) + 0.5 \cdot \frac{m}{n} = 0.01237  + 0.5 \cdot \frac{150000}{10000000} = 0.01987
+$$
+
+`As a result, the redeemer receives 147,019.44 USD $[150, 000 × (1 − 0.01987)]$ worth of ETH. Since the exchanged jUSD is currently worth only 142,500 USD [150, 000×0.95], the redeemer achieves an arbitrage gain of USD 4,519.44.` 
+
+### 4. Vault liquidation mechanism
+
+To ensure that the entire stablecoin supply remains fully backed by collateral, Vaults that fall under the Minimum Collateral Ratio of 110% (referred to as “undercollateralized”) are subject to liquidation. Liquidation can be triggered by anybody and allows liquidating multiple Vaults in one batch, either by specifying a set of Vaults or in ascending order starting from the Vault with the lowest collateral ratio. While the former approach allows to quickly liquidate large Vaults, the latter is more
+resilient against the race conditions that may occur in case of multiple simultaneous liquidations. In most cases, Stability Providers and/or high-collateral Vaults will have a financial incentive to trigger liquidations as fast as possible. To compensate for the gas costs of a liquidation even in times of high gas prices, JellyUSD pays the reserved 200 LUSD (see 3.1 Borrower operations) plus 0.5% of the Vaults collateral (ETH) to the liquidator. 
+
+Liquity utilizes a two-step liquidation mechanism in the following order of priority:
+
+1. Offset undercollateralized Troves against the Stability Pool 
+2. Redistribute undercollateralized Troves to other borrowers
+
+### 4.1 Offset undercollateralized Vaults against the Stability Pool
+
+As mentioned above, the Stability Pool is funded by Stability Providers who deposit LUSD tokens to the contract. It primarily functions as a “shock absorber”: deposited tokens soak up liquidated LUSD debts, and depositors are rewarded for their contribution.
+
+When a Trove becomes undercollateralized (<110%) due to a drop in the ETH price, the debt (in LUSD) can be immediately offset against the same amount of pooled LUSD tokens, which get burned by the system. In return, the system transfers 99.5% of the collateral (in ETH) from the liquidated Trove to the Stability Pool, while paying out the remaining 0.5% to the liquidator. The LUSD tokens in the Stability Pool will thus be replaced by ETH over time. Generally, each liquidation contributes a **collateral surplus gain** to the pool: the collateral is almost always worth more (in USD) than the burned LUSD tokens. This holds because the liquidation is triggered below a collateral ratio of 110%, but with a very high probability significantly above 100%13 (unless ETH 13
+
+> The actual liquidation ratio depends on the price volatility and the update frequency of the price oracle and will be slightly lower than 110%. Liquity uses the Chainlink oracle which updates the ETH:USD price every 3 hours and whenever the price changes by more than 0.5%.
+> 
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/468e9b71-8e76-473e-90c3-1672dfd9a013/Untitled.png)
+
+drops by $>9.09 \%$ between two price feed updates). 
+
+A Stability Provider receives shares of the liquidations that occur during the lifetime of their LUSD deposit. Upon obtaining the collateral, the combined value of the remaining LUSD deposit and the ETH gain will very likely exceed the prior value of deposit. Stability Providers are thus incentivized by this expectation of positive returns.
+An individual’s share of the surplus gains depends on the ratio of its remaining LUSD deposit (as reduced by past liquidations) to the total amount of LUSD contained in the pool. If no new deposits are made, all individual shares will stay the same throughout liquidations. As new deposits are made, earlier depositors are incentivized to top up their deposit, to maintain their share of future rewards.
+
+**4.2 Redistribute undercollateralized Troves to other borrowers**
+
+It is possible that the LUSD tokens contained in the Stability Pool are not sufficient to offset all undercollateralized Troves, or that a trove’s debt can only be partially absorbed as the Stability Pool runs out of LUSD during a liquidation. In such a case, the system redistributes the remaining debt and collateral from the partially liquidated Trove as well as the remaining undercollateralized Troves to all existing positions. The redistribution of the collateral and debt is done in proportion to the recipient Trove’s collateral amount. This means that Troves which are heavily collateralized will receive more debt and
+collateral from liquidated positions than those with low collateralization, ensuring that the system does not create cascading liquidations.
+
+### 5.0 Recovery mode
+
+System solvency depends on the amount of LUSD tokens in the Stability Pool and ultimately on the Total Collateral Ratio (TCR) across all Troves, given by the total collateral (in USD) divided by the total debt (in LUSD). To keep the system sufficiently collateralized even in times of crisis, the protocol incorporates a Recovery Mode, which is triggered as an **ultima ratio** if the TCR falls below the critical threshold of 150%. In this special mode of operation, Troves with a collateral ratio between 110% and the current TCR become subject to liquidation as well. Such extra liquidations are only possible against the Stability Pool (i.e. they are exempt from redistribution), and require that the entire debt can be liquidated at once. To protect the borrower from an excessive loss, the collateral that is offset against the Stability Pool is capped at 110% of the liquidated debt. The borrower can reclaim any collateral remainder above 110% any time after the liquidation.
+
+During Recovery Mode, the liquidation mechanism is thus described by the following rules:
+
+| Trove’s Collateral Ratio
+
+ | Liquidation Procedure
+
+ |
+| --- | --- |
+| < 100%
+ | The Trove is liquidated by directly redistributing its entire debt and collateral to other Troves, with no prior Stability Pool offset. |
+| between 100% and 110% | As under normal operation, the Trove is liquidated by
+first offsetting its debt and collateral against the Stability Pool and redistributing any remainders to other Troves. |
+| between 110% and TCR | The Trove is liquidated by offsetting its debt against the Stability Pool, provided that the entire debt can be liquidated. The liquidated collateral is capped at 110% of the debt,
+and the remainder above 110% is reclaimable by the borrower. |
+| > TCR
+ | No liquidation possible |
+
+These changes incentivize Stability Providers to increase their deposits during Recovery Mode, which in turn improves the Total Collateral Ratio of the system.
+
+The existence of Recovery Mode alone helps to avert the system falling below the critical threshold: the threat of the extra liquidations incentivizes risky borrowers to improve their collateral ratios and Stability Providers to increase their deposits, long before the system actually reaches the threshold ratio of 150%. On the other hand, risk-averse borrowers are recommended to maintain a collateral ratio above 150% at all times.
+
+*Restrictions on Trove operations*. All Trove operations that would deteriorate the TCR are tem-
+porarily disabled if the system is in Recovery Mode or if the operation would trigger Recovery Mode
+by pushing the TCR below 150%. In Recovery Mode, it is only possible to:
+
+- top up collateral
+- repay debt
+- top up collateral and repay debt in the same transaction
+- top up collateral and increase debt in a way that pushes the Trove’s collateral ratio above 150%
+
+Furthermore, new Troves can only be opened during Recovery Mode if their collateral ratio is at least 150%. This prevents users from inadvertently creating Troves that may immediately fall victim to a liquidation.
+
+Conclusion
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7cdb58fd-22dc-4462-a899-a4ebd888029a/Untitled.png)
+
+We have thus introduced Jellylend, a collateralized debt protocol with novel liquidation and re- demption mechanisms that pushes the boundaries of capital efficiency and costs of liquidity. It is the first system of its kind that issues a stablecoin with a hard price floor against the underlying fiat currency. Furthermore, Jellylend follows new paths to incentivize decentralization and growth from the start by tokenizing and redistributing a significant part of its protocol revenue to users and front end operators.

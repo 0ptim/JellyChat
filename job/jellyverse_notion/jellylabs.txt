@@ -1,0 +1,41 @@
+# Jelly Labs
+
+Over the past 12 months, our team - DeFiChain Accelerator - has been a leading force in accelerating DeFiChain's adoption. We have achieved this through the development of cutting-edge software, execution of comprehensive global marketing campaigns, and strategic business development initiatives. Our combined expertise spans the realms of software development, industry-specific knowledge, design, and marketing. With Jelly Labs, we embark on the next phase of our mission to bring greater utility to DeFiChain. This time, we're aiming for an even more significant impact. 
+
+## The founding team
+
+**Santiago Sabater:** Mathematician, Blockchain Expert, YouTuber, founder of JellyWallet & Co-Founder of DeFiChain Accelerator. Passionate about everything crypto. 
+
+**Benjamin Rauch:** Diploma in Industrial Engineering and Marketing with over 10 years of Marketing experience in market leading B2B companies. Knowledge in the fields of Marketing Communication, Strategic Marketing and Product Marketing. Co-Founder of DeFiChain Accelerator and many Start-ups in the Tech-Industry prior to that. 
+
+**Lazar Iđoški:** Electrical Engineer turned game artist and game designer with over 6 years of industry experience working for companies such as Kolibri Games - Ubisoft and Huuuge. Equipped with a diverse set of technical and creative competencies. Co-founder of DeFiChain Accelerator.
+
+**Jovan Aleksić:** Electrical and Computer Engineer with almost 10 years of experience in the software industry. Working hands-on in fields of web and mobile development, distributed systems, machine learning, computer vision, and blockchain technology. Experience in working in big corporations (Microsoft, Intercontinental Exchange) and small start-ups (InsideMaps).
+
+### On our mission to elevate the DeFi industry, we are grateful to have talented people onboard who support and share our vision.
+
+**Ihor Savva:** Co-founder and CEO of Great solution, Full Stack Developer, Expert in Blockchain Development with Exchanges & Wallets
+
+**Alexey Reshetnyak:**  Front End Developer for Web & Mobile Applications, Expert in Blockchain Development with Exchanges, Stores & Wallets
+
+**Evgenii Kotov:** Digital artist with a focus on illustration, 2D motion design and character animation with more then 5 years of experience
+
+---
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4702c8a1-db5e-4a2e-9028-632449a5eda4/Untitled.png)
+
+Jelly Labs consists of three departments:
+
+- Research lab for blockchain technologies & software development
+- Marketing
+- Design
+
+The team at Jelly Labs works cohesively across various departments to ensure efficient operation. However, in order to further enhance the capacity of each department, we plan to expand our workforce by hiring at least six additional full-time employees.
+
+We are planning to grow our team in all three departments over the next 6-12 month. Especially our development department will be strengthened to be able to maintain and further develop jellyverse.
+
+## Partnership with MVP Workshops
+
+To build an even stronger team and further our development capabilities, we have partnered with MVP Workshop. They are a renowned blockchain and dApps development studio that has contributed to several leading projects on Polygon and other EVM blockchains. With this partnership, we aim to gradually expand Jelly Labs without compromising on manpower or experience.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/994c4bd3-8b34-4f51-b0c2-643067926637/Untitled.png)

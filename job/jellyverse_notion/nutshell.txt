@@ -1,0 +1,84 @@
+# Jellyverse in a nutshell
+
+> Basic functionality and vision. For more details, read the [Jellyverse Litepaper](https://www.notion.so/Jellyverse-Litepaper-work-in-progress-9fce088dd8af47fc96d212bfdd69bd70). For technical details, refer to attached library and whitepapers linked down below.
+> 
+
+Jellyverse is a leading ecosystem that exists within DeFiChain and DeFiMetaChain, both of which aim to accelerate the adoption of blockchain technology for decentralized finance. Jellyverse is committed to pioneering innovative and powerful dApps (decentralized applications) leveraging the fundamentals of DeFiChain.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/94f9429b-5cb5-4cf6-a9a9-2348edbc48eb/Untitled.png)
+
+## The vision
+
+In recent years, the decentralized finance (DeFi) industry has seen substantial growth and innovation. DAOs, individuals, and companies have developed increasingly sophisticated decentralized tools that empower users to manage their finances without relying on intermediaries. These tools allow for peer-to-peer transactions, storage, lending, borrowing, and more with digital assets.
+
+While the DeFi industry has made impressive advancements in digital token interaction, it has neglected to integrate real-world assets into its offerings. As a result, the DeFi landscape is littered with applications for redundant or purely speculative assets.
+
+To take the DeFi industry to new heights, it is crucial to combine real-world price feeds with advanced decentralized finance applications. This is where Jellyverse comes into play, filling this gap in the market building the next generation of DeFi — DeFi 3.0.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e5884e65-292a-4519-b67d-814e692710c9/Untitled.png)
+
+Working with our community, we aim to innovate new ways to interact with DeFiChain's decentralized assets and create a solid technical foundation for developers to build upon. Utilizing decentralized governance, developers have the power to take action while the community provides legal frameworks, guidance, marketing, a unified brand, user support, visionary concepts, and fundraising.
+
+By streamlining these hurdles, independent developers, artists, and community members can contribute to the growth and success of the ecosystem.
+
+It is crucial for each project to add utility to its underlying blockchain by providing protocols and dApps to further enhance its usability and reasoning, one of the core principles of Jellyverse. 
+
+## Problems we want to solve on DeFiChain
+
+DeFiMetaChain is currently lacking in developer teams, leading to a lack of innovative dApps and token diversity. Building a thriving ecosystem requires more than just technical development. Developers who are interested in creating exciting new decentralized financial tools may not be motivated or equipped to handle marketing, branding, positioning, communication, community building, user support, or fundraising.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d7facbc7-6b44-4b51-b482-ab6e77ecc877/Untitled.png)
+
+Moreover, independent developers may require guidance, inspiration, or active onboarding. Jelly Labs aims to bridge this gap. In collaboration with our community, we seek to explore new ways of interacting with DeFiChain's decentralized assets, establish a technical foundation that newcomers can easily build on, increase the utility of DFI, find additional solutions to further stabilize dUSD, and improve the branding and positioning of Jelly as DeFiChain's mascot. Our goal is to create an environment that is conducive to innovation and progress within the DeFi industry.
+
+# Jelly’s building blocks: Protocol Library
+
+[Jelly Labs](https://www.notion.so/Jelly-Labs-a8d067b37f724213b1086904bc253b6e)
+
+[Jelly Token](https://www.notion.so/Jelly-Token-33af65ec03334c798eac8cd88858f2de)
+
+[JellySwap](https://www.notion.so/JellySwap-4c06d1a62fed431992295cc232f2992e)
+
+[JellyBond](https://www.notion.so/JellyBond-e62bdc94cce046d394f82eeebed42b33)
+
+[JellyStake](https://www.notion.so/JellyStake-2320b83c5b6f446e98b37f786181e6a0)
+
+[Jelly USD](https://www.notion.so/Jelly-USD-14fd02463fc142b9859ab828c46c23c7)
+
+# Jelly Token
+
+JLY is Jelly Labs native governance and revenue share token. Users holding JLY are eligible to vote for strategic decisions and key parameters on the different protocols and dApps living inside of Jellyverse. A part of the transaction fees earned across all protocols will be considered as profit and distributed to JLY token holder. 
+
+On top of its functionality of being the DAOs central governance token, JLY is used inside of Jellyverse as a utility token. Users may provide liquidity on JellySwap to build up liquidity gateways, use it as collateral, stake it or pay with JLY for different services inside of Jellyverse.
+
+→ [Learn more about JLY](https://www.notion.so/Jelly-Token-33af65ec03334c798eac8cd88858f2de)
+
+→ [Join the initial DEX offering](https://www.notion.so/Jelly-Token-33af65ec03334c798eac8cd88858f2de)
+
+# JellySwap
+
+Acts like gravity inside of JellyVerse. JellySwap is a decentralized exchange, offering highest security, flexibility and unleashing a whole new way to interact with dAssets. 
+
+JellySwap is introducing WeightedPools, decentralized indices, optimized math for stable coin swaps, pools with up to 50 tokens, managed pools, custom pools, flash loans an NFT marketplace and more! 
+
+A decentralized exchange to serve Liquidity Providers, Traders and Developers.
+
+→ [Learn more about JellySwap](https://www.notion.so/JellySwap-4c06d1a62fed431992295cc232f2992e)
+
+# JellyBond
+
+Introducing decentralized bonds. JellyBonds is a bootstrapping protocol to increase liquidity and offer sustainable yield. Amplify your staking yield through a novel bonding mechanism, earn boosted DFI and help stabilizing dUSD! 
+
+→ [Learn more about JellyBond](https://www.notion.so/JellyBond-e62bdc94cce046d394f82eeebed42b33)
+
+# Jelly USD (jUSD)
+
+A yield bearing stable coin that is battle tested and ready to unleash its full potential on DeFiChain. Earn yield from liquidations, use its novel mechanism to leverage your collateral or use it as a proven store of value. 
+
+→ [Learn more about jUSD](https://www.notion.so/Jelly-USD-14fd02463fc142b9859ab828c46c23c7)
+
+# JellyStake
+
+A staking solution based on Lido, aiming to open up staking to users without KYC and creating a secondary market for frozen masternodes. 
+
+→ [Learn more about JellyStake](https://www.notion.so/JellyStake-2320b83c5b6f446e98b37f786181e6a0)

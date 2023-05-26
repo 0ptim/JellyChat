@@ -1,0 +1,26 @@
+# NFTs
+
+NFTs play a crucial role in Jellyverse’s ecosystem. There are many ways to integrate NFTs into the customer journey, on Jellyverse they will not only add pictures and color to the ecosystem they are actually an essential part of it. NFTs on Jellyverse are generally separated into two categories:
+
+1. Protocol generated NFTs
+2. User generated NFTs
+
+All NFTs on Jellyverse have one thing in common, they can be traded.
+
+# NFT marketplace
+
+Jellyverse will feature a comprehensive NFT marketplace with Galleries, Categories and Trading feature that natively integrates with Jellywallet. Jellyverse marketplace will allow everybody to buy and sell NFTs and automatically transfers rights that come with certain NFTs like e.g. being able to trade them against tokens. 
+
+# Protocol generated NFTs
+
+**Automatically evolving NFTs**
+
+Some protocols on Jellyverse like e.g. Jellybond will have automatically generated NFTs. Those NFTs will be automatically generated during certain steps of using the protocol and can later on be traded against tokens. Those NFTs are dynamic and will evolve over time depending on the holding period. Additionally there will be a certain chance of getting a rare NFT for using the protocol to increase the interest for customers to use the protocol more.
+
+**Manually evolving NFTs**
+
+Jellyverse will have unlockable NFT, that can be obtained by achieving certain milestones like holding 1,000 JLY over a period of 4 weeks. Those NFTs can additionally be evolved by accomplishing certain tasks, like enter 2 LM pools or put 500 JLY into the freeezer. All of this will result in a multitude of different NFT classes that increase in value the more difficult they are to get. A NFT tier list will indicate what NFT classes are available and how to obtain them. Some unique NFTs and the way to get them will be kept as a secret though. 
+
+# User generated NFTs
+
+Besides protocol generated NFTs Jellyverse will also make it possible to mint and trade classic NFTs and is fully compatible to Ethereum-based NFTs. More to come in the future.

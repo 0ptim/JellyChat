@@ -1,0 +1,253 @@
+# Jellyverse Litepaper (work in progress)
+
+# Abstract
+
+Jellyverse is a decentralized autonomous organization (DAO) focused on creating a thriving ecosystem around DeFiChain. With a mission to enhance industry-leading codebases and align them with the standards of DeFiChain and DeFiMetaChain, Jellyverse is home to decentralized finance (DeFi) applications that prioritize the utilization of DeFiChain's decentralized assets and add advanced financial tools to the ecosystem.
+
+Jellyverse offers a supportive legal framework, consistent branding, and guidance to developers, community members, artists, and newcomers alike, to create innovative decentralized applications (dApps).
+
+This Litepaper provides a comprehensive overview of the Jellyverse concept. For a more detailed analysis, including technical information, each protocol has its own whitepaper available.
+
+[**JellySwap Whitepaper**](https://www.notion.so/Whitepaper-Jellyswap-9fc3f1f1b7d14645ba910bf746996a76)
+
+[jUSD Whitepaper](https://www.notion.so/Jelly-USD-14fd02463fc142b9859ab828c46c23c7) 
+
+**[JellyBond Whitepaper](https://www.notion.so/JellyBond-e62bdc94cce046d394f82eeebed42b33)**
+
+# **This Document is not a Prospectus**
+
+Please note that this document does not serve as a prospectus or an invitation for investment. The language used in this whitepaper should not be interpreted as a request for investment. This Litepaper is not intended to offer securities in any jurisdiction globally. Instead, it provides a concise overview of the capabilities of the protocols developed by JellyLabs.
+
+# Problems we want to solve
+
+In recent years, the decentralized finance (DeFi) industry has seen substantial growth and innovation. DAOs, individuals, and companies have developed increasingly sophisticated decentralized tools that empower users to manage their finances without relying on intermediaries. These tools allow for peer-to-peer transactions, storage, lending, borrowing, and more with digital assets.
+
+While the DeFi industry has made impressive advancements in digital token interaction, it has neglected to integrate real-world assets into its offerings. As a result, the DeFi landscape is littered with applications for redundant or purely speculative assets.
+
+To take the DeFi industry to new heights, it is crucial to combine real-world price feeds with advanced decentralized finance applications. This is where Jellyverse comes into play, filling this gap in the market building the next generation of DeFi — DeFi 3.0.
+
+Working with our community, we aim to innovate new ways to interact with DeFiChain's decentralized assets and create a solid technical foundation for developers to build upon. Utilizing decentralized governance, developers have the power to take action while the community provides legal frameworks, guidance, marketing, a unified brand, user support, visionary concepts, and fundraising.
+
+By streamlining these hurdles, independent developers, artists, and community members can contribute to the growth and success of the ecosystem.
+
+It is crucial for each project to add utility to its underlying blockchain by providing protocols and dApps to further enhance its usability and reasoning, one of the core principles of Jellyverse. 
+
+# The solution: DeFi 3.0
+
+The DeFi industry has seen tremendous growth, with popular lending and borrowing protocols like MakerDAO, Compound, Aave, and many more. More recently, DeFi2.0 protocols like Olympus Pro, Ondo, and Tokemak have introduced alternative ways to access liquidity that resemble leasing or purchasing. These developments have led to the formation of self-organized DAOs with diverse goals and solutions.
+
+DeFiChain's decentralized assets are paving the way for the next generation of DeFi protocols: DeFi3.0. By merging the mechanisms already established in the industry with tokens that have real-world value, we can significantly enhance the use cases for DeFi and open up new avenues for exploration and innovation. For the first time people will be able to use advanced financial tools with less speculative asset classes. 
+
+## Why do we build on DeFiChain?
+
+DeFiChain and DeFiMetaChain offer a wide range of features and benefits as a fork of Bitcoin and Ethereum. The base layer, DeFiChain, is compatible with Bitcoin's RPC and features a simple, non-turing complete programming language (C++). Its design reduces the complexity of smart contracts and minimizes the potential for exploits. Decisions on DeFi applications are made at the consensus level, and any changes require a hard fork. While this design has many advantages, it may deter developers who are familiar with industry-leading codebases written in Solidity. To address this issue and attract more developers, the DeFiChain community decided to develop a second layer, DeFiMetaChain, which is seamlessly connected to but technically separate from DeFiChain. As an Ethereum fork, DeFiMetaChain introduces the Ethereum Virtual Machine (EVM) to DeFiChain. Additionally DeFiMetaChain introduces groundbreaking approaches to interoperability by functioning as a parasitic chain that can seamlessly connect with numerous blockchains and gather data. This data is instrumental in developing cross-chain protocols that go beyond the existing industry standards.
+
+### **DeFiChains decentralized assets**
+
+The unique decentralized assets of DeFiChain serve as the backbone of Jellyverse, providing a solution to the common problem faced by many DeFi applications: the creation of great applications for tokens that lack any substantial use case in the long run. DeFiChain remains the only blockchain that can create such decentralized assets natively on-chain. Giving true utility to the token and not just rewards via inflation. As of the writing of this document, DeFiChain has an impressive $200 million Total Value Locked (TVL), 87,000 active wallets, and a market capitalization of $270 million. It is also listed on several major exchanges, such as KuCoin, Huobi, GateIO, Bittrex, Bybit, Uniswap V2, and others.
+
+DeFiChain offers a wide range of features, including over 50 decentralized assets known as "dTokens" (dTSLA, dSPY, dGLD, etc.), liquidity mining, staking, loans, a native stablecoin (dUSD), on-chain governance, auctions, and a native decentralized exchange (DEX). These features, combined with a thriving and Europe-based community, make DeFiChain a standout player in the DeFi industry.
+
+### Additional reasons to not choose any other EVM chain
+
+The focus of Jellyverse is to leverage the innovative bridge between DeFiChain and DeFiMetaChain, as both chains share the same nodes and any state of DeFiChain is already known on DeFiMetaChain. This unique design offers enhanced security and scalability compared to bridging to other EVM compatible blockchains. Additionally, building on DeFiMetaChain is more economical due to lower gas fees compared to Ethereum.
+
+The first priority of Jellyverse is to build an ecosystem around DeFiChain's native decentralized assets, and it is best to do so directly on DeFiMetaChain. In the coming months, Jellyverse will focus on introducing new ideas and protocols that will further enrich the DeFi landscape. These ideas will help to expand the reach of DeFi and make it accessible to a wider audience. The ecosystem is open to independent developers, artists, and community members to contribute, and additional protocols may be added to the ecosystem as needed.
+
+## Jellyverse: The first DAO building on DeFiChain
+
+With a clear mission in mind, JellyVerse aims to actively onboard a diverse range of experts and professionals to ensure the maintenance and growth of the ecosystem. The DAO will take care of the non-technical aspects of the projects, allowing developers to focus solely on building and expanding the DeFi space. With a focus on DeFi3.0, Jellyverse aims to bring a new level of innovation to the decentralized finance industry and make it accessible to everyone.
+
+### Governance
+
+It is important to note that the decentralized nature of Jellyverse provides a transparent and fair decision-making process where all token holders have an equal say in the direction of the project. This is a key advantage of decentralized autonomous organizations (DAOs) as it helps to ensure that the project is aligned with the interests of its community and that decisions are made in a democratic way. Additionally, the legal setup under the laws of Lichtenstein provides added security and peace of mind for contributors and token holders. By allowing community members to propose and vote on proposals, Jellyverse is fostering a thriving ecosystem where everyone has a voice and everyone is motivated to contribute to the success of the project. Community members have the option to initiate proposals or engage in existing proposals by participating. 
+
+1. Improvement Proposal
+
+Improvement Proposals are designed to foster agreement regarding technical alterations, including changes to fee structures, reward distributions, and other adjustable elements. These proposals may also encompass subjects related to branding, roadmaps, websites, and more. In order for an Improvement Proposal to be approved, a minimum of 66% of participating voters must cast their vote in favor.
+
+1. Funding proposal
+
+Funding proposals aim to secure financing for community projects that bring significant value to Jellyverse. In order for a funding proposal to be approved, a majority of > 50% of the voting participants must cast a favorable vote.
+
+Token holder participating in governance will be rewarded by protocol earnings and block rewards. 
+
+## JellyToken
+
+JLY is Jellyverse’s native token and offers a range of utility and benefits to its users. JLY can be used for governance, staking, liquidity mining, and as collateral. The token also serves as a means of revenue sharing, providing its holders with a share of the platform's profits.
+
+JLY is required for various platform functions, including governance, transaction fees, portfolio creation, vault opening, funding proposals, and liquidity mining. By holding JLY, users gain the ability to participate in the decision-making process of the platform, earn rewards through staking and liquidity mining, and access a range of platform features and services.
+
+### **JLY utility at a glance**
+
+- Staking
+- Liquidity Mining
+- Governance
+- Collateral
+- Revenue Sharing
+
+- Transaction fees
+- Creating portfolios
+- Opening vaults
+- Funding proposal
+- Collateral
+
+### Token Allocation
+
+To guarantee the long-term stability and decentralization of the Jellyverse, we are committed to fair and equal distribution. The total supply of JLY tokens is set at 2 billion, of which 133 million (~6.7%) may be obtained through a private funding round, another 133 million will be allocated to the community through a "burn event," and 133 million will be held by JellyLabs to support future development and marketing.
+
+Any amount distributed to VCs, external partners or JellyLabs will be vested (frozen) for 6 months, after which a small amount of tokens will be claimable every day for the next 18 months (linear unfreezing). 
+
+| VCs, Investors & Advisors | 6.66% |
+| --- | --- |
+| JellyLabs | 6.66% |
+| Community Burn Event | 6.66% |
+| Distribution to LP & Staking | 80% |
+
+It's crucial to understand that each protocol designates a specific percentage of the block reward allocation, which is subject to dynamic control by the governance. Any unutilized block rewards are intentionally burned, leading to a substantial reduction in the total supply. This mechanism serves as an effective incentive for the responsible allocation and use of block rewards, while also promoting the long-term sustainability of the protocol.
+
+The total reward supply can be described with the following series
+
+$$
+T_{Reward}= \sum\limits_{n=1}^{i}2400000e^{-0.0015n}
+$$
+
+Ensuring the cap of ~1.6 billion JLY and a smooth distribution. 
+
+$$
+\sum\limits_{n=1}^{\infty}2400000e^{-0.0015n} = 1.598 *10^9
+$$
+
+After a period of 1460 days (equivalent to 4 years), the total amount of rewards distributed will have reached approximately 88.73% of the total reward supply. This distribution is intended to incentivize early adopters and lay the foundation for a decentralized governance structure. 
+
+$$
+\sum\limits_{n = 1}^{1460} 2400000e^{-0.0015n} = 1.4198 *10^9
+$$
+
+## Block reward allocation (tbd)
+
+## JellySwap
+
+> For more details you may be interested in reading **[JellySwap Whitepaper](https://www.notion.so/Whitepaper-Jellyswap-9fc3f1f1b7d14645ba910bf746996a76)**
+> 
+
+**JellySwap: Pioneering Innovation**
+
+Inspired by Balancer, a leading automated market maker (AMM) launched by Balancer Labs in February 2020 on the Ethereum network, JellySwap introduces a customized version of Balancer V3 to the DeFiMetaChain.
+
+JellySwap is an advanced AMM that extends the capabilities of DeFiChains native DEX and offers greater flexibility for the developer community on DeFiMetaChain. The unique advantage of JellySwap is the option to use and further utilize DeFiChains native decentralized assets, which sets it apart from other players in the industry.
+
+JellySwap operates as a self-managing, weighted portfolio manager. Unlike traditional index funds, where you pay fees to a portfolio manager to rebalance your portfolio, with JellySwap, you earn fees from traders who rebalance your portfolio through arbitrage opportunities. The exchange of any pair of tokens in a JellySwap Pool is based on a cost function defined by an N-dimensional surface. This allows for the creation of pools with different weight distributions, such as 70-30 pools, and pools holding up to 50 tokens. With DeFiChains decentralized assets, users can recreate popular portfolios that are automatically rebalanced in a fully decentralized manner. JellySwap provides a hands-off solution to portfolio management, enabling users to earn from both trading fees and block rewards.
+
+### **Secondary effects for DeFiChain**
+
+The DeFiChains native decentralized exchange is a robust platform, set to be integrated into DeFiMetaChain. However, its integration requires bridging and presents limited flexibility for developers to create new projects. The DEX is tightly controlled by DeFiChains masternodes, which creates an intentional barrier for developers to swiftly set up and experiment with new pools. Additionally, the platform lacks support for initial DEX offerings, offers a limited pool variety and functionalities, and imposes high fees ranging from 0.2% to 30%.
+
+This bridging requirement can also impede the execution of smart contracts and increase the time and number of transactions needed to perform a simple swap. In contrast, JellySwap streamlines the process by allowing users to create pools with just a few clicks. Its smart order routing technology enables it to perform transactions at lower fees while reducing the number of transactions required, as bridging is not necessary.
+
+JellySwap will enhance the functionality of the DeFiChains native DEX by introducing a new way of interacting with DeFiChains native decentralized assets. This will offer opportunities for new developers to join the ecosystem and lower fees for its users.
+
+### **Linking DeFiChains native DEX and Jellyswap**
+
+To attract sufficient liquidity, Jellyswap faces the challenge that other automated market makers have faced before. Adequate liquidity is critical for seamless trading, preventing manipulation, and ensuring low slippage.
+
+To tackle this issue and establish a connection between Jellyswap and DeFiChains native DEX, Jellyswap will incorporate DeFiChain's native liquidity tokens into its pools.
+
+By providing liquidity for DeFiChains native DEX, users receive liquidity tokens (LQT) that reflect a proportional share of the value of the pools. These tokens are backed by the underlying assets that were initially deposited into the pools.
+
+Jellyswap users will have the ability to build portfolios that include LQTs and pool those LQTs with JLY. This enables users to earn additional rewards and invest in both AMMs without reducing the liquidity on DeFiChains native DEX. Additionally, the value of JLY will be closely linked to DFI, meaning that if the total value locked on DeFiChain increases, it will also increase on JellySwap.
+
+### **Expected liquidity inflow**
+
+JellySwap aims to attract DeFiChain investors who are interested in pooling their liquidity tokens, either with JLY or within their portfolios. This results in a portion of DeFiChain's total value locked being reflected in Jellyverse. 
+
+The expected liquidity inflow can be calculated as $L_{inflow} = \alpha \sum\limits^{n}_{i=1} l_i$, where 
+
+- $n$ is the number of LQTs available on JellySwap
+- $\alpha$ is the percentage utilized within JellySwap
+- $l_i$ represents the liquidity inside each pool $i$.
+
+To kick off the launch, JellySwap will introduce several pools for users to choose from.”
+
+| Standard pools |
+| --- |
+| DFI - JLY |
+| Portfolios |
+| (BTC - DFI ) - JLY |
+| (ETH - DFI) - JLY |
+| (dUSDC - dUSD) - JLY |
+| (dUSDT - dUSD) - JLY |
+
+For the launch we can consider $L_{inflow}= 157\alpha$ (million USD) with an unknown $\alpha$. 
+
+## **Governance**
+
+tbd
+
+## **A closer look into JellySwaps portfolios** **Portfolios**
+
+tbd
+
+## jUSD: A non algorithmic stable coin
+
+> For more detailed information can be found here: [jUSD: A non algorithmic stable coin](https://www.notion.so/Whitepaper-JellyUSD-work-in-progress-a8e6ba76e3824363bc7625280f9101d6)
+> 
+
+JellyUSD is a fork of the Liquity protocol that was deployed on the Ethereum network in the second quarter of 2021. The JellyUSD protocol is a decentralized platform that enables holders to attain maximum liquidity against their collateral without incurring interest charges. Similar to DeFiChains loans, users lock up collateral in form of Bitcoin, Ethereum, DFI or JLY in a smart contract, creating an individual position referred to as "Vault." Users can receive instant liquidity by minting jUSD, a USD-pegged stablecoin. The minimum collateralization requirement is 110%. Holders of jUSD can redeem their stablecoins for the underlying collateral at any time. The unique redemption mechanism and algorithmically adjusted fees maintain the stability of the jUSD peg to $1.
+
+The key differences between jUSD and other stable coins, i.e. dUSD lie in its innovative liquidation mechanism based on incentivized stability deposits and a redistribution cycle from riskier to safer "Vaults". This enables a much lower collateral ratio compared to current systems and stability is sustained through economically-driven user interactions and arbitrage, rather than active governance or monetary interventions.
+
+**Hard price mechanisms (tbd)**
+
+- why not below 1$ ?
+- why not more than 1,1$?
+- Why around 1$? (soft mechanisms)
+- Learnings from LUSD
+- Leveraging as use case
+- Custom change: Allowed collateral
+
+## JellyBond
+
+> For more details you may be interested in reading **[JellyBond Whitepaper](https://www.notion.so/JellyBond-e62bdc94cce046d394f82eeebed42b33)**
+> 
+
+JellyBond is a fork of the Chicken Bonds protocol which has been deployed on the Ethereum network in Q4 2022. In appreciation of the work the Liquity Team provided for the decentralized finance industry, we will introduce an opted out version of Chicken Bonds V1 for DeFi Meta Chain.
+
+JellyBond is a decentralized bonding platform that offers enhanced yield to DFI holders through a derivative token, known as "Boosted DFI". In the future, Jellybond plans to expand its bonding capabilities to other tokens, including DeFiChains decentralized assets, liquidity tokens, and jUSD. The accumulated protocol-owned liquidity (POL) can be used to meet the evolving needs of the ecosystem, thereby positively affecting the prices of different tokens, i.e. dUSD or JLY. 
+
+The JellyBond system provides several key benefits for bond holders while mitigating risk:
+
+1. Cost-effective liquidity accumulation of DFI. Instead of buying or renting liquidity, the system acquires treasury assets automatically and incentivizes bond holders with amplified yields through its novel bonding dynamics. The accumulated DFI can be used to meet the needs of the ecosystem, such as improving the value of other tokens like dUSD and JLY or reducing the DFI supply.
+2. Low-risk and flexible bonding for users. Bond holders have the option to withdraw their principal at any time, instead of converting it to "boosted DFI". This makes bonding fully reversible and bond holders are not locked into a commitment with the protocol. Additionally, bonds are represented as NFTs and can be traded on JellySwap, making them attractive for bonds that have accumulated a significant amount of bDFI. NFTs will be designed and executed to the highest industry standards in the gaming industry, with different rarities and functionalities adding additional value to rare bonds. The so called “dynamic NFTs” will hook people into Jellybond and add additional utility.
+3. A stable and robust system. The JellyBond derivative token, bDFI, has a hard price floor supported by a direct redemption mechanism. Most of the time, bDFI will trade above this price floor due to the amplified yield earned by the underlying DFI. The bonding rules ensure that the price floor can only increase over time, reducing the high volatility and strong reflexivity common in secondary tokens issued by other bonding protocols.
+
+### **Bonding**
+
+The JellyBonds protocol operates as an autonomous and self-sustaining treasury, driven by a unique bonding mechanism. Users have the option to deposit their DFI in exchange for an accumulating balance of bDFI. Bond holders can choose to retrieve their original principal at any time, sacrificing the accrued bDFI or convert it to the accumulated bDFI. This flexibility allows bond holders to effectively manage their risk and maximize their returns.
+
+![JellyBond03.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/14021f46-2c60-4d37-8071-fd2e3ec816e2/JellyBond03.png)
+
+The DFI acquired by the system backs the bDFI supply: while a portion of the DFI in the
+treasury is directly redeemable by bDFI holders, another portion is contributing permanently to the redeemable value through its yield. Along with the yield retained from pending bonds, the bDFI benefits from a rapidly rising price ****floor, making it an attractive investment. 
+
+The yield amplification is achieved by directing additional yield from POL (protocol owned liquidity) and users bonding underlying DFI to newly issued “boosted” tokens bDFI.
+
+JellyBonds works with any yield bearing token. In further development stages JellyBond will introduce a variety of tokens, such as liquidity tokens of DeFiChains decentralized assets and jUSD. 
+
+![3.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cfe307e1-074e-47a4-ba7f-3742da77da1e/3.png)
+
+## **JellyWallet**
+
+JellyWallet is a non-custodial extension wallet for Bitcoin, Ethereum, DeFiChain and DeFiMetaChain. Even though any wallet can be connected to JellyVerse protocols, i.e. MetaMask, JellyWallet is tailoring the user experience for the interaction with JellyVerse and offers extended functionality.  
+
+**Features**
+
+- Networks: Bitcoin, Ethereum, DeFiChain & DeFiMetaChain
+- Full integration of DeFiChains decentralized exchange: trade crypto currencies on DeFiChain
+- Full integration of JellySwap: trade crypto currencies on DeFiMetaChain
+- Hardware wallet support: Ledger
+- Web connectivity: connect JellyWallet to any web3 application
+- NFTs supported
+- Third party custodial services are (optionally) integrated: buy & sell crypto against fiat and staking. The fiat on ramp will allow a seamless user experience to buy JLY with fiat.
+
+[Whitepaper JellyUSD (work in progress)](https://www.notion.so/Whitepaper-JellyUSD-work-in-progress-a8e6ba76e3824363bc7625280f9101d6)

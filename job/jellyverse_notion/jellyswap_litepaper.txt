@@ -1,0 +1,400 @@
+# Whitepaper Jellyswap
+
+This paper outlines the technical features and design concepts of JellySwap, a non-custodial solution for portfolio management and liquidity provision.
+
+JellySwap is based on Balancer, a leading automated market maker (AMM) developed by Balancer Labs and deployed on the Ethereum network in February 2020. In recognition of the valuable contributions made by Balancer Labs to the decentralized finance community, this paper presents a modified version of Balancer V3 specifically for the DeFi Meta Chain. This paper may contain language and content from Balancer's Whitepaper, authored by Fernando Martinelli and Nikolai Mushegian.
+
+## 1. Introduction: The problem we want to solve
+
+DeFiChain, a fork of Bitcoin, offers a robust set of features but prioritizes security over accessibility and compatibility by limiting the complexity of smart contracts. To bridge this gap, DeFi Meta Chain (DMC) will provide a new technical environment for developers to build upon.
+
+Jellyverse aspires to be a vibrant and diverse ecosystem that exists within DeFi Meta Chain. It encompasses a range of refined and improved codebases that are relied upon by millions of users worldwide. The heart of each ecosystem is an AMM (automated market maker). Although DeFiChain's native decentralized exchange is robust and will be integrated into DeFi Meta Chain, it falls short in providing an open and flexible trading platform that developers can leverage to build innovative solutions.
+
+The DeFiChain's native DEX is tightly controlled by DeFiChain's master nodes, making it difficult for new developers to quickly launch and experiment with new pools for their projects. The lack of functionalities for initial DEX offerings, limited pool options, inefficient algorithms for stable coin swaps, and high fees ranging from 0.2% to 30% make trading costly. Currently, there is no publicly available documentation that explains how the integration of DeFiChain's native DEX into DeFi Meta Chain will occur and if bridging will present any obstacles for the execution of smart contracts.
+
+JellySwap is a market maker with key features that enhance the functionality of DeFiChain's native DEX. It provides greater flexibility for developers on DeFi Meta Chain and expands the use of DeFiChain's native decentralized assets and tokens.
+
+JellySwap operates as a dynamic, self-balancing portfolio manager, offering a unique twist on the traditional index fund model. Rather than paying fees to a portfolio manager for rebalancing, JellySwap collects fees from traders who balance the portfolio through arbitrage opportunities.
+
+JellySwap is built on a N-dimensional surface that outlines the cost function for exchanging any pair of tokens in a JellySwap pool. This results in a new and innovative pool architecture, allowing for the creation of pools with varying weights, such as 70-30 pools and even pools with up to 50 tokens.
+
+This approach was first described by [Vitalik Buterin[0]](https://www.reddit.com/r/ethereum/comments/55m04x/lets_run_onchain_decentralized_exchanges_the_way/), generalized by [Alan Lu[1]](https://blog.gnosis.pm/building-a-decentralized-exchange-in-ethereumeea4e7452d6e) and proven viable for market making by the popular Uniswap[2] ([https://uniswap.io](https://uniswap.io/)) dapp.
+
+Balancer and JellySwap share the same innovative approach in defining a cost function for token exchange through the application of a constant proportion of value in each asset in a portfolio. The solution was derived using an invariant-based modeling technique outlined by Zargham et al[3] and confirmed by the proof provided by Fernando Martinelli and Nikolai Mushegian, demonstrating that constant-value market makers possess this unique property. 
+
+In this paper, we will delve further into the details of this proof.
+
+## 2. Present Work
+
+Index funds have been a popular investment option since their inception in 1972. They allow investors to diversify their portfolios and mitigate risk by ensuring a constant exposure to a pre-determined portfolio of assets. This is achieved by actively rebalancing the portfolio to maintain a constant value share of each asset, either through manual traders or automated bots.
+
+Traditional index funds and investment portfolios incur fees to cover the costs of rebalancing, and are subject to custodial risk due to their centralization. JellySwap offers an alternative solution, leveraging the decentralized assets of DeFiChain to provide self-balancing portfolios that reflect real-world values without the need for additional fees or custodial risk.
+
+## 3. Value Function
+
+The core of JellySwap's exchange capabilities is a surface that is defined by maintaining the constant value of a value function. The value function, which is dependent on the weights and balances of the pool, will be proven to produce a spot price at every point that ensures the constant proportion of each token's value in the pool, regardless of the exchanges that take place. The value function is expressed as: 
+
+$$
+\begin{equation}
+\tag{1}
+V = \prod_{t}B_{t}^{W_t}
+\end{equation}
+
+$$
+
+Where
+
+- $t$ ranges over the tokens in the pool;
+- $B_t$ is the balance of the token in the pool;
+- $W_t$ is the normalized weight of the token, such that the sum of all normalized weights is 1.
+
+By making $V$ constant we can define an invariant-value surface as illustrated below.
+
+![Figure 1: Invariant surface](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1b877ff8-dfaa-4203-9635-a601f3489560/val_function.png)
+
+Figure 1: Invariant surface
+
+## 5. Spot Price
+
+The spot price between any two tokens in a pool is defined based solely on the weights and balances of those two tokens. The spot price can be calculated as the ratio of the token balances divided by their corresponding weights.
+
+$$
+\begin{equation}
+\tag{2}
+SP_i^0 = \frac{\frac{B_i}{W_i}}{\frac{B_o}{W_o}} = \frac{B_i}{W_i}\frac{W_o}{B_o}
+\end{equation}
+
+$$
+
+Where:
+
+- $B_i$  is the balance of token i, the token being sold by the trader which is going into the pool.
+- $B_o$ is the balance of token o, the token being bought by the trader which is going out of the pool.
+- $W_i$ is the weight of token i
+- $W_o$ is the weight of token o
+
+The definition highlights that the spot price between two tokens is solely determined by the ratio of their balances and weights. If the weights remain constant, the spot prices will change only with changes in token balances. As token balances can only be altered through trades, the constant surface causes an increase in the price of the token being bought and a decrease in the price of the token being sold.
+
+It has been proven that when external market prices deviate from the prices offered, an arbitrageur will take advantage of the opportunity by trading with the pool until its prices align with the external market. This eliminates the arbitrage opportunity and ensures that prices offered by the pool closely follow the market trends.
+
+## 6. Effective Price
+
+It's essential to note that the spot price is the theoretical price for tiny trades that would incur no price discrepancy. However, in reality, the actual price of any trade is influenced by the volume being traded, leading to a shift in price. By defining $A_o$ as the quantity of token $o$ being purchased by the trader and $A_i$ as the quantity of token $i$ being sold by the trader, we can establish the Effective Price as:
+
+$$
+\begin{equation}
+\tag{3}
+EP_i^0 = \frac{A_i}{A_o}
+\end{equation}
+
+$$
+
+And as mentioned above, $EP$ tends to $SP$ when traded amounts tend to 0:
+
+$$
+\begin{equation}
+\tag{4}
+SP_i^o= \lim_{A_0,A_i \to 0} EP_i^0
+\end{equation}
+
+$$
+
+## 7. Spot Price Proof
+
+Let's now prove that this choice of $V$ leads to Equation 2.
+
+Firstly, it is understood that the amount of token $i$ being bought by the trader is subtracted from the contract's balance, therefore $A_i = ΔB_i$. Conversely, the amount of token $i$ being sold by the trader is added to the contract's balance. By substituting in Equations 2 and 3, we obtain:
+
+$$
+\begin{equation}
+\tag{5}
+SP_i^o=\lim_{A_o,A_i}\to EP_i^o = \lim_{ΔB_o,ΔB_i} \to \frac{ΔB_i}{ΔB_o}
+\end{equation}
+$$
+
+This limit is, be definition, minus the partial derivative of $B_i$ in function of $B_o$:
+
+$$
+\begin{equation}
+\tag{6}
+SP_i^o = - \frac{∂B_i}{∂B_o}
+\end{equation}
+$$
+
+From the value function definition in Eq.1 we can isolate $B_i$: 
+
+$$
+
+B_i^{W_i} = (\frac{V}{(\prod_{k≠i,o}B_k^{W_k})B_o^{W_o}})
+
+$$
+
+$$
+\begin{equation}
+\tag{7}
+B_i = (\frac{V}{(\prod_{k≠i,o}B_k^{W_k})B_o^{W_o}})^\frac{1}{W_i}
+\end{equation}
+$$
+
+Now we use Eq.7 to expand the partial derivative in Eq.6: 
+
+$$
+SP_i^o = -\frac{∂B_i}{∂B_o} = -\frac{∂}{∂B_o}((\frac{V}{(\prod_{k≠i,o}B_k^{W_k}){B_o}^{W_o}})^\frac{1}{W_i})
+
+$$
+
+$$
+= -(\frac{V}{(\prod_{k≠i,o}B_k^{W_k}})^\frac{1}{W_i}\frac{∂}{∂B_o}(B_o^{-\frac{W_o}{W_i}}) 
+$$
+
+$$
+= -(\frac{V}{(\prod_{k≠i,o}B_k^{W_k}})^\frac{1}{W_i}\cdot (-\frac{W_o}{W_i})\cdot B_o^{-\frac{W_o}{W_i}-1} 
+$$
+
+$$
+= (\frac{V}{(\prod_{k}B_k^{W_k}})^\frac{1}{W_i}B_o^{\frac{W_o}{W_i}}\cdot B_i\frac{W_o}{W_i}\cdot B_o^{-\frac{W_o}{W_i}-1}
+$$
+
+$$
+= (\frac{V}{V})^{\frac{1}{W_i}}\cdot B_o^{\frac{W_o}{W_i}}\cdot B_o^{-\frac{W_o}{W_i}}\cdot \frac{B_i}{W_i}\cdot \frac{W_o}{B_o} 
+$$
+
+$$
+= \frac{B_i}{W_i}\cdot \frac{W_o}{B_o} 
+$$
+
+which concludes our proof. 
+
+## 8. Constant Value Distribution Proof
+
+We will now prove that:
+
+1. Pools maintain a constant share of value across all tokens in the pool and;
+2. These shares of value are equal to the weights associated to each token.
+
+Let's determine the total pool value, $V^t$, in terms of token $t$. We know that the pool has $B_t$ tokens $t$. To calculate the theoretical value of the remaining tokens in the pool, we use their Spot Price relative to token $t$ instead of their Effective Price, as we will not be executing any actual trades.
+
+From Eq.2 we can calculate , i.e how many tokens $t$ the balance of each token $n$ is worth:
+
+$$
+\tag{8}
+V_n^t=\frac{B_n}{SP_n^t} = B_n \cdot \frac{\frac{B_t}{W_t}}{\frac{B_n}{W_n}} = B_t \cdot \frac{W_n}{W_t}
+$$
+
+We know that the total pool value in terms of tokens $t$ is the sum of the values of each token in terms of tokens $t$: 
+
+$$
+
+V^t = \sum_kV_k^t=B_t+\sum_{k≠t}V_k^t=B_t+\frac{B_t}{W_t}\cdot\sum_{k≠t}W_n
+
+$$
+
+$$
+\tag 9 
+= \frac{B_t}{W_t}\cdot(W_t+\sum_{k≠t}W_n) = \frac{B_t}{W_t} 
+$$
+
+Now to calculate $S_n$, the share of value each token $n$ represents in the pool, all we have to do is $n, V_n^t$ by the total pool value, $V^t$: 
+
+$$
+S_n = \frac{V_n^t}{V^t} = W_n
+$$
+
+which proves both that the share each token represents of the total pool value is constant and also that it is equal to weight of that token. 
+
+## 9. Trading Formulas
+
+Calculating the outcomes of trades in any given Pool is straightforward as long as we keep in mind that the Value Function must remain constant, meaning that $V$ must have the same value before and after any trade.
+
+It is important to note that in reality, $V$ will increase due to trading fees that are applied following a trade state transition. For a more in-depth understanding of fees, see the section on Implementation: Swap and Exit Fees.
+
+### 9.1. Out-Given-In
+
+When a user exchanges tokens $i$ for tokens $o$, the balance of the other tokens in the pool remains unchanged. By defining $A_i$ and $A_o$ as the quantity of tokens $i$ and $o$ being traded, we can determine the amount of tokens $o$ a user will receive when exchanging $A_i$. By preserving the invariance of the Value Function, i.e. ensuring its value remains constant before and after the trade, we can write the following equation:
+
+$$
+\tag{11}
+
+\prod_{k≠i,o}(B_k)^{W_k} \cdot (B_o - A_o)^{W_o} \cdot (B_i + A_i)^{W_i} = \prod_k(B_k)^{W_k}
+$$
+
+$$
+\tag{12}
+\prod_{k≠i,o}(B_k)^{W_k}\cdot(B_o -A_o)^{W_o}+(B_i + A_i)^{W_i} = \prod_{k≠i,o} (B_k)^{W_k}\cdot B_o^{W_o}\cdot B_i^{W_i}
+$$
+
+$$
+\tag{13}
+(B_o -A_o)^{W_o}+(B_i + A_i)^{W_i} = B_o^{W_o}\cdot B_i^{W_i}
+$$
+
+$$
+\tag{14}
+B_o-A_o = \frac{B_i^{\frac{W_i}{W_o}}B_o}{(B_i + A_i)^{\frac{W_i}{W_o}} }
+$$
+
+$$
+A_o = B_o \cdot (1-(\frac{B_i}{B_i+A_i})^{\frac{W_i}{W_o}})\tag{15}
+$$
+
+### 9.2. In-Given-Out
+
+It is also important for traders to determine the amount of input token $A_i$ they need to send in order to receive a desired amount of output token $A_o$. We can calculate this amount $A_i$ as a function of $A_o$ using the following approach:
+
+$$
+\tag{16}
+\prod_{k≠i,o}(B_k)^{W_k}\cdot(B_o-A_o)^{W_o}\cdot(B_i+A_i)^{W_i}=\prod_k(B_k)^{W_k}
+$$
+
+$$
+\tag{17}
+
+\prod_{k≠i,o}(B_k)^{W_k}\cdot(B_o-A_o)^{W_o}\cdot(B_i+A_i)^{W_i}=\prod_{k≠i,o}(B_k)^{W_k}\cdot B_o^{W_o} \cdot B_i^{W_i}
+$$
+
+$$
+\tag{18}
+(B_o-A_o)^{W_0}\cdot (B_i+ A_i)^{W_i} = B_o^{W_o} \cdot B_i^{W_i}
+$$
+
+$$
+\tag{19}
+B_i + A_i = \frac{B_0^{\frac{W_o}{W_i}}\cdot B_i}{(B_o-A_o)^{\frac{W_o}{W_i}}}
+$$
+
+$$
+\tag{20}
+A_i = B_i \cdot ((\frac{B_o}{B_o-A_o})^{\frac{W_o}{W_i}}-1)
+$$
+
+Notice that $A_o$has defined by Eq. 11 tends to $SP_i^0 \cdot A_i$ when $A_i << B_i$ as expected. This can be proved by using L’Hopital’s rule, but this proof is out of the scope for this paper. 
+
+### 9.3. In-Given-Price
+
+For practical purposes, traders who aim to use our contract for arbitrage will want to know the amount of input token $A_i$ they need to send to change the current spot price $SP_i^o$ to another desired price $SP_i^{'o}$. The desired spot price will usually be the external market price, and as long as the contract spot price differs from the external market, an arbitrageur can earn a profit by trading with the contract and bringing the contract price closer to the external market.
+
+The maximum profit for an arbitrageur is achieved when they bring the contract spot price exactly in line with the external market. This is why our design is successful in tracking market prices, making it a reliable on-chain price sensor when implemented on a blockchain.
+
+It can be proven that the amount of tokens $i-A_i$a user needs to trade against tokens $o$ so that the pool’s spot price changes from $SP_i^o$ to $SP_i^{'o}$ is: 
+
+$$
+A_i = B_i \cdot ((\frac{SP_i^{'o}}{SP_i^o})^{\frac{W_o}{W_o+W_i}}-1)
+$$
+
+## 10. Liquidity Providing Formulas
+
+### 10.1. Pool tokens
+
+The JellySwap Protocol allows for pools to aggregate liquidity provided by multiple users by implementing the concept of pool tokens. These tokens represent ownership of the assets contained within the pool and their outstanding supply directly reflects the pool's Value Function. If a deposit of assets increases the pool's Value Function by 10%, the supply of pool tokens also increases by 10%. This occurs because the depositor receives 10% of new pool tokens in exchange for their deposit.
+
+There are two methods by which assets can be deposited into the pool in exchange for pool tokens, or pool tokens can be redeemed for pool assets:
+
+- Weighted-asset deposit/withdrawal
+- Single-asset deposit/withdrawal
+
+### 10.2. All-Asset Deposit/Withdrawal
+
+An all-asset deposit must adhere to the current asset distribution in the pool. If the deposit contains 10% of each of the assets already present in the pool, the Value Function will increase by 10%, and the depositor will receive 10% of the existing pool token supply. To receive $P_{issued}$ pool tokens, with a current total supply of $P_{supply}$, the depositor must deposit $D_k$ tokens of each asset $k$ in the pool.
+
+$$
+\tag{22}
+D_k = (\frac{P_{supply}+P_{issued}}{P_{supply}}-1)\cdot B_k
+$$
+
+Where $B_k$is the token balance of the token $k$ before the deposit. 
+
+Similarly, a weighted-asset withdrawal allows a pool token holder to exchange their pool tokens for a proportionate share of each of the assets in the pool. By redeeming $P_{redeemed}$ pool tokens from the total supply of $P_{supply}$, one can receive an amount of $A_k$ of token $k$ for each of the assets in the pool.
+
+$$
+\tag{23}
+A_k = (1- \frac{P_{supply}-P_{redeemed}}{P_{supply}})B_k
+$$
+
+Where $B_k$is the token balance of the token $k$ before the withdrawal. 
+
+### 10.3. Single-Asset Deposit/Withdrawal
+
+When a user wants to provide liquidity to a pool, but doesn't have all the required assets in the correct proportions, JellySwap provides a solution. By depositing a single asset, A, to a shared pool that contains that asset, the user can receive pool tokens.
+
+This process of depositing a single asset is equivalent to first depositing all pool assets in proportional amounts and then trading for more of asset A. This way, the user only has to spend asset A, as the amounts of the other tokens deposited will be returned through trades.
+
+The number of pool tokens that a user can receive for depositing a single asset to a shared pool can be calculated using the Value Function mentioned previously.
+
+### 10.4. Single-Asset Deposit
+
+The increase in the pool token supply is proportional to the increase in the Value Function. If we denote the amount of pool tokens issued in return for the deposit as $P_{issued}$, then:
+
+$$
+\frac{V'}{V}= \frac{P'_{supply}}{P_{supply}}=\frac{{P_{supply+P_{issued}}}}{P_{supply}}
+$$
+
+$$
+P_{issued} = P_{supply} \cdot (\frac{V'}{V}-1)\tag{24}
+$$
+
+Where $V'$ is the updated Value Function after the deposit and $V$ is the previous Value Function before the deposit.
+
+Moreover, $B'_k$ represents the balance of asset $k$ after the deposit, while $B_k$ represents its balance before the deposit.
+
+$$
+\frac {V'}{V} = \frac{{ \prod_k(B'_k)^{W_k}}}{\prod_k (B_k)^{W_k}} 
+$$
+
+If a single-asset deposit is made using asset $t$, the balances of the remaining tokens will remain unchanged. In this case, the following expression can be used:
+
+$$
+\frac {V'}{V} = \frac{{ \prod_k(B'_k)^{W_k}}}{\prod_k (B_k)^{W_k}} = \frac{(B'_t)^{W_t}}{(B_t)^{W_t}} = (\frac{B'_t}{B_t})^{W_t}
+$$
+
+If we define $A_t$ as the amount deposited in asset $t$, then the new pool balance of asset $t$ becomes $B't = B_t + A_t$*. By substituting this into the formula, we can calculate the final amount of new pool tokens issued, $P_{issued}$*, in return for a single asset $t$ deposit.
+
+$$
+P_{issued} = P_{supply}\cdot ((1+\frac{A_t}{B_t})^{W_t}-1) \tag{25}
+$$
+
+### 10.5. Single-Asset Withdrawal
+
+The amount of asset $t$ withdrawn, $A_t$, when a pool token holder redeems their pool tokens $P_{redeemed}$ in return for a single asset $t$ is:
+
+$$
+A_t=B_t\cdot (1-(1-\frac{P_{redeemed}}{P_{supply}})^\frac{1}{W_t})\tag{26}
+$$
+
+Where $B_t$ is the pool balance of asset $t$ before the withdrawal. 
+
+Indeed, by using the deposit and withdrawal formulas defined above, without considering any fees, if a user deposits $A_t$ of asset $t$ to receive $P_{issued}$ pool tokens and then redeems the same amount of pool tokens for asset $t$, they will receive the same initial $A_t$ back.
+
+### 10.6. Trading Fees for Single-Asset Deposit Withdrawal
+
+Depositing or withdrawing a single asset $t$ to or from a shared pool is equivalent to trading $(1-W_t)$ of the amount deposited for all the other assets in the pool. The $W_t$ portion of the deposit is already held by the pool in the form of asset $t$, so it would be unfair to charge a trading fee on this portion.
+
+It's important to note that if we exclude any potential exit fees from the pool, depositing asset $i$ and immediately withdrawing asset $o$ will incur the same trading fees as if you were to trade directly from $i$ to $o$ using the pool's trading function.
+
+## 11. Implementation
+
+There are a few initial notes regarding the first release of JellySwap. We will release a much more detailed explanation of the system at the same time that the source code is release. 
+
+## 12. Free Software on Ethereum
+
+JellySwap is implemented as a GPL3-license Ethereum smart contract system. 
+
+## 13. Numerical Algorithms
+
+The equations outlined in the Theory section provide a complete functional specification, however, implementing them for the Ethereum Virtual Machine (EVM) can be challenging due to a limited availability of advanced fixed-point math libraries. Our implementation employs a combination of algebraic transformations, approximating functions, and numerical techniques to calculate these equations with acceptable error bounds and reasonable gas costs.
+
+## 14. Controlled vs. Finalized Pools
+
+1. Controlled pools are managed by a designated controller address. Only this address has the authority to add or remove liquidity from the pool by calling the "`join`" or "`exit`" functions. This type of pool provides flexibility in terms of the assets it holds and their respective weightings. It's important to note that, since the controller is an address, it could potentially implement any logic, similar to a finalized pool, when managing public deposits. However, due to the discretionary control exercised by the controller, this pool type is not considered trustless. To increase the trust level of a controlled pool, additional requirements may be implemented.
+2. Finalized pools have a fixed composition of assets, weight distribution, and fees. The `join` and `exit` functions are designed to be publicly accessible and provide a safe, trustless method of adding or removing liquidity, with a minimal implementation.
+
+## 15. References
+
+Source original whitepaper: https://balancer.fi/whitepaper.pdf
+
+[0] Vitalik Buterin: Let’s run on-chain decentralized exchanges the way we run prediction markets ([source](https://www.reddit.com/r/ethereum/comments/55m04x/lets_run_onchain_decentralized_exchanges_the_way/))
+
+[1] Alan Wu: Building a Decentralized Exchange in Ethereum ([source](https://blog.gnosis.pm/building-a-decentralized-exchange-in-ethereum-eea4e7452d6e))
+
+[2] Uniswap ([source](https://uniswap.io)) 
+
+[3] Zargham, M., Zhang, Z., Preciado, V.: A State-Space Modeling Framework for Engineering Blockchain Enabled Economic Systems. new England Complex Systems Institute (2018) ([source](https://arxiv.org/pdf/1807.00955.pdf))

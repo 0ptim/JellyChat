@@ -1,0 +1,84 @@
+# Jelly Token
+
+## Token Philosophy
+
+JLY is the governance and utility token of Jellyverse. It is designed to be used inside of Jellyverse as utility token and grants you a seat at the table to shape the DAOs future. JLY holders are profiting from transaction & service fees across the whole universe and can participate in crucial decision for the future of the ecosystem.
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/45a8db18-1804-4a0a-af7c-d8262f3fdce3/Untitled.png)
+
+**The ecosystem** will contain multiple protocols, all of which would have fees for actions performed by the users of those protocol. Depending on the use case those fees will differ, but there will be three types of fees: gas fees, jelly fees and protocol fees. 
+
+- **Gas fees** are fees paid either in DFI, or in JLY, that is then converted to DFI, and are used to pay gas fees on DMC.
+- **Jelly fees** are fees paid exclusively in JLY. They are automatically burned, and their purpose is to bring additional utility to the JLY token.
+- **Protocol fees** are fees paid in any currency that is not JLY. They are transferred to the protocol fund, which is a (virtual) bucket containing all the protocol earnings and block rewards.
+
+The funds of the protocol fund will be used to incentivize users of the protocols (liquidity providers) and distributed to **Jellyverse Keepers**. The exact fees for all the protocols will be dynamic, and will be determined through the voting mechanism. 
+
+**The Keepers** are holders of JLY that are staking it. They are voting to determine the exact incentives for specific use cases, fee sizes, CFPs, etc. They will need to balance their own profits with the needs of the ecosystem. The higher the fees the more money they will earn, but protocols become less attractive to the users. This ensures healthy growth, real decentralization, and a strong community committed to making the entire ecosystem better.
+
+## **Token Allocation**
+
+To guarantee the long-term stability and decentralization of the Jellyverse, we are committed to fair and equal distribution. The total supply of JLY tokens is set at 2 billion, of which 133 million (~6.7%) may be obtained through a private funding round, another 133 million will be allocated to the community through a "burn event," and 133 million will be held by JellyLabs to support future development and marketing.
+
+Any amount distributed to VCs, external partners or JellyLabs will be vested (frozen) for 6 months, after which a small amount of tokens will be claimable every day for the next 18 months (linear unfreezing). 
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/479791ff-afa2-4af8-a81e-628e50340e6d/Untitled.png)
+
+## Burn Event
+
+An equitable distribution of JLY is essential for the decentralization of Jellyverse, which allows all participants to have a fair say in on-chain governance. While VCs and JellyLabs are investing early and taking on initial risk to contribute to development, the community will have the opportunity to participate in a "Burn-Event" to obtain JLY tokens. Users can burn dUSD, DFI, or dBTC and receive JLY in return, which helps strengthen the DeFiChain economy by eliminating unbacked tokens and scarce DFI. Since the tokens are not acquired by Jelly Labs or any other centralized entity, there will be no public ICO.
+
+## Block Emission
+
+In total 1.6 billion JLY (80% of the total token supply) will be distributed investors across the whole ecosystem. In the beginning we will distribute 2,400,000 JLY tokens per day, decreasing the distributed amount for $n$ days by the factor $e^{-0.0015n}$. 
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/262bdc72-4d40-475a-a311-93c3ea39680a/Untitled.png)
+
+It's crucial to understand that each protocol designates a specific percentage of the block reward allocation, which is subject to dynamic control by the governance. Any unutilized block rewards are intentionally burned, leading to a substantial reduction in the total supply. This mechanism serves as an effective incentive for the responsible allocation and use of block rewards, while also promoting the long-term sustainability of the protocol.
+
+The total reward supply can be described with the following series
+
+$$
+T_{Reward}= \sum\limits_{n=1}^{i}2400000e^{-0.0015n}
+$$
+
+Ensuring the cap of ~1.6 billion JLY and a smooth distribution. 
+
+$$
+\sum\limits_{n=1}^{\infty}2400000e^{-0.0015n} = 1.598 *10^9
+$$
+
+After a period of 1460 days (equivalent to 4 years), the total amount of rewards distributed will have reached approximately 88.73% of the total reward supply. This distribution is intended to incentivize early adopters and lay the foundation for a decentralized governance structure. 
+
+$$
+\sum\limits_{n = 1}^{1460} 2400000e^{-0.0015n} = 1.4198 *10^9
+$$
+
+## Seed Liquidity
+
+Building up a decentralized exchange during a bear market is a tough challenge. To do so, JellySwap will introduce mechanisms to connect DeFiChains native DEX and JellySwap to achieve maximum capital efficiency over the long run. One of the introduced measures will be the usage of DeFiChains Liquidity Tokens. 
+
+Following the assumption that DeFiChain investors are generally interested in pooling their liquidity tokens with JLY, the liquidity $l_i$  inside each pool $i$ can be seen as capital that will likely find its way into Jellyverse. 
+
+The expected liquidity inflow can be described through 
+$L = α\sum\limits^{n}_{i=1} l_i$ . 
+
+By the time of writing for $i = 4$ we get 
+
+$L = 153.7  α$ (million USD) with $0 \le α \le 1$. The total amount of pools $m$ available on DeFiChain can be leveraged inside of JellySwap, leading to
+
+$$
+
+L = α\sum\limits^{m}_{i=1} l_i = α  PoolTVL
+$$
+
+In other words, a percentage $\alpha$  of DeFiChains Pool TVL can be mirrored in JellySwap creating initial stability and upside for JLY without reducing the TVL on DeFiChains native DEX. 
+
+## Allocations: Pools, Portfolios & Staking (tbd)
+
+> *It should be noted that the APR is based on the USD value of JLY, hence all the numbers mentioned are for orientation purpose only.*
+> 
+
+## Staking
+
+JLY token holders can stake their tokens, granting them the status of "Jellyverse Keeper." These Keepers are given the ability to shape the future of the DAO by participating in voting processes. They determine the specific incentives for particular use cases, fee sizes, CFPs, and more. However, they also must consider the needs of the ecosystem and balance their own profits with the greater good. While higher fees can result in greater earnings, they may make protocols less attractive to users. This approach ensures the healthy growth of the ecosystem, promotes genuine decentralization, and fosters a committed community determined to improve the entire ecosystem.
