@@ -11,9 +11,11 @@ from .address.list_vault import addressListVaultTool
 oceanTools.extend([addressGetBalanceTool, addressListTokenTool, addressListTransactionsTool, addressListVaultTool])
 
 # Blocke
+from .blocks.get import blocksGetTool
+from .blocks.getTransactions import blocksGetTransactionsTool
 from .blocks.list import blocksListTool
 
-oceanTools.extend([blocksListTool])
+oceanTools.extend([blocksGetTool, blocksGetTransactionsTool, blocksListTool])
 
 # Loan
 from .loan.getVault import loanGetVaultTool
