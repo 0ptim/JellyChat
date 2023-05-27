@@ -38,8 +38,3 @@ class API:
         print(f"ℹ Prompt Tokens: {callback_obj.prompt_tokens}")
         print(f"ℹ Completion Tokens: {callback_obj.completion_tokens}")
         print(f"ℹ Total Cost (USD): ${callback_obj.total_cost}")
-
-
-app_instance = API()
-app = app_instance.app
-socketio = app_instance.socketio
