@@ -63,7 +63,6 @@ def setup_routes(app_instance):
         emit("final_message", {"message": response})
 
     @app.route("/user_message", methods=["OPTIONS", "POST"])
-    @app_instance.cors_headers
     def process_input_rest():
         if request.method == "OPTIONS":
             return make_response("", 204)
