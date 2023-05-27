@@ -28,8 +28,15 @@ def create_agent():
 
     llm = ChatOpenAI(model_name="gpt-3.5-turbo")
 
-    tools = [wikiTool, statsTool, tokenbalanceTool,
-             transactionsTool, utxoTool, vaultsForAddressTool, vaultInformationTool] + load_tools(["llm-math"], llm=llm)
+    tools = [
+        wikiTool,
+        statsTool,
+        tokenbalanceTool,
+        transactionsTool,
+        utxoTool,
+        vaultsForAddressTool,
+        vaultInformationTool,
+    ] + load_tools(["llm-math"], llm=llm)
 
     print("🤖 Initializing main agent...")
     main_agent_instance = initialize_agent(
@@ -39,7 +46,7 @@ def create_agent():
         verbose=True,
         max_iterations=6,
         early_stopping_method="generate",
-        memory=memory
+        memory=memory,
     )
 
     sys_msg = """
@@ -55,8 +62,7 @@ def create_agent():
     """
 
     custom_prompt = main_agent_instance.agent.create_prompt(
-        system_message=sys_msg,
-        tools=tools
+        system_message=sys_msg, tools=tools
     )
 
     main_agent_instance.agent.llm_chain.prompt = custom_prompt
@@ -64,12 +70,12 @@ def create_agent():
     return main_agent_instance
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     local_agent = create_agent()
     # Set debug to True to see A LOT of details of the agent's inner workings
     # langchain.debug = True
     while True:
-        question = input('Testing main agent: ')
+        question = input("Testing main agent: ")
         with get_openai_callback() as cb:
             response = local_agent(question)
             print(response)
