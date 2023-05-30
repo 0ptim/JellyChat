@@ -1,42 +1,125 @@
 import os
 from dotenv import load_dotenv
-from supabase import create_client, Client
+from supabase import create_client
 from typing import List, Dict, Union
 
 load_dotenv()
 
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-class SupabaseManager:
-    def __init__(self) -> None:
-        self.supabase: Client = self._init_supabase()
 
-    def _init_supabase(self) -> Client:
-        url = os.getenv("SUPABASE_URL")
-        key = os.getenv("SUPABASE_KEY")
-        return create_client(url, key)
+def add_question_answer(question: str, answer: str) -> int:
+    """Add a question and answer to the database.
 
-    def add_question_answer(self, question: str, answer: str) -> int:
-        """Add a question and answer to the database.
+    Args:
+        question: The question that was asked.
+        answer: The answer that was selected.
 
-        Args:
-            question: The question that was asked.
-            answer: The answer that was selected.
+    Returns:
+        The id of the new entry.
+    """
+    data = (
+        supabase.table("qa").insert({"question": question, "answer": answer}).execute()
+    )
+    return data.data[0]["id"]
 
-        Returns:
-            The id of the new entry.
-        """
-        data = (
-            self.supabase.table("qa")
-            .insert({"question": question, "answer": answer})
-            .execute()
-        )
-        return data.data[0]["id"]
 
-    def get_question_answers(self) -> List[Dict[str, Union[int, str]]]:
-        """Get all QA.
+def add_chat_message(user_id: int, message_type: str, content: str) -> int:
+    """Add a chat message to the database.
 
-        Returns:
-            A list of all QA.
-        """
-        data = self.supabase.table("qa").select("*").execute()
-        return data.data
+    Args:
+        user_id: The user id associated with the message.
+        message_type: The type of the message (e.g. 'human', 'jelly' or 'tool').
+        content: The content of the message.
+
+    Returns:
+        The id of the new entry.
+    """
+    data = (
+        supabase.table("chat_messages")
+        .insert({"user_id": user_id, "message_type": message_type, "content": content})
+        .execute()
+    )
+    return data.data[0]["id"]
+
+
+def get_question_answers() -> List[Dict[str, Union[int, str]]]:
+    """Get all QA.
+
+    Returns:
+        A list of all QA.
+    """
+    data = supabase.table("qa").select("*").execute()
+    return data.data
+
+
+def check_user_exists(user_token: str) -> Union[int, None]:
+    """Check if a user exists based on the user_token.
+
+    Args:
+        user_token: The user_token to search.
+
+    Returns:
+        The user_id if the user exists, otherwise None.
+    """
+    data = (
+        supabase.table("users").select("user_id").eq("user_token", user_token).execute()
+    )
+    if data.data and len(data.data) > 0:
+        return data.data[0]["user_id"]
+    else:
+        return None
+
+
+def create_user(user_token: str) -> int:
+    """Create a new user.
+
+    Args:
+        user_token: The user_token for the new user.
+
+    Returns:
+        The user_id of the new user.
+    """
+    data = supabase.table("users").insert({"user_token": user_token}).execute()
+    return data.data[0]["user_id"]
+
+
+def get_chat_history(user_id: int) -> List[Dict[str, Union[int, str, str]]]:
+    """Get all chat messages of a certain user based on their user_id.
+
+    Args:
+        user_id: The user_id of the user.
+
+    Returns:
+        A list of all chat messages of the specified user.
+    """
+    data = (
+        supabase.table("chat_messages")
+        .select("*")
+        .eq("user_id", user_id)
+        .order("timestamp")
+        .execute()
+    )
+    return data.data
+
+
+def get_chat_memory(user_id: int) -> List[Dict[str, Union[int, str, str]]]:
+    """Get all human and Jelly chat messages of a certain user based on their user_id. This leaves out all other chat messages, because they are not relevant for the memory.
+
+    Args:
+        user_id: The user_id of the user.
+
+    Returns:
+        A list of all human and Jelly chat messages of the specified user.
+    """
+    data = (
+        supabase.table("chat_messages")
+        .select("*")
+        .eq("user_id", user_id)
+        .in_("message_type", ["human", "jelly"])  # Filter for human and Jelly messages
+        .order("timestamp")
+        .execute()
+    )
+    return data.data
