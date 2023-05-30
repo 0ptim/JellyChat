@@ -1,16 +1,21 @@
 from langchain.callbacks.base import BaseCallbackHandler
 from flask_socketio import emit
 from utils import get_tool_message
+from data import add_question_answer, add_chat_message
 
 
 class CallbackHandlers:
     class ToolUseNotifier(BaseCallbackHandler):
-        def __init__(self, app_instance):
+        def __init__(self, app_instance, user_id):
             super().__init__()
             self.app_instance = app_instance
+            self.user_id = user_id
 
         def on_tool_start(self, serialized, input_str, **kwargs):
             tool_message = get_tool_message(serialized["name"])
+
+            add_chat_message(self.user_id, "ai", tool_message)
+
             emit("tool_start", {"tool_name": tool_message})
             self.app_instance.socketio.sleep(0)
 
@@ -27,7 +32,5 @@ class CallbackHandlers:
         def on_tool_end(self, output, **kwargs):
             if self.current_question:
                 print(f"⭕ QA Tool ended: {output}")
-                self.app_instance.manager.add_question_answer(
-                    self.current_question, output
-                )
+                add_question_answer(self.current_question, output)
                 self.current_question = ""

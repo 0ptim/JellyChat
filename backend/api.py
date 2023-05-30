@@ -1,7 +1,6 @@
 import os
 from flask import Flask
 from flask_socketio import SocketIO
-from data import SupabaseManager
 from api_routes import setup_routes
 from callback_handlers import CallbackHandlers
 from dotenv import load_dotenv
@@ -15,7 +14,6 @@ class API:
         self.socketio = SocketIO(
             self.app, async_mode="gevent", cors_allowed_origins="*"
         )
-        self.manager = SupabaseManager()
         setup_routes(self)
         self.current_question = ""
 

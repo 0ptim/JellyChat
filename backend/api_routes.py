@@ -3,6 +3,13 @@ from session_agents import agent_for_user
 from langchain.callbacks import get_openai_callback
 from callback_handlers import CallbackHandlers
 from flask_socketio import emit
+from data import (
+    check_user_exists,
+    create_user,
+    get_chat_history,
+    get_question_answers,
+    add_chat_message,
+)
 
 
 def _is_valid_input(user_token, message):
@@ -18,21 +25,27 @@ def process_input(app_instance, user_token, message):
     if not is_valid:
         return error_response, error_code
 
+    # Only to get user id
+    user_id = check_user_exists(user_token)
+
     chat_agent = agent_for_user(user_token)
 
     with get_openai_callback() as cb:
         response_obj = chat_agent(
             message,
             callbacks=[
+                CallbackHandlers.ToolUseNotifier(app_instance, user_id),
                 CallbackHandlers.QAToolHandler(app_instance),
-                CallbackHandlers.ToolUseNotifier(app_instance),
             ],
         )
         app_instance.log_response_info(cb)
 
     response = response_obj["output"].strip()
 
-    return make_response(jsonify({"response": response}), 200)
+    add_chat_message(user_id, "human", message)
+    add_chat_message(user_id, "jelly", response)
+
+    return jsonify({"response": response}), 200
 
 
 def setup_routes(app_instance):
@@ -46,7 +59,7 @@ def setup_routes(app_instance):
             emit("error", error_response.get_json())
             return
 
-        response, _ = process_input(app_instance, user_token, message)
+        response, status_code = process_input(app_instance, user_token, message)
         emit("final_message", {"message": response.get_json()["response"]})
 
     @app.route("/user_message", methods=["POST"])
@@ -57,11 +70,26 @@ def setup_routes(app_instance):
         user_token = request.json.get("user_token", "").strip()
         message = request.json.get("message", "").strip()
 
-        return process_input(app_instance, user_token, message)
+        response, status_code = process_input(app_instance, user_token, message)
+        return make_response(response, status_code)
+
+    @app.route("/history", methods=["POST"])
+    def get_user_history():
+        user_token = request.json.get("user_token", "")
+        if not user_token:
+            return make_response("User token is missing or empty", 400)
+
+        user_id = check_user_exists(user_token)
+        if user_id is None:
+            print("Creating user: ", user_token)
+            user_id = create_user(user_token)
+
+        chat_messages = get_chat_history(user_id)
+        return make_response(jsonify(chat_messages), 200)
 
     @app.route("/messages_answers", methods=["GET"])
     def get_all_messages_answers():
-        messages_answers = app_instance.manager.get_question_answers()
+        messages_answers = get_question_answers()
         return make_response(jsonify(messages_answers), 200)
 
     @app.after_request
