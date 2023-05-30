@@ -19,13 +19,7 @@ from tools.ocean.vault import vaultInformationTool
 load_dotenv()
 
 
-def create_agent():
-    memory = ConversationBufferMemory(
-        # Important to align with agent prompt (below)
-        memory_key="chat_history",
-        return_messages=True,
-    )
-
+def create_agent(memory):
     llm = ChatOpenAI(model_name="gpt-3.5-turbo")
 
     tools = [
@@ -71,7 +65,11 @@ def create_agent():
 
 
 if __name__ == "__main__":
-    local_agent = create_agent()
+    memory = ConversationBufferMemory(
+        memory_key="chat_history",
+        return_messages=True,
+    )
+    local_agent = create_agent(memory)
     # Set debug to True to see A LOT of details of the agent's inner workings
     # langchain.debug = True
     while True:
