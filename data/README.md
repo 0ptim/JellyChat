@@ -13,10 +13,16 @@ We use Supabase to store all questions and final answers together with their rat
 
 ## Local development
 
+First, install the supabase CLI via npm:
+
+```bash
+npm install
+```
+
 To start supabase locally, make sure you have Docker installed and running. Then run:
 
 ```bash
-supabase start
+npx supabase start
 ```
 
 This can take a few minutes to start up. Once it's running, you should see all the containers running in Docker.
@@ -26,13 +32,13 @@ You'll find the dashboard at: `http://localhost:54323/`
 To stop supabase, run:
 
 ```bash
-supabase stop
+npx supabase stop
 ```
 
 Use the `--backup` to stop without resetting the database.
 
 ```bash
-supabase stop --backup
+npx supabase stop --backup
 ```
 
 ## Migrations
@@ -40,7 +46,7 @@ supabase stop --backup
 To create a new migration, run:
 
 ```bash
-supabase migration new {description}
+npx supabase migration new {description}
 ```
 
 > ℹ `{description}` should be a short description of the migration, e.g. `create_users_table`.
@@ -50,7 +56,7 @@ This will create a new migration file in `/migrations`. Insert your SQL there.
 To apply the migrations, run:
 
 ```bash
-supabase db reset
+npx supabase db reset
 ```
 
 This will reset the database and apply all migrations. You can also use this command to reset the database to a clean state.
