@@ -3,7 +3,7 @@ from langchain.agents import Tool
 from ..utils import getOcean, Network
 
 
-def getBurn(query: str) -> str:
+def get_burn(query: str) -> str:
     """Get burn info of DeFi Blockchain"""
     return getOcean().stats.getBurn()
 
@@ -18,5 +18,5 @@ paybackfees: str[], paybacktokens: str[], dfip2203: str[], dfip2206f: str[]
 statsGetBurnTool = Tool(
     name="Gets Burn Information",
     description=description,
-    func=getBurn
+    func=get_burn
 )

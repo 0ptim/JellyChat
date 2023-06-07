@@ -3,12 +3,9 @@ from langchain.agents import Tool
 from ..utils import getOcean, Network, filterJson
 
 
-def getTransactions(query: str) -> str:
+def get_transactions(query: str) -> str:
     """Gets all transactions within a block"""
     hash, size = query.split(",")
-
-    if int(size) > 4:
-        size = 4
 
     return getOcean().blocks.getTransactions(hash, size)
 
@@ -25,5 +22,5 @@ The input has to be a string.
 blocksGetTransactionsTool = Tool(
     name="Get Transactions",
     description=description,
-    func=getTransactions
+    func=get_transactions
 )

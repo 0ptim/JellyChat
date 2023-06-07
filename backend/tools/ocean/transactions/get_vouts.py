@@ -3,7 +3,7 @@ from langchain.agents import Tool
 from ..utils import getOcean, Network
 
 
-def getVouts(query: str) -> str:
+def get_vouts(query: str) -> str:
     """Get a list of vouts of a Transaction"""
     return getOcean().transactions.getVouts(query, size=200)
 
@@ -19,5 +19,5 @@ The input has to be a string.
 transactionGetVoutsTool = Tool(
     name="Get Outputs Of Transaction",
     description=description,
-    func=getVouts
+    func=get_vouts
 )

@@ -3,7 +3,7 @@ from langchain.agents import Tool
 from ..utils import getOcean, Network
 
 
-def getVins(query: str) -> str:
+def get_vins(query: str) -> str:
     """Get a list of vins of a Transaction"""
     return getOcean().transactions.getVins(query, size=200)
 
@@ -20,5 +20,5 @@ The input has to be a string.
 transactionGetVinsTool = Tool(
     name="Get Inputs Of Transaction",
     description=description,
-    func=getVins
+    func=get_vins
 )
