@@ -9,8 +9,13 @@ def list_token(query: str) -> str:
 
 
 description = """
-To get the token balance of one specific address.
-Provide the address as input. Example: df1...
+Gets the balance of all tokens on a address.
+Contains: DFI, BTC, ETH, USDC, USDT, DOGE, DUSD, SPY, TSLA, APPL, ...
+Does not contain DFI UTXO balance.
+Return information: id: str, amount: str, symbol: str, displaySymbol: str, symbolKey: str, name: str, isDAT: bool, 
+isLPS: bool, isLoanToken: bool
+Provides a address as an input.
+The input has to be a string.
 """
 
 addressListTokenTool = Tool(

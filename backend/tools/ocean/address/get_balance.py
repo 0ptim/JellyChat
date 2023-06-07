@@ -9,8 +9,10 @@ def get_balance(query: str) -> str:
 
 
 description = """
-To get the UTXO balance of one specific address.
-Provide the address as input. Example: df1...
+Gets the current DFI utxo balance of a specific address.
+Return information: float
+Provides a address as an input.
+The input has to be a string.
 """
 
 addressGetBalanceTool = Tool(

@@ -2,25 +2,24 @@ from langchain.agents import Tool
 
 from ..utils import getOcean, Network
 
-def list_transaction(address: str, size: str) -> str:
+
+def list_transaction(query: str) -> str:
     """Returns the transactions of an address."""
+    address, size = query.split(",")
     return getOcean().address.listTransaction(address=address, size=size)
 
 
-def parsing_list_transaction(query: str) -> str:
-    print("Query: ", query)
-    address, size = query.split(",")
-    print("Address: ", address, "Size: ", size)
-    return list_transaction(address, int(size))
-
-
 description = """
-To get the transactions of one specific address.
-The input to this tool should be in the format of 'address,size', where size is the amount of transactions needed. Example: df1...,10
+Lists transaction belonging to the specified address
+Return information: id: str, hid: str, type: ‘vin’ | ‘vout’, typeHex: ‘00’ | ‘01’, txid: str, block: (hash: str, 
+height: int, time: int, medianTime: int), script: (type: str, hex: str), vin: (txid: str, n: int), 
+vout: (txid: str, n: int), value: str, tokenId: int
+Provides a address and an number of transactions as an input. If no number is provided use  as default.
+The input has to be formatted like this: address,number 
 """
 
 addressListTransactionsTool = Tool(
-    name="Get Transactions",
+    name="Get Address Transactions",
     description=description,
-    func=parsing_list_transaction
+    func=list_transaction
 )

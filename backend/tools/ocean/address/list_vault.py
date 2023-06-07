@@ -9,12 +9,20 @@ def list_vault(query: str) -> str:
 
 
 description = """
-To get the vaults of one specific address.
-Provide the address as input. Example: df1...
+Lists vaults belonging to the specified address
+Return information: vaultId: string, loanScheme: LoanScheme, ownerAddress: string, 
+state: LoanVaultState.ACTIVE | LoanVaultState.FROZEN | LoanVaultState.MAY_LIQUIDATE | LoanVaultState.UNKNOWN,
+informativeRatio: string, collateralRatio: string, collateralValue: string, loanValue: string, interestValue: string,
+collateralAmounts: (id: string, amount: string, symbol: string, displaySymbol: string,symbolKey: string,name: string, 
+activePrice?: ActivePrice), loanAmounts: (id: string, amount: string, symbol: string, displaySymbol: string, 
+symbolKey: string,name: string, activePrice?: ActivePrice), interestAmounts: (id: string, amount: string,symbol: string,
+displaySymbol: string, symbolKey: string, name: string, activePrice?: ActivePrice)
+Provides a address as an input.
+The input has to ba a string.
 """
 
 addressListVaultTool = Tool(
-    name="Get Vaults for Address",
+    name="Get Vaults of Address",
     description=description,
     func=list_vault
 )
