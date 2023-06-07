@@ -1,63 +1,42 @@
 # Imports
+from .address import *
+from .blocks import *
+from .loan import *
+from .poolpairs import *
+from .prices import *
+from .rawtx import *
+from .stats import *
+from .tokens import *
+from .transactions import *
 
 oceanTools = []
 
 # Address
-from .address.get_balance import addressGetBalanceTool
-from .address.list_token import addressListTokenTool
-from .address.list_transaction import addressListTransactionsTool
-from .address.list_vault import addressListVaultTool
+oceanTools.extend((addressGetBalanceTool, addressListTokenTool, addressListTransactionsTool, addressListVaultTool,
+                   addressListTransactionUnspentTool))
 
-oceanTools.extend([addressGetBalanceTool, addressListTokenTool, addressListTransactionsTool, addressListVaultTool])
-
-# Blocke
-from .blocks.get import blocksGetTool
-from .blocks.getTransactions import blocksGetTransactionsTool
-from .blocks.list import blocksListTool
-
-oceanTools.extend([blocksGetTool, blocksGetTransactionsTool, blocksListTool])
+# Blocks
+oceanTools.extend((blocksGetTool, blocksGetTransactionsTool, blocksListTool))
 
 # Loan
-from .loan.getVault import loanGetVaultTool
-
-oceanTools.extend([loanGetVaultTool])
+oceanTools.extend((loanGetVaultTool, ))
 
 # PoolPairs
-#from .poolpairs.get import poolpairsGetTool
-#from .poolpairs.list import poolpairsListTool
-
-#oceanTools.extend([poolpairsGetTool, poolpairsListTool])
+oceanTools.extend((poolpairsGetTool, ))
 
 # Prices
-from .prices.get import priceGetTool
-
-oceanTools.extend([priceGetTool])
+oceanTools.extend((priceGetTool, ))
 
 # RawTX
-from .rawtx.get import rawTxGetTool
-from .rawtx.send import rawTxSendTool
-from .rawtx.test import rawTxTestTool
-
 oceanTools.extend((rawTxGetTool, rawTxSendTool, rawTxTestTool))
 
 # Stats
-from .stats.get import statsGetTool
-from .stats.getBurn import statsGetBurnTool
-from .stats.getRewardDistribution import statsGetRewardDistributionTool
-from .stats.getSupply import statsGetSupplyTool
-
-oceanTools.extend([statsGetTool, statsGetBurnTool, statsGetRewardDistributionTool, statsGetSupplyTool])
+oceanTools.extend((statsGetTool, statsGetBurnTool, statsGetRewardDistributionTool, statsGetSupplyTool))
 
 # Tokens
-from .tokens.get import tokenGetTool
-
 oceanTools.extend((tokenGetTool, ))
 
 # Transaction
-from .transactions.get import transactionGetTool
-from .transactions.get_vins import transactionGetVinsTool
-from .transactions.get_vouts import transactionGetVoutsTool
-
 oceanTools.extend((transactionGetTool, transactionGetVinsTool, transactionGetVoutsTool))
 
 
