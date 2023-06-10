@@ -1,4 +1,4 @@
-from main_agent import create_agent
+from agent.main_agent import create_agent
 from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain.schema import messages_from_dict
 from data import get_chat_memory, check_user_exists

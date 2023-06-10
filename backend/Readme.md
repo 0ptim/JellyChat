@@ -197,4 +197,4 @@ docker container run --name JellyChat_Backend --env-file .env -d -p 8080:8080 je
 
 The main Agent is in `main_agent.py`. You can run it directly to test it.
 
-To debug, make sure `langchain.debug = True` is active in `main_agent.py`.
+To debug, make sure `langchain.debug = True` is active in `/agent/main_agent.py`.

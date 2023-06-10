@@ -46,7 +46,7 @@ Input should be a fully formed question."
 
 # Create a tool for agents to use
 wikiTool = Tool(
-    name="DeFiChainWiki QA System",
+    name="DeFiChainWiki knowledge base",
     description=description,
     func=qa.run
 )
