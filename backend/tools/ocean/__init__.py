@@ -2,6 +2,7 @@
 from .address import *
 from .blocks import *
 from .loan import *
+from .masternodes import *
 from .poolpairs import *
 from .prices import *
 from .rawtx import *
@@ -20,6 +21,9 @@ oceanTools.extend((blocksGetTool, blocksGetTransactionsTool, blocksListTool))
 
 # Loan
 oceanTools.extend((loanGetVaultTool, ))
+
+# Masternode
+oceanTools.extend((masternodeGetTool, ))
 
 # PoolPairs
 oceanTools.extend((poolpairsGetTool, ))
