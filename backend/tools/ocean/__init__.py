@@ -1,6 +1,7 @@
 # Imports
 from .address import *
 from .blocks import *
+from .governance import *
 from .loan import *
 from .masternodes import *
 from .poolpairs import *
@@ -18,6 +19,9 @@ oceanTools.extend((addressGetBalanceTool, addressListTokenTool, addressListTrans
 
 # Blocks
 oceanTools.extend((blocksGetTool, blocksGetTransactionsTool, blocksListTool))
+
+# Governance
+oceanTools.extend((governanceGetGovProposalTool, ))
 
 # Loan
 oceanTools.extend((loanGetVaultTool, ))
