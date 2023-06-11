@@ -1,82 +1,39 @@
-import sqlite3
 import os
+from dotenv import load_dotenv
+from supabase import create_client, Client
+from typing import List, Dict, Union
+
+load_dotenv()
 
 
-def get_db():
-    """Opens a new database connection (or creates a new database) if there is none yet for the current application context."""
+class SupabaseManager():
+    def __init__(self) -> None:
+        self.supabase: Client = self._init_supabase()
 
-    db_directory = 'data'
-    db_name = 'database.db'
-    db_path = os.path.join(db_directory, db_name)
+    def _init_supabase(self) -> Client:
+        url = os.getenv('SUPABASE_URL')
+        key = os.getenv('SUPABASE_KEY')
+        return create_client(url, key)
 
-    if not os.path.exists(db_directory):
-        os.makedirs(db_directory)
+    def add_message_response(self, question: str, answer: str) -> int:
+        """Add a question and answer to the database.
 
-    conn = sqlite3.connect(db_path)
-    return conn
+        Args:
+            question: The question that was asked.
+            answer: The answer that was selected.
 
+        Returns:
+            The id of the new entry.
+        """
+        data = self.supabase.table("qa").insert(
+            {"question": question, "answer": answer}).execute()
+        return data.data[0]["id"]
 
-def init_db():
-    """Initialize the database."""
-    with get_db() as db:
-        db.execute('''
-        CREATE TABLE IF NOT EXISTS QA (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            date DATETIME DEFAULT CURRENT_TIMESTAMP,
-            question TEXT NOT NULL,
-            answer TEXT NOT NULL,
-            rating INTEGER DEFAULT NULL,
-            CHECK (rating >= 0 AND rating <= 1)
-        )
-        ''')
-        db.commit()
+    def get_messages_answers(self) -> List[Dict[str, Union[int, str]]]:
+        """Get all QA.
 
-
-def add_qa(question: str, answer: str):
-    """Add a question and answer to the database.
-
-    Args:
-        question: The question that was asked.
-        answer: The answer that was selected.
-
-    Returns:
-        The id of the new entry.
-    """
-    with get_db() as db:
-        cursor = db.cursor()
-        cursor.execute('INSERT INTO QA (question, answer) VALUES (?, ?)',
-                       (question, answer))
-        db.commit()
-        return cursor.lastrowid
-
-
-def add_rating(id: int, rating: int):
-    """Add a rating to a question and answer.
-
-    Args:
-        id: The id of the question and answer.
-        rating: The rating (0 or 1).
-    """
-    with get_db() as db:
-        cursor = db.cursor()
-        cursor.execute('UPDATE QA SET rating = ? WHERE id = ?',
-                       (rating, id))
-        db.commit()
-
-
-def get_qa():
-    """Get all QA.
-
-    Returns:
-        A list of all QA.
-    """
-    with get_db() as db:
-        cursor = db.cursor()
-        cursor.execute('SELECT * FROM QA')
-        # Get column names
-        columns = [col[0] for col in cursor.description]
-        # Create list of dictionaries
-        result = []
-        for row in cursor.fetchall():
-            result.append(dict(zip(columns, row)))
-        return result
+        Returns:
+            A list of all QA.
+        """
+        data = self.supabase.table("qa").select("*").execute()
+        return data.data

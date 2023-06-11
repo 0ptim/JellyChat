@@ -1,35 +1,48 @@
-# ChatDeFiChain
+[![Deploy backend to Fly.io](https://github.com/0ptim/JellyChat/actions/workflows/fly.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly.yml)
+[![Apply supabase migrations](https://github.com/0ptim/JellyChat/actions/workflows/supabase.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase.yml)
 
-## 1. `/job`
+# JellyChat
 
-Code related to scraping defichainwiki.com and creating an index, which then can be used to answer DeFiChain-specific questions.
+> https://defichainwiki.com/jellychat
 
-- Python
-- GPT-Index
-- OpenAI API
+JellyChat is a project that aims to create a chatbot that can answer questions about DeFiChain and its ecosystem.
 
-[Details 🔎](./job/Readme.md)
+❗ There are many people which want to learn more about DeFiChain and its ecosystem. However, it is not always easy to find the right information. Also, many people struggle to take in information from various articles in a wiki.
 
-## 2. `/backend`
+✨ JellyChat aims to solve this by providing the ability for users to interactively ask questions and have an ongoing conversation.
 
-Rest API backend which can retrieve questions and will answer with the gathered knowledge out of defichainwiki.com.
+## Main Objectives
 
-- Python
-- Flask
-- OpenAI API
+- Make learning about DeFiChain fun.
+- Be able to answer general questions about DeFiChain and its ecosystem.
+- Be able to answer questions involving on-chain data.
+- Behave like Jelly (the DeFiChain mascot).
+- Feel like a friend that you can ask anything.
+
+## Architecture
+
+This gives a high-level overview of the architecture. It will be extended as the project progresses.
+
+![Architectural Overview of all components](./redme_files/process.png)
+
+## Key Components
+
+The Repository contains the following key components.
+
+### 🌐 `/backend`
+
+The backend is a Flask API that receives questions and returns answers. It uses a LangChain agent to analyze the question and then uses various tools to best answer the question.
 
 [Details 🔎](./backend/Readme.md)
 
-## 2. `/frontend`
+### 💽 `/data`
 
-Lightweight web-client where people can enter questions. Calls the backend API.
+We use Supabase to store all questions and final answers together with their rating.
 
-- HTML, CSS, JS
-- Alpine.js
+[Details 🔎](./data/Readme.md)
 
-[Details 🔎](./frontend/Readme.md)
+### ⚡️ `/job`
 
-## Possible Knowledge Sources
+Contains scripts that are executed periodically. Currently, it contains a script that scrapes defichainwiki.com and creates embeddings for each document. The embeddings are saved to Qdrant.
 
-- [defichainwiki.com](https://www.defichainwiki.com/)
-- [Example scraping Wikipedia](https://github.com/openai/openai-cookbook/blob/main/examples/fine-tuned_qa/olympics-1-collect-data.ipynb)
+[Details 🔎](./job/Readme.md)
