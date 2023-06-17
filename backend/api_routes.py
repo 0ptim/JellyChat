@@ -54,38 +54,53 @@ def setup_routes(app_instance):
 
     @socketio.on("user_message")
     def process_input_socket(user_token, message):
-        is_valid, error_response, error_code = _is_valid_input(user_token, message)
-        if not is_valid:
-            emit("error", error_response.get_json())
-            return
+        try:
+            is_valid, error_response, error_code = _is_valid_input(user_token, message)
+            if not is_valid:
+                emit("error", error_response.get_json())
+                return
 
-        response, status_code = process_input(app_instance, user_token, message)
-        emit("final_message", {"message": response.get_json()["response"]})
+            response, status_code = process_input(app_instance, user_token, message)
+            emit("final_message", {"message": response.get_json()["response"]})
+        except Exception:
+            emit(
+                "final_message",
+                {
+                    "message": "Yikes! 🌊 I made a bubbly blunder. Please accept this humble jellyfish's apologies for the inconvenience. 💜 Can we swim forward and try again together? 🐙"
+                },
+            )
 
     @app.route("/user_message", methods=["POST"])
     def process_input_rest():
-        if not request.is_json:
-            return make_response("Request should be in JSON format", 400)
+        try:
+            if not request.is_json:
+                return make_response("Request should be in JSON format", 400)
 
-        user_token = request.json.get("user_token", "").strip()
-        message = request.json.get("message", "").strip()
+            user_token = request.json.get("user_token", "").strip()
+            message = request.json.get("message", "").strip()
 
-        response, status_code = process_input(app_instance, user_token, message)
-        return make_response(response, status_code)
+            response, status_code = process_input(app_instance, user_token, message)
+            return make_response(response, status_code)
+        except Exception:
+            custom_message = "Yikes! 🌊 I made a bubbly blunder. Please accept this humble jellyfish's apologies for the inconvenience. 💜 Can we swim forward and try again together? 🐙"
+            return make_response(custom_message, 500)
 
     @app.route("/history", methods=["POST"])
     def get_user_history():
-        user_token = request.json.get("user_token", "")
-        if not user_token:
-            return make_response("User token is missing or empty", 400)
+        try:
+            user_token = request.json.get("user_token", "")
+            if not user_token:
+                return make_response("User token is missing or empty", 400)
 
-        user_id = check_user_exists(user_token)
-        if user_id is None:
-            print("Creating user: ", user_token)
-            user_id = create_user(user_token)
+            user_id = check_user_exists(user_token)
+            if user_id is None:
+                print("Creating user: ", user_token)
+                user_id = create_user(user_token)
 
-        chat_messages = get_chat_history(user_id)
-        return make_response(jsonify(chat_messages), 200)
+            chat_messages = get_chat_history(user_id)
+            return make_response(jsonify(chat_messages), 200)
+        except Exception:
+            return make_response("Exception while getting history", 500)
 
     @app.route("/messages_answers", methods=["GET"])
     def get_all_messages_answers():
