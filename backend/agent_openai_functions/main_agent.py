@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from langchain.chat_models import ChatOpenAI
+from langchain.prompts import MessagesPlaceholder
 from langchain.callbacks import get_openai_callback
 from langchain.agents import AgentType, load_tools, initialize_agent
 import langchain
@@ -15,7 +16,7 @@ from tools.ocean.vault import vaultInformationTool
 load_dotenv()
 
 
-def create_agent():
+def create_agent(memory):
     print("🤖 Initializing main agent...")
 
     # Set debug to True to see A LOT of details of the agent's inner workings
@@ -32,8 +33,17 @@ def create_agent():
         vaultInformationTool,
     ] + load_tools(["llm-math"], llm=llm)
 
+    agent_kwargs = {
+        "extra_prompt_messages": [MessagesPlaceholder(variable_name="memory")],
+    }
+
     open_ai_agent = initialize_agent(
-        tools, llm, agent=AgentType.OPENAI_FUNCTIONS, verbose=True
+        tools,
+        llm,
+        agent=AgentType.OPENAI_FUNCTIONS,
+        verbose=True,
+        agent_kwargs=agent_kwargs,
+        memory=memory,
     )
 
     return open_ai_agent
