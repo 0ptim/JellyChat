@@ -21,7 +21,7 @@ oceanTools.extend((addressGetBalanceTool, addressListTokenTool, addressListTrans
 oceanTools.extend((blocksGetTool, blocksGetTransactionsTool, blocksListTool))
 
 # Governance
-oceanTools.extend((governanceGetGovProposalTool, ))
+oceanTools.extend((governanceGetGovProposalTool, governanceListGovProposalTool))
 
 # Loan
 oceanTools.extend((loanGetVaultTool, ))
