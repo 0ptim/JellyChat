@@ -26,7 +26,7 @@ def create_agent(memory):
     print("🤖 Initializing main agent...")
 
     # Set debug to True to see A LOT of details of the agent's inner workings
-    langchain.debug = True
+    # langchain.debug = True
     llm = ChatOpenAI(model_name="gpt-3.5-turbo")
 
     tools = [
