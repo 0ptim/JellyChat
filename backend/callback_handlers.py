@@ -1,3 +1,4 @@
+import json
 from langchain.callbacks.base import BaseCallbackHandler
 from flask_socketio import emit
 from utils import get_tool_message
@@ -29,11 +30,14 @@ class CallbackHandlers:
         def __init__(self, app_instance):
             super().__init__()
             self.app_instance = app_instance
+            self.current_question = ""
 
         def on_tool_start(self, serialized, input_str, **kwargs):
             if serialized["name"] == wikiTool.name:
-                print(f"QA Tool started: {input_str}")
-                self.current_question = input_str
+                input_dict = json.loads(input_str.replace("'", '"'))
+                question = input_dict["arg1"]
+                print(f"QA Tool started: {question}")
+                self.current_question = question
 
         def on_tool_end(self, output, **kwargs):
             if self.current_question:
