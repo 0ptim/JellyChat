@@ -14,7 +14,7 @@ Provide the address as input. Example: df1...
 """
 
 utxoTool = Tool(
-    name="Get UTXO Balance",
+    name="ge_utxo_balance",
     description=description,
     func=get_balance
 )

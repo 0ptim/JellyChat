@@ -21,11 +21,21 @@ JellyChat is a project that aims to create a chatbot that can answer questions a
 
 ## Architecture
 
-This gives a high-level overview of the architecture. It will be extended as the project progresses.
-
-![Architectural Overview of all components](./docs/process.png)
+This gives a **high-level** overview of the architecture. For more details, please refer to the individual components.
 
 [📂 Download diagram source](./docs/process.drawio)
+
+### Accounts and History
+
+Identification of accounts is done with a `user_token` which the client needs to store. The client then posts this `user_token` to `/history` and gets the history back if the account exists. If the account does not exist, a new one is created automatically.
+
+![Architectural overview of accounts and history](./docs/process-Accounts-History.png)
+
+### Input/Output Flow
+
+The client posts a user message and a `user_token` to `/user_message`. A LangChain agent will be created for the specific `user_token` and the memory is filled from the history. The agent will then analyze the user's message and return an answer. The answer is then returned to the client and also added to the history.
+
+![Architectural overview of input and output flow](./docs/process-Input-Output-Flow.png)
 
 ## Key Components
 

@@ -14,7 +14,7 @@ Provide the address as input. Example: df1...
 """
 
 vaultsForAddressTool = Tool(
-    name="Get Vaults for Address",
+    name="get_vaults_for_address",
     description=description,
     func=get_vaults
 )

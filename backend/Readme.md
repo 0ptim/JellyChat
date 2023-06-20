@@ -55,9 +55,13 @@ You can listen to the following two events.
 
 This event is emitted, when the agent starts using a tool. You can use this to display an information to the user, so he knows what is happening.
 
+- `tool_name` - message which tool is used
+
 ### Event: `final_message`
 
 This event is emitted, when the agent has come up with a final answer. You can use this to display the answer to the user.
+
+- `message` - The final message
 
 ## REST Endpoints
 
@@ -193,4 +197,4 @@ docker container run --name JellyChat_Backend --env-file .env -d -p 8080:8080 je
 
 The main Agent is in `main_agent.py`. You can run it directly to test it.
 
-To debug, make sure `langchain.debug = True` is active in `main_agent.py`.
+To debug, make sure `langchain.debug = True` is active in `/agent/main_agent.py`.

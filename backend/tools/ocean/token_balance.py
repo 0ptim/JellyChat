@@ -14,7 +14,7 @@ Provide the address as input. Example: df1...
 """
 
 tokenbalanceTool = Tool(
-    name="Get Token Balance",
+    name="get_token_balance",
     description=description,
     func=get_tokenbalance
 )

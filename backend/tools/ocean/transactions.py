@@ -21,7 +21,7 @@ The input to this tool should be in the format of 'address,size', where size is 
 """
 
 transactionsTool = Tool(
-    name="Get Transactions",
+    name="get_transactions",
     description=description,
     func=parsing_transaction
 )

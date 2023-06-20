@@ -14,7 +14,7 @@ Provide the vault ID as input.
 """
 
 vaultInformationTool = Tool(
-    name="Get Vault Information",
+    name="get_vault_information",
     description=description,
     func=get_vaults
 )
