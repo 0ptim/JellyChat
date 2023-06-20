@@ -3,6 +3,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.prompts import MessagesPlaceholder
 from langchain.callbacks import get_openai_callback
 from langchain.agents import AgentType, load_tools, initialize_agent
+from langchain.chains.conversation.memory import ConversationBufferMemory
 import langchain
 
 from tools.wiki_qa import wikiTool
@@ -50,7 +51,11 @@ def create_agent(memory):
 
 
 if __name__ == "__main__":
-    local_agent = create_agent()
+    memory = ConversationBufferMemory(
+        memory_key="memory",
+        return_messages=True,
+    )
+    local_agent = create_agent(memory)
     while True:
         question = input("Testing main agent: ")
         with get_openai_callback() as cb:
