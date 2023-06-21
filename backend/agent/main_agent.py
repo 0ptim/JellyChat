@@ -4,10 +4,13 @@ from langchain.prompts import MessagesPlaceholder
 from langchain.callbacks import get_openai_callback
 from langchain.agents import AgentType, load_tools, initialize_agent
 from langchain.chains.conversation.memory import ConversationBufferMemory
+from langchain.schema import SystemMessage
 import langchain
 
 from tools.wiki_qa import wikiTool
 from tools.ocean import oceanTools
+
+from agent.prompt import PROMPT
 
 load_dotenv()
 
@@ -37,8 +40,11 @@ def create_agent(memory, final_output_handler=None):
 
     tools = [wikiTool] + load_tools(["llm-math"], llm=llm_for_math) + oceanTools
 
+    system_message = SystemMessage(content=PROMPT)
+
     agent_kwargs = {
         "extra_prompt_messages": [MessagesPlaceholder(variable_name="memory")],
+        "system_message": system_message,
     }
 
     open_ai_agent = initialize_agent(
