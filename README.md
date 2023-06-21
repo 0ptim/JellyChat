@@ -49,12 +49,17 @@ The backend is a Flask API that receives questions and returns answers. It uses 
 
 ### 💽 `/data`
 
-We use Supabase to store all questions and final answers together with their rating.
+We use Supabase to store:
+
+- Users
+- Messages
+- QA data
+- Embeddings
 
 [Details 🔎](./data/Readme.md)
 
 ### ⚡️ `/job`
 
-Contains scripts that are executed periodically. Currently, it contains a script that scrapes defichainwiki.com and creates embeddings for each document. The embeddings are saved to Qdrant.
+Contains scripts that are executed periodically. Currently, it contains a script that scrapes defichainwiki.com and creates embeddings for each document. The embeddings are saved to Supabase (pgvector).
 
 [Details 🔎](./job/Readme.md)

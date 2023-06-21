@@ -1,32 +1,31 @@
 # JellyChat - Job
 
-Contains scripts that are executed periodically. Currently, it contains a script that scrapes defichainwiki.com and creates embeddings for each document. The embeddings are saved to Qdrant.
+Contains scripts that are executed periodically. Currently, it contains a script that scrapes defichainwiki.com and creates embeddings for each document. The embeddings are saved to Supabase using pgvector.
 
 ## Process
 
 - Scrapes defichainwiki.com
 - Splits the content into documents
 - Creates embeddings for each document
-- Saves embeddings to Qdrant
+- Saves embeddings to Supabase
 
 ## Technologies
 
 - Python
 - LangChain
 - OpenAI API
-- Qdrant
+- Supabase
 
 ## Environment Variables
 
 - `OPENAI_API_KEY` - Your OpenAI API Key.
   - Used to embed documents.
-- `QDRANT_HOST` - Qdrant host URL of cluster.
+- `SUPABASE_URL` - Supabase API URL.
   - Used to store the documents and their embeddings.
-  - Can be obtained here: [cloud.qdrant.io](https://cloud.qdrant.io/)
-  - The URL looks like: https://XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.eu-central-1-0.aws.cloud.qdrant.io:6333
-- `QDRANT_API_KEY` - Qdrant API Key.
+  - Can be obtained here: [app.supabase.io](https://app.supabase.com/)
+- `SUPABASE_KEY` - Supabase anon key.
   - Used to store the documents and their embeddings.
-  - Can be obtained here: [cloud.qdrant.io](https://cloud.qdrant./)
+  - Can be obtained here: [app.supabase.io](https://app.supabase.com/)
 
 ## Python basic commands
 

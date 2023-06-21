@@ -4,12 +4,26 @@
 
 > https://cofmxsabxteiidryklyg.supabase.co
 
-We use Supabase to store all questions and final answers together with their rating.
+We use Supabase to store:
+
+- Users - `users`
+  - Used to store the user token
+- Messages - `chat_messages`
+  - Content
+  - Type: human/jelly/tool
+- QA data - `qa`
+  - Question
+  - Asnwer
+- Embeddings - `embeddings`
+  - Vector
+  - Content
+  - Metadata
 
 ## Technologies
 
 - Supabase
 - Postgres
+- pgvector
 
 ## Local development
 

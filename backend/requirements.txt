@@ -1,6 +1,5 @@
 python-dotenv==1.0.0
 langchain==0.0.207
-qdrant-client==1.2.0
 openai==0.27.8
 Flask==2.3.2
 Flask-SocketIO==5.3.4
@@ -9,3 +8,4 @@ gevent==22.10.2
 gevent-websocket==0.10.1
 gunicorn==20.1.0
 Flask-CORS==3.0.10
+tiktoken==0.4.0
