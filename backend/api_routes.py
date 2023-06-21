@@ -38,7 +38,7 @@ def process_input(app_instance, user_token, message):
                 CallbackHandlers.QAToolHandler(app_instance),
             ],
         )
-        app_instance.log_response_info(cb)
+        log_response_info(cb)
 
     response = response_obj["output"].strip()
 
@@ -46,6 +46,13 @@ def process_input(app_instance, user_token, message):
     add_chat_message(user_id, "jelly", response)
 
     return jsonify({"response": response}), 200
+
+
+def log_response_info(callback_obj):
+    print(f"ℹ Total Tokens: {callback_obj.total_tokens}")
+    print(f"ℹ Prompt Tokens: {callback_obj.prompt_tokens}")
+    print(f"ℹ Completion Tokens: {callback_obj.completion_tokens}")
+    print(f"ℹ Total Cost (USD): ${callback_obj.total_cost}")
 
 
 def setup_routes(app_instance):

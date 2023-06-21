@@ -15,10 +15,3 @@ class API:
         )
         setup_routes(self)
         self.current_question = ""
-
-    @staticmethod
-    def log_response_info(callback_obj):
-        print(f"ℹ Total Tokens: {callback_obj.total_tokens}")
-        print(f"ℹ Prompt Tokens: {callback_obj.prompt_tokens}")
-        print(f"ℹ Completion Tokens: {callback_obj.completion_tokens}")
-        print(f"ℹ Total Cost (USD): ${callback_obj.total_cost}")
