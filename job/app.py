@@ -1,7 +1,7 @@
-from langchain.vectorstores import Qdrant
+from langchain.vectorstores import SupabaseVectorStore
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.document_loaders import UnstructuredURLLoader
 from langchain.text_splitter import CharacterTextSplitter
+from supabase.client import Client, create_client
 from dotenv import load_dotenv, get_key
 import re
 
@@ -10,9 +10,14 @@ from sitemap_parser import get_urls
 
 load_dotenv()
 
+vectorTableName = "embeddings"
 scrapeUrls = ["https://www.defichainwiki.com/sitemap.xml"]
 chunk_size = 400
 chunk_overlap = 0
+
+supabase: Client = create_client(
+    get_key(".env", "SUPABASE_URL"), get_key(".env", "SUPABASE_KEY")
+)
 
 urls = []
 
@@ -52,7 +57,7 @@ for url in urls:
 print("✅ Scraped %s pages" % len(docs))
 
 
-print("➖ Remove long strings..")
+print("➖ Remove long strings")
 for document in docs:
     document.page_content = re.sub(
         r"(?<=\S)[^\s]{" + str(chunk_size) + ",}(?=\S)", "", document.page_content
@@ -67,16 +72,16 @@ text_splitter = CharacterTextSplitter(
 docs = text_splitter.split_documents(docs)
 print("✅ Split into %s chunks" % len(docs))
 
+print("➖ Remove all old documents from table")
+supabase.table(vectorTableName).delete().neq("id", -1).execute()
+print("✅ Removed all old documents from table")
 
 print("🔮 Embedding..")
 embeddings = OpenAIEmbeddings()
-
-qdrant = Qdrant.from_documents(
+vector_store = SupabaseVectorStore.from_documents(
     docs,
     embeddings,
-    url=get_key(".env", "QDRANT_HOST"),
-    api_key=get_key(".env", "QDRANT_API_KEY"),
-    prefer_grpc=True,
-    collection_name="DeFiChainWiki",
+    client=supabase,
+    table_name=vectorTableName,
 )
 print("✅ Embedded")

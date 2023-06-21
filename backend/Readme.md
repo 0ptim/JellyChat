@@ -15,7 +15,7 @@ The backend is a Flask API that provices both a web socket connection and a REST
     - Calls the Ocean API via DefichainPython
   - Wiki tool
     - Embedds the input
-    - Uses Qdrant to find the best matching document
+    - Uses Supabase (pgvector) to find the best matching document
     - Generates an answer
   - Math tool
 - Comes up with the final answer
@@ -30,7 +30,7 @@ The backend is a Flask API that provices both a web socket connection and a REST
 - Web sockets
 - OpenAI API
 - DefichainPython
-- Qdrant
+- Supabase
 
 ## Deployment
 
@@ -109,18 +109,13 @@ _Response body_
   - Used to embed incoming questions.
   - Used to generate text.
   - Can be obtained here: [platform.openai.com](https://platform.openai.com/)
-- `QDRANT_HOST` - Qdrant host URL of cluster.
-  - Used to find the best matching documents.
-  - Can be obtained here: [cloud.qdrant.io](https://cloud.qdrant.io/)
-  - The URL looks like: https://XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.eu-central-1-0.aws.cloud.qdrant.io:6333
-- `QDRANT_API_KEY` - Qdrant API key.
-  - Used to find the best matching documents.
-  - Can be obtained here: [cloud.qdrant.io](https://cloud.qdrant./)
 - `SUPABASE_URL` - Supabase API URL.
   - Used to save questions and answers with their rating.
+  - Used to find the best matching documents.
   - Can be obtained here: [app.supabase.io](https://app.supabase.com/)
 - `SUPABASE_KEY` - Supabase anon key.
   - Used to save questions and answers with their rating.
+  - Used to find the best matching documents.
   - Can be obtained here: [app.supabase.io](https://app.supabase.com/)
 
 ## Basic commands
