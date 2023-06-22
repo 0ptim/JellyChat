@@ -8,7 +8,13 @@ from langchain.chains.conversation.memory import ConversationBufferMemory
 import langchain
 
 from tools.wiki_qa import wikiTool
-from tools.ocean import *
+from tools.ocean.stats import statsTool
+from tools.ocean.token_balance import tokenbalanceTool
+from tools.ocean.transactions import transactionsTool
+from tools.ocean.utxo_balance import utxoTool
+from tools.ocean.vaults import vaultsForAddressTool
+from tools.ocean.vault import vaultInformationTool
+
 
 load_dotenv()
 
@@ -22,7 +28,8 @@ def create_agent():
 
     llm = ChatOpenAI(model_name="gpt-3.5-turbo")
 
-    tools = [wikiTool] + oceanTools + load_tools(["llm-math"], llm=llm)
+    tools = [wikiTool, statsTool, tokenbalanceTool,
+             transactionsTool, utxoTool, vaultsForAddressTool, vaultInformationTool] + load_tools(["llm-math"], llm=llm)
 
     print("🤖 Initializing main agent...")
     main_agent_instance = initialize_agent(

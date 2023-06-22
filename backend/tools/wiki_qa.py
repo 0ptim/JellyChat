@@ -1,32 +1,31 @@
-import os
-from dotenv import load_dotenv
-from qdrant_client import QdrantClient
+from dotenv import load_dotenv, get_key
+from supabase.client import Client, create_client
 from langchain.chat_models import ChatOpenAI
-from langchain.vectorstores import Qdrant
+from langchain.vectorstores import SupabaseVectorStore
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
 from langchain.agents import Tool
 
 load_dotenv()
 
-# The name of the collection in Qdrant
-collection_name = 'DeFiChainWiki'
+# The name of the table in Supabase, where the vectors are stored
+vectorTableName = "embeddings"
 
+# Create the supabase client
+supabase: Client = create_client(
+    get_key("../.env", "SUPABASE_URL"), get_key("../.env", "SUPABASE_KEY")
+)
 
-# Create a Qdrant client
-client = QdrantClient(url=os.getenv('QDRANT_HOST'),
-                      api_key=os.getenv('QDRANT_API_KEY'),
-                      prefer_grpc=True)
-
-
-# Create a langchain qdrant object
+# Create a vector store
 embeddings = OpenAIEmbeddings()
-qdrant = Qdrant(client=client,
-                collection_name=collection_name,
-                embeddings=embeddings)
+vector_store = SupabaseVectorStore(
+    embedding=embeddings,
+    client=supabase,
+    table_name=vectorTableName,
+)
 
-# Create a qdrant retriever
-retriever = qdrant.as_retriever(search_type="similarity")
+# Create a retriever
+retriever = vector_store.as_retriever(search_type="similarity")
 
 
 # Create retrieval chain
@@ -46,7 +45,7 @@ Input should be a fully formed question."
 
 # Create a tool for agents to use
 wikiTool = Tool(
-    name="DeFiChainWiki QA System",
+    name="defichain_wiki_knowledge",
     description=description,
     func=qa.run
 )
