@@ -18,7 +18,7 @@ The input has to be a string.
 """
 
 transactionGetVinsTool = Tool(
-    name="Get Inputs Of Transaction",
+    name="get_inputs_of_transaction",
     description=description,
     func=get_vins
 )

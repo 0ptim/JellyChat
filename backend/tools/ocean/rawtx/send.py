@@ -19,7 +19,7 @@ The input has to be a string.
 """
 
 rawTxSendTool = Tool(
-    name="Send Raw Transaction",
+    name="send_raw_transaction",
     description=description,
     func=send
 )

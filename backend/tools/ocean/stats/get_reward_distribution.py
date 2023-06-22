@@ -14,7 +14,7 @@ Information: masternode: int, community: int, anchor: int, liquidity: int, loan:
 """
 
 statsGetRewardDistributionTool = Tool(
-    name="Gets Reward Distribution",
+    name="gets_reward_distribution",
     description=description,
     func=get_reward_distribution
 )

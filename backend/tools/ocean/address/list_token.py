@@ -19,7 +19,7 @@ The input has to be a string.
 """
 
 addressListTokenTool = Tool(
-    name="Get Token Balance",
+    name="get_token_balance",
     description=description,
     func=list_token
 )

@@ -22,7 +22,7 @@ The input has to ba a string.
 """
 
 addressListVaultTool = Tool(
-    name="Get Vaults of Address",
+    name="get_vaults_of_address",
     description=description,
     func=list_vault
 )

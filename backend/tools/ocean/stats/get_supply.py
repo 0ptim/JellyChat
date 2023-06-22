@@ -14,7 +14,7 @@ Information: max: float, total: float, burned: float, circulating: float
 """
 
 statsGetSupplyTool = Tool(
-    name="Gets Supply",
+    name="gets_supply",
     description=description,
     func=get_supply
 )

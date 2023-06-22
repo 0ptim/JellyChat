@@ -20,7 +20,7 @@ The input has to be a string.
 """
 
 poolpairsGetTool = Tool(
-    name="Get Pool Pair",
+    name="get_pool_pair",
     description=description,
     func=get
 )

@@ -17,7 +17,7 @@ The input has to ba a string.
 """
 
 addressListTransactionUnspentTool = Tool(
-    name="List Unspent Inputs of Address",
+    name="list_unspent_inputs_of_address",
     description=description,
     func=list_transaction_unspent
 )

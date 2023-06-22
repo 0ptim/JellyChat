@@ -20,7 +20,7 @@ protocolversion: int)
 """
 
 statsGetTool = Tool(
-    name="Get Stats",
+    name="get_stats",
     description=description,
     func=get
 )

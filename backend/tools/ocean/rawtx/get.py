@@ -16,7 +16,7 @@ The input has to be a string.
 """
 
 rawTxGetTool = Tool(
-    name="Get Raw Transaction",
+    name="get_raw_transaction",
     description=description,
     func=get
 )

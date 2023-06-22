@@ -17,7 +17,7 @@ The input has to be a string.
 """
 
 masternodeGetTool = Tool(
-    name="Get Masternode",
+    name="get_masternode",
     description=description,
     func=get
 )

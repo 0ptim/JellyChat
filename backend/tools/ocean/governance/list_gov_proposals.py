@@ -32,7 +32,7 @@ title: string
 """
 
 governanceListGovProposalTool = Tool(
-    name="List all Governance Proposal ID and Title",
+    name="list_all_governance_proposal_ID_and_title",
     description=description,
     func=list_gov_proposal
 )

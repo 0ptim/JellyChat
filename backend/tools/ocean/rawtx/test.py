@@ -20,7 +20,7 @@ The input has to be a string.
 """
 
 rawTxTestTool = Tool(
-    name="Test Raw Transaction",
+    name="test_raw_transaction",
     description=description,
     func=test
 )

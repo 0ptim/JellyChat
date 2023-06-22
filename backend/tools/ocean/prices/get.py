@@ -15,7 +15,7 @@ Provides the name of the token as an input.
 """
 
 priceGetTool = Tool(
-    name="Get Price Ticker",
+    name="get_price_ticker",
     description=description,
     func=get
 )

@@ -16,7 +16,7 @@ paybackfees: str[], paybacktokens: str[], dfip2203: str[], dfip2206f: str[]
 """
 
 statsGetBurnTool = Tool(
-    name="Gets Burn Information",
+    name="gets_burn_information",
     description=description,
     func=get_burn
 )

@@ -20,7 +20,7 @@ The input has to be a string.
 """
 
 blocksGetTransactionsTool = Tool(
-    name="Get Transactions",
+    name="get_transactions",
     description=description,
     func=get_transactions
 )

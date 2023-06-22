@@ -21,7 +21,7 @@ Provide the vault ID as input.
 """
 
 loanGetVaultTool = Tool(
-    name="Get Vault Information",
+    name="get_vault_information",
     description=description,
     func=get_vault
 )

@@ -16,7 +16,7 @@ The input has to be a string.
 """
 
 addressGetBalanceTool = Tool(
-    name="Get UTXO Balance",
+    name="get_utxo_balance",
     description=description,
     func=get_balance
 )

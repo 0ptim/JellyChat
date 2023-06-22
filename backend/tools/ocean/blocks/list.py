@@ -17,7 +17,7 @@ The input has to be a string.
 """
 
 blocksListTool = Tool(
-    name="List Latest Blocks",
+    name="list_latest_blocks",
     description=description,
     func=list
 )

@@ -41,7 +41,7 @@ The input has to be a string.
 """
 
 governanceGetGovProposalTool = Tool(
-    name="Get Governance Proposal",
+    name="get_governance_proposal",
     description=description,
     func=get_gov_proposal
 )

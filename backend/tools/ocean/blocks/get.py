@@ -18,7 +18,7 @@ The input has to be a string.
 """
 
 blocksGetTool = Tool(
-    name="Get Block",
+    name="get_block",
     description=description,
     func=get
 )

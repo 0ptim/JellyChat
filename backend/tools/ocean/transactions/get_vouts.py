@@ -17,7 +17,7 @@ The input has to be a string.
 """
 
 transactionGetVoutsTool = Tool(
-    name="Get Outputs Of Transaction",
+    name="get_outputs_of_transaction",
     description=description,
     func=get_vouts
 )

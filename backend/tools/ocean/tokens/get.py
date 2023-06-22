@@ -19,7 +19,7 @@ The input has to be a string.
 """
 
 tokenGetTool = Tool(
-    name="Get Tokens",
+    name="get_tokens",
     description=description,
     func=get
 )

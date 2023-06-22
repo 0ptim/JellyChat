@@ -19,7 +19,7 @@ The input has to be formatted like this: address,number
 """
 
 addressListTransactionsTool = Tool(
-    name="Get Address Transactions",
+    name="get_address_transactions",
     description=description,
     func=list_transaction
 )
