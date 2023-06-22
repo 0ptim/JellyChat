@@ -7,7 +7,8 @@ def get_tool_message(name: str) -> str:
     if name == wikiTool.name:
         return "I'll go look this up in the DeFiChainWiki for you 🔎"
     elif name in [tool.name for tool in oceanTools]:
-        return "Let me gather some information out of the Ocean for you 🌊"
+        tool = " ".join([n.capitalize() for n in name.split("_")])
+        return f"Let me gather some information out of the Ocean for you: {tool} 🌊"
     elif name == "Calculator":
         return "Let's do the math together 🧮"
     else:
