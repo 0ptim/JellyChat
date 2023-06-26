@@ -6,8 +6,8 @@ from langchain.agents import AgentType, load_tools, initialize_agent
 from langchain.chains.conversation.memory import ConversationBufferMemory
 import langchain
 
-from backend.tools.wiki_qa import wikiTool
-from backend.tools.ocean import oceanTools
+from tools.wiki_qa import wikiTool
+from tools.ocean import oceanTools
 
 load_dotenv()
 
