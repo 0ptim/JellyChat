@@ -1,25 +1,25 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network
-
-
-def list_token(query: str) -> str:
-    """Returns the token balance of an address."""
-    return getOcean().address.listToken(query)
+from ..utils import getOcean
 
 
-description = """
-Gets the balance of all tokens on a address.
+class ToolInputSchema(BaseModel):
+    address: str = Field(..., description="The address")
+
+
+def list_token(address: str) -> str:
+    return getOcean().address.listToken(address)
+
+
+description = """Gets the balance of all tokens on a address.
 Contains: DFI, BTC, ETH, USDC, USDT, DOGE, DUSD, SPY, TSLA, APPL, ...
 Does not contain DFI UTXO balance.
-Return information: id: str, amount: str, symbol: str, displaySymbol: str, symbolKey: str, name: str, isDAT: bool, 
-isLPS: bool, isLoanToken: bool
-Provides a address as an input.
-The input has to be a string.
 """
 
-addressListTokenTool = Tool(
+addressListTokenTool = StructuredTool(
     name="get_token_balance",
     description=description,
-    func=list_token
+    func=list_token,
+    args_schema=ToolInputSchema,
 )

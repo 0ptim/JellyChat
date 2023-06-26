@@ -1,23 +1,22 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network, filterJson
-
-
-def list(query: str) -> str:
-    """Returns a list of blocks"""
-    return getOcean().blocks.list(query)
+from ..utils import getOcean
 
 
-description = """
-Lists the latest blocks with the corresponding information.
-Return Information: ID, Hash, PreviousHash, Height, Version, Time, MedianTime, TransactionCount, Difficulty, Masternode, 
-Minter, MinterBlockCount, StakeModifier, MerkleRoot, Size, SizeStripped, Weight, Reward
-Provides the number of blocks as an input. Default input is 3.
-The input has to be a string. 
-"""
+class ToolInputSchema(BaseModel):
+    limit: int = Field(..., description="Number of blocks to list")
 
-blocksListTool = Tool(
+
+def list(limit: int) -> str:
+    return getOcean().blocks.list(limit)
+
+
+description = """Lists the latest blocks with the corresponding information."""
+
+blocksListTool = StructuredTool(
     name="list_latest_blocks",
     description=description,
-    func=list
+    func=list,
+    args_schema=ToolInputSchema,
 )

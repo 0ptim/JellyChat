@@ -1,24 +1,22 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network, filterJson
-
-
-def get(query: str) -> str:
-    """Returns the specified block"""
-    return getOcean().blocks.get(query)
+from ..utils import getOcean
 
 
-description = """
-Returns the corresponding information of the specified block.
-Return Information: id: str, hash: str, previousHash: str, height: int, version: int, time: int, medianTime: int, 
-transactionCount: int, difficulty: float, masternode: str, minter: str, minterBlockCount: int, reward: str, 
-stakeModifier: str, merkleroot: str, size: int, sizeStripped: int, weight: int
-Only an blockhash is allowed as a identification of the block.
-The input has to be a string. 
-"""
+class ToolInputSchema(BaseModel):
+    height_or_hash: str = Field(..., description="The height or hash")
 
-blocksGetTool = Tool(
+
+def get(height_or_hash: str) -> str:
+    return getOcean().blocks.get(height_or_hash)
+
+
+description = """Returns the corresponding information of the specified block."""
+
+blocksGetTool = StructuredTool(
     name="get_block",
     description=description,
-    func=get
+    func=get,
+    args_schema=ToolInputSchema,
 )

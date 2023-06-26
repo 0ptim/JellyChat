@@ -1,47 +1,22 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network, filterJson
-
-
-def get_gov_proposal(query: str) -> str:
-    """Get information about a proposal with given proposal id."""
-    return getOcean().governance.getGovProposal(query)
+from ..utils import getOcean
 
 
-description = """
-Gets information about a proposal with given proposal id.
-Return Information: 
+class ToolInputSchema(BaseModel):
+    txid: str = Field(..., description="The txid of the proposal")
 
-proposalId: string
-title: string
-context: string
-contextHash: string
-type: GovernanceProposalType
-status: GovernanceProposalStatus
-amount?: string
-currentCycle: number
-totalCycles: number
-creationHeight: number
-cycleEndHeight: number
-proposalEndHeight: number
-payoutAddress?: string
-votingPeriod: number
-approvalThreshold: string
-quorum: string
-votesPossible?: number
-votesPresent?: number
-votesPresentPct?: string
-votesYes?: number
-votesYesPct?: string
-fee: number
-options?: string[]
 
-Only an txid is allowed as a identification of the proposal.
-The input has to be a string. 
-"""
+def get_gov_proposal(txid: str) -> str:
+    return getOcean().governance.getGovProposal(txid)
 
-governanceGetGovProposalTool = Tool(
+
+description = """Gets information about a proposal with given proposal id."""
+
+governanceGetGovProposalTool = StructuredTool(
     name="get_governance_proposal",
     description=description,
-    func=get_gov_proposal
+    func=get_gov_proposal,
+    args_schema=ToolInputSchema,
 )

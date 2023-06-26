@@ -1,21 +1,23 @@
-from langchain.agents import Tool
-
-from ..utils import getOcean, Network, filterJson
-
-
-def get(query: str) -> [{}]:
-    """Returns a price ticker of a token"""
-    return getOcean().prices.get(query, "USD")
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
 
-description = """
-Gets a price ticker and the corresponding information.
-Return Information: id: str, sort: str, price: PriceFeed
-Provides the name of the token as an input.
-"""
+from ..utils import getOcean
 
-priceGetTool = Tool(
+
+class ToolInputSchema(BaseModel):
+    ticker_symbol: str = Field(..., description="The ticker symbol")
+
+
+def get(ticker_symbol: str) -> str:
+    return getOcean().prices.get(ticker_symbol, "USD")
+
+
+description = """Gets a price ticker and the corresponding information."""
+
+priceGetTool = StructuredTool(
     name="get_price_ticker",
     description=description,
-    func=get
+    func=get,
+    args_schema=ToolInputSchema,
 )

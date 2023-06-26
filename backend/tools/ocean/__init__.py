@@ -31,7 +31,6 @@ from .stats import (
 )
 from .tokens import tokenGetTool
 from .transactions import (
-    transactionGetTool,
     transactionGetVinsTool,
     transactionGetVoutsTool,
 )
@@ -79,4 +78,4 @@ oceanTools.extend(
 oceanTools.extend((tokenGetTool,))
 
 # Transaction
-oceanTools.extend((transactionGetTool, transactionGetVinsTool, transactionGetVoutsTool))
+oceanTools.extend((transactionGetVinsTool, transactionGetVoutsTool))

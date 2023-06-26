@@ -1,26 +1,25 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network, filterJson
-
-
-def get_transactions(query: str) -> str:
-    """Gets all transactions within a block"""
-    hash, size = query.split(",")
-
-    return getOcean().blocks.getTransactions(hash, size)
+from ..utils import getOcean
 
 
-description = """
-Returns all transactions within a block and their corresponding information.
-Return Information: id: str, order: int, block: (hash: str, height: int, time: int, medianTime: int), txid: str, 
-hash: str, version: int, size: int, vSize: int, weight: int, lockTime: int, vinCount: int, voutCount: int, 
-totalVoutValue: str
-Takes the blockhash and a number of transactions (blockhash, number) as an input. Seperated by comma.
-The input has to be a string. 
-"""
+class ToolInputSchema(BaseModel):
+    hash: str = Field(..., description="The hash")
+    limit: int = Field(..., description="The number of transactions")
 
-blocksGetTransactionsTool = Tool(
+
+def get_transactions(hash: str, limit: int) -> str:
+    return getOcean().blocks.getTransactions(hash, limit)
+
+
+description = (
+    """Returns all transactions within a block and their corresponding information."""
+)
+
+blocksGetTransactionsTool = StructuredTool(
     name="get_transactions",
     description=description,
-    func=get_transactions
+    func=get_transactions,
+    args_schema=ToolInputSchema,
 )

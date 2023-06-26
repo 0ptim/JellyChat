@@ -1,22 +1,22 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network
-
-
-def get_balance(query: str) -> str:
-    """Returns the UTXO balance of an address."""
-    return getOcean().address.getBalance(query)
+from ..utils import getOcean
 
 
-description = """
-Gets the current DFI utxo balance of a specific address.
-Return information: float
-Provides a address as an input.
-The input has to be a string.
-"""
+class ToolInputSchema(BaseModel):
+    address: str = Field(..., description="The address")
 
-addressGetBalanceTool = Tool(
+
+def get_balance(address: str) -> str:
+    return getOcean().address.getBalance(address)
+
+
+description = """Gets the current DFI utxo balance of a specific address."""
+
+addressGetBalanceTool = StructuredTool(
     name="get_utxo_balance",
     description=description,
-    func=get_balance
+    func=get_balance,
+    args_schema=ToolInputSchema,
 )

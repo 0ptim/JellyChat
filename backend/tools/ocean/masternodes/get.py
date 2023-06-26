@@ -1,23 +1,22 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network, filterJson
-
-
-def get(query: str) -> [{}]:
-    """Get information about a masternode with given id"""
-    return getOcean().masternodes.get(query)
+from ..utils import getOcean
 
 
-description = """
-Gets information about a masternode with given id
-Return Information: id: str, sort: str, state: MasternodeState, mintedBlocks: int, owner: (address: str), 
-operator: (address: str), creation: (height: int), resign: (tx: str, height: int), timelock: int
-Provides the masternode id as an input.
-The input has to be a string. 
-"""
+class ToolInputSchema(BaseModel):
+    masternode_id: str = Field(..., description="The masternode ID")
 
-masternodeGetTool = Tool(
+
+def get(masternode_id: str) -> str:
+    return getOcean().masternodes.get(masternode_id)
+
+
+description = """Gets information about a masternode with given id"""
+
+masternodeGetTool = StructuredTool(
     name="get_masternode",
     description=description,
-    func=get
+    func=get,
+    args_schema=ToolInputSchema,
 )

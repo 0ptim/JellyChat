@@ -1,26 +1,22 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network
+from ..utils import getOcean
 
 
-def get(query: str) -> str:
-    """Get stats of DeFi Blockchain"""
+class ToolInputSchema(BaseModel):
+    placeholder: str = Field(..., description="Just fill in `asdf`")
+
+
+def get(placeholder: str) -> str:
     return getOcean().stats.get()
 
 
-description = """
-Gets general stats of DeFi Blockchain
-Information: count: (blocks: int, tokens: int, prices: int, masternodes: int), tvl: (total: float, dex: float, 
-loan: float, masternodes: float), burned: (total: float, address: float, fee: int, auction: float, payback: float, 
-emission: float), price: (usd: float, usdt: float), masternodes: (locked: [( weeks: int, tvl: float, count: int)]), 
-emission: (total: float, masternode: float, dex: float, community: float, anchor: float, burned: float), 
-loan: (count: (schemes: int, loanTokens: int, collateralTokens: int, openVaults: int, openAuctions: int), 
-value: (collateral: float, loan: float)), blockchain: (difficulty: float), net: (version: int, subversion: str, 
-protocolversion: int)
-"""
+description = """Gets general stats of DeFi Blockchain."""
 
-statsGetTool = Tool(
+statsGetTool = StructuredTool(
     name="get_stats",
     description=description,
-    func=get
+    func=get,
+    args_schema=ToolInputSchema,
 )
