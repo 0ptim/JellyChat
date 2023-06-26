@@ -17,7 +17,7 @@ def create_agent(memory):
 
     # Set debug to True to see A LOT of details of the agent's inner workings
     # langchain.debug = True
-    llm = ChatOpenAI(model_name="gpt-3.5-turbo-0613")
+    llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k-0613")
 
     tools = [wikiTool] + load_tools(["llm-math"], llm=llm) + oceanTools
 
