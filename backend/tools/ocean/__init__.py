@@ -1,21 +1,53 @@
-# Imports
-from .address import *
-from .blocks import *
-from .governance import *
-from .loan import *
-from .masternodes import *
-from .poolpairs import *
-from .prices import *
-from .rawtx import *
-from .stats import *
-from .tokens import *
-from .transactions import *
+from .address import (
+    addressGetBalanceTool,
+    addressListTokenTool,
+    addressListTransactionsTool,
+    addressListVaultTool,
+    addressListTransactionUnspentTool,
+)
+from .blocks import (
+    blocksGetTool,
+    blocksGetTransactionsTool,
+    blocksListTool,
+)
+from .governance import (
+    governanceGetGovProposalTool,
+    governanceListGovProposalTool,
+)
+from .loan import loanGetVaultTool
+from .masternodes import masternodeGetTool
+from .poolpairs import poolpairsGetTool
+from .prices import priceGetTool
+from .rawtx import (
+    rawTxGetTool,
+    rawTxSendTool,
+    rawTxTestTool,
+)
+from .stats import (
+    statsGetTool,
+    statsGetBurnTool,
+    statsGetRewardDistributionTool,
+    statsGetSupplyTool,
+)
+from .tokens import tokenGetTool
+from .transactions import (
+    transactionGetTool,
+    transactionGetVinsTool,
+    transactionGetVoutsTool,
+)
 
 oceanTools = []
 
 # Address
-oceanTools.extend((addressGetBalanceTool, addressListTokenTool, addressListTransactionsTool, addressListVaultTool,
-                   addressListTransactionUnspentTool))
+oceanTools.extend(
+    (
+        addressGetBalanceTool,
+        addressListTokenTool,
+        addressListTransactionsTool,
+        addressListVaultTool,
+        addressListTransactionUnspentTool,
+    )
+)
 
 # Blocks
 oceanTools.extend((blocksGetTool, blocksGetTransactionsTool, blocksListTool))
@@ -24,27 +56,27 @@ oceanTools.extend((blocksGetTool, blocksGetTransactionsTool, blocksListTool))
 oceanTools.extend((governanceGetGovProposalTool, governanceListGovProposalTool))
 
 # Loan
-oceanTools.extend((loanGetVaultTool, ))
+oceanTools.extend((loanGetVaultTool,))
 
 # Masternode
-oceanTools.extend((masternodeGetTool, ))
+oceanTools.extend((masternodeGetTool,))
 
 # PoolPairs
-oceanTools.extend((poolpairsGetTool, ))
+oceanTools.extend((poolpairsGetTool,))
 
 # Prices
-oceanTools.extend((priceGetTool, ))
+oceanTools.extend((priceGetTool,))
 
 # RawTX
 oceanTools.extend((rawTxGetTool, rawTxSendTool, rawTxTestTool))
 
 # Stats
-oceanTools.extend((statsGetTool, statsGetBurnTool, statsGetRewardDistributionTool, statsGetSupplyTool))
+oceanTools.extend(
+    (statsGetTool, statsGetBurnTool, statsGetRewardDistributionTool, statsGetSupplyTool)
+)
 
 # Tokens
-oceanTools.extend((tokenGetTool, ))
+oceanTools.extend((tokenGetTool,))
 
 # Transaction
 oceanTools.extend((transactionGetTool, transactionGetVinsTool, transactionGetVoutsTool))
-
-
