@@ -1,22 +1,22 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network
+from ..utils import getOcean
 
 
-def get_burn(query: str) -> str:
-    """Get burn info of DeFi Blockchain"""
+class ToolInputSchema(BaseModel):
+    placeholder: str = Field(..., description="Just fill in `asdf`")
+
+
+def get_burn(placeholder: str) -> str:
     return getOcean().stats.getBurn()
 
 
-description = """
-Gets burn information.
-Information: address: str, amount: str, tokens: str[], feeburn: float, emissionburn: float, auctionburn: float, 
-paybackburn: float, paybackburntokens: str[], dexfeetokens: str[], dfipaybackfee: float, dfipaybacktokens: str[], 
-paybackfees: str[], paybacktokens: str[], dfip2203: str[], dfip2206f: str[]
-"""
+description = """Gets burn information."""
 
-statsGetBurnTool = Tool(
+statsGetBurnTool = StructuredTool(
     name="gets_burn_information",
     description=description,
-    func=get_burn
+    func=get_burn,
+    args_schema=ToolInputSchema,
 )

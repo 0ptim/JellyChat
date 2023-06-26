@@ -1,22 +1,22 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network, filterJson
-
-
-def get(query: str) -> [{}]:
-    """Get a raw transaction"""
-    return getOcean().rawTx.get(query)
+from ..utils import getOcean
 
 
-description = """
-Returns the raw transaction of the provided txid
-Return Information: Raw Transaction
-Provides the txid of the raw transaction as an input.
-The input has to be a string. 
-"""
+class ToolInputSchema(BaseModel):
+    txid: str = Field(..., description="The transaction ID")
 
-rawTxGetTool = Tool(
+
+def get(txid: str) -> str:
+    return getOcean().rawTx.get(txid)
+
+
+description = """Returns the raw transaction of the provided txid."""
+
+rawTxGetTool = StructuredTool(
     name="get_raw_transaction",
     description=description,
-    func=get
+    func=get,
+    args_schema=ToolInputSchema,
 )

@@ -1,25 +1,25 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network, filterJson
+from ..utils import getOcean
 
 
-def send(query: str) -> [{}]:
-    """Send a raw transaction"""
+class ToolInputSchema(BaseModel):
+    raw_tx: str = Field(..., description="Raw transaction (hex string)")
+
+
+def send(raw_tx: str) -> str:
     try:
-        return getOcean().rawTx.send(query)
+        return getOcean().rawTx.send(raw_tx)
     except Exception as e:
         return e
 
 
-description = """
-Sends the provided raw transaction to the network
-Return Information: txid of the submitted transaction
-Provides a raw transaction (hex string) as an input.
-The input has to be a string. 
-"""
+description = """Sends the provided raw transaction to the network"""
 
-rawTxSendTool = Tool(
+rawTxSendTool = StructuredTool(
     name="send_raw_transaction",
     description=description,
-    func=send
+    func=send,
+    args_schema=ToolInputSchema,
 )

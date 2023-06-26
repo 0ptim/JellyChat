@@ -1,26 +1,26 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network, filterJson
+from ..utils import getOcean
 
 
-def test(query: str) -> [{}]:
-    """Test a raw transaction"""
+class ToolInputSchema(BaseModel):
+    raw_tx: str = Field(..., description="Raw transaction (hex string)")
+
+
+def test(raw_tx: str) -> str:
     try:
-        getOcean().rawTx.test(query)
+        getOcean().rawTx.test(raw_tx)
         return True
     except Exception as e:
         return e
 
 
-description = """
-Tests if the provided raw transaction is accepted by the network
-Return Information: bool
-Provides a raw transaction (hex string) as an input.
-The input has to be a string. 
-"""
+description = """Tests if the provided raw transaction is accepted by the network"""
 
-rawTxTestTool = Tool(
+rawTxTestTool = StructuredTool(
     name="test_raw_transaction",
     description=description,
-    func=test
+    func=test,
+    args_schema=ToolInputSchema,
 )

@@ -1,20 +1,22 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network
+from ..utils import getOcean
 
 
-def get_supply(query: str) -> str:
-    """Gets supply of DeFi Blockchain"""
+class ToolInputSchema(BaseModel):
+    placeholder: str = Field(..., description="Just fill in `asdf`")
+
+
+def get_supply(placeholder: str) -> str:
     return getOcean().stats.getSupply()
 
 
-description = """
-Gets supply information.
-Information: max: float, total: float, burned: float, circulating: float
-"""
+description = """Gets supply information."""
 
-statsGetSupplyTool = Tool(
+statsGetSupplyTool = StructuredTool(
     name="gets_supply",
     description=description,
-    func=get_supply
+    func=get_supply,
+    args_schema=ToolInputSchema,
 )

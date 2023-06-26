@@ -1,25 +1,23 @@
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
-from ..utils import getOcean, Network
-
-
-def list_transaction(query: str) -> str:
-    """Returns the transactions of an address."""
-    address, size = query.split(",")
-    return getOcean().address.listTransaction(address=address, size=size)
+from ..utils import getOcean
 
 
-description = """
-Lists transaction belonging to the specified address
-Return information: id: str, hid: str, type: ‘vin’ | ‘vout’, typeHex: ‘00’ | ‘01’, txid: str, block: (hash: str, 
-height: int, time: int, medianTime: int), script: (type: str, hex: str), vin: (txid: str, n: int), 
-vout: (txid: str, n: int), value: str, tokenId: int
-Provides a address and an number of transactions as an input. If no number is provided use  as default.
-The input has to be formatted like this: address,number 
-"""
+class ToolInputSchema(BaseModel):
+    address: str = Field(..., description="The address")
+    limit: int = Field(..., description="Number of transactions to list")
 
-addressListTransactionsTool = Tool(
+
+def list_transaction(address: str, limit: int) -> str:
+    return getOcean().address.listTransaction(address=address, size=limit)
+
+
+description = """Lists transactions belonging to the specified address"""
+
+addressListTransactionsTool = StructuredTool(
     name="get_address_transactions",
     description=description,
-    func=list_transaction
+    func=list_transaction,
+    args_schema=ToolInputSchema,
 )
