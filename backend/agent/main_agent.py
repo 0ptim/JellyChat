@@ -6,13 +6,8 @@ from langchain.agents import AgentType, load_tools, initialize_agent
 from langchain.chains.conversation.memory import ConversationBufferMemory
 import langchain
 
-from tools.wiki_qa import wikiTool
-from tools.ocean.stats import statsTool
-from tools.ocean.token_balance import tokenbalanceTool
-from tools.ocean.transactions import transactionsTool
-from tools.ocean.utxo_balance import utxoTool
-from tools.ocean.vaults import vaultsForAddressTool
-from tools.ocean.vault import vaultInformationTool
+from backend.tools.wiki_qa import wikiTool
+from backend.tools.ocean import oceanTools
 
 load_dotenv()
 
@@ -24,15 +19,7 @@ def create_agent(memory):
     # langchain.debug = True
     llm = ChatOpenAI(model_name="gpt-3.5-turbo-0613")
 
-    tools = [
-        wikiTool,
-        statsTool,
-        tokenbalanceTool,
-        transactionsTool,
-        utxoTool,
-        vaultsForAddressTool,
-        vaultInformationTool,
-    ] + load_tools(["llm-math"], llm=llm)
+    tools = [wikiTool] + load_tools(["llm-math"], llm=llm) + oceanTools
 
     agent_kwargs = {
         "extra_prompt_messages": [MessagesPlaceholder(variable_name="memory")],

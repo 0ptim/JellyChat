@@ -9,3 +9,4 @@ gevent-websocket==0.10.1
 gunicorn==20.1.0
 Flask-CORS==3.0.10
 tiktoken==0.4.0
+defichain==3.0.0b2

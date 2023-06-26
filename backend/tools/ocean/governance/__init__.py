@@ -1,0 +1,2 @@
+from .get_gov_proposal import governanceGetGovProposalTool
+from .list_gov_proposals import governanceListGovProposalTool
