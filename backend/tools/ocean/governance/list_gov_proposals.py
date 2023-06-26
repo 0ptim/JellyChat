@@ -1,17 +1,22 @@
 from langchain.tools import StructuredTool
 from pydantic import BaseModel, Field
 
+
 from ..utils import getOcean
 
 
 class ToolInputSchema(BaseModel):
-    placeholder: str = Field(..., description="Just fill in `asdf`")
+    current: bool = Field(
+        True,
+        description="Set to false if you need all proposals. If set to true, only currenty live proposals will be returned.",
+    )
 
 
-def list_gov_proposal(placeholder: str) -> str:
+def list_gov_proposal(current: bool) -> str:
     # Query Proposals
+    status = "voting" if current else "all"
     proposals = []
-    data = getOcean().governance.listGovProposals("all", "all", 0, True, size=200)
+    data = getOcean().governance.listGovProposals(status, "all", 0, True, size=200)
     proposals.extend(data.get("data"))
 
     next = data.get("page").get("next") if data.get("page") else None
