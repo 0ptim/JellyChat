@@ -13,7 +13,7 @@ vectorTableName = "embeddings"
 
 # Create the supabase client
 supabase: Client = create_client(
-    get_key("../.env", "SUPABASE_URL"), get_key("../.env", "SUPABASE_KEY")
+    get_key(".env", "SUPABASE_URL"), get_key(".env", "SUPABASE_KEY")
 )
 
 # Create a vector store
@@ -32,7 +32,7 @@ retriever = vector_store.as_retriever(search_type="similarity")
 qa = RetrievalQA.from_chain_type(
     llm=ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0),
     chain_type="stuff",
-    retriever=retriever
+    retriever=retriever,
 )
 
 description = """
@@ -44,16 +44,13 @@ Input should be a fully formed question."
 """
 
 # Create a tool for agents to use
-wikiTool = Tool(
-    name="defichain_wiki_knowledge",
-    description=description,
-    func=qa.run
-)
+wikiTool = Tool(name="defichain_wiki_knowledge", description=description, func=qa.run)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     while True:
         question = input(
-            'Ask something, that can be answered using information from DeFiChainWiki: ')
+            "Ask something, that can be answered using information from DeFiChainWiki: "
+        )
         result = qa({"query": question})
         print("✅ Answer:", result["result"])
