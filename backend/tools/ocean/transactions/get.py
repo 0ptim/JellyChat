@@ -8,15 +8,15 @@ class ToolInputSchema(BaseModel):
     txid: str = Field(..., description="The id of the transaction")
 
 
-def get_vins(txid: str) -> str:
-    return getOcean().transactions.getVins(txid, size=200)
+def get(txid: str) -> str:
+    return getOcean().transactions.get(txid)
 
 
-description = """Gets a list of inputs of a transaction with specified txid"""
+description = """Get information about the transaction of the specified txid."""
 
-transactionGetVinsTool = StructuredTool(
-    name="get_inputs_of_transaction",
+transactionGetTool = StructuredTool(
+    name="get_transaction",
     description=description,
-    func=get_vins,
+    func=get,
     args_schema=ToolInputSchema,
 )

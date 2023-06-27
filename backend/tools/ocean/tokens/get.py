@@ -8,8 +8,8 @@ class ToolInputSchema(BaseModel):
     token_id: str = Field(..., description="The id of the token")
 
 
-def get(query: str) -> str:
-    return getOcean().tokens.get(query)
+def get(token_id: str) -> str:
+    return getOcean().tokens.get(token_id)
 
 
 description = """Get information about a token with id of the token"""

@@ -30,10 +30,7 @@ from .stats import (
     statsGetSupplyTool,
 )
 from .tokens import tokenGetTool
-from .transactions import (
-    transactionGetVinsTool,
-    transactionGetVoutsTool,
-)
+from .transactions import transactionGetTool
 
 oceanTools = []
 
@@ -78,4 +75,4 @@ oceanTools.extend(
 oceanTools.extend((tokenGetTool,))
 
 # Transaction
-oceanTools.extend((transactionGetVinsTool, transactionGetVoutsTool))
+oceanTools.extend((transactionGetTool,))

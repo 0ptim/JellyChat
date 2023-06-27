@@ -1,2 +1,1 @@
-from .get_vins import transactionGetVinsTool
-from .get_vouts import transactionGetVoutsTool
+from .get import transactionGetTool
