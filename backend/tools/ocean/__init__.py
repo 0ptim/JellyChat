@@ -58,13 +58,15 @@ oceanTools.extend((loanGetVaultTool,))
 oceanTools.extend((masternodeGetTool,))
 
 # PoolPairs
-oceanTools.extend((poolpairsGetTool,))
+# Deactivated until we have implemented 'List Pool Pairs'
+# oceanTools.extend((poolpairsGetTool,))
 
 # Prices
 oceanTools.extend((priceGetTool,))
 
 # RawTX
-oceanTools.extend((rawTxGetTool, rawTxSendTool, rawTxTestTool))
+# Deactivate until use-case clarified
+# oceanTools.extend((rawTxGetTool, rawTxSendTool, rawTxTestTool))
 
 # Stats
 oceanTools.extend(
