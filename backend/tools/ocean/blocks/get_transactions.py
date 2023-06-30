@@ -10,7 +10,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get_transactions(hash: str, limit: int) -> str:
-    return getOcean().blocks.getTransactions(hash, limit)
+    try:
+        return getOcean().blocks.getTransactions(hash, limit)
+    except Exception as e:
+        return str(e)
 
 
 description = (

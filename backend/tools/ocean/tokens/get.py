@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get(token_id: str) -> str:
-    return getOcean().tokens.get(token_id)
+    try:
+        return getOcean().tokens.get(token_id)
+    except Exception as e:
+        return str(e)
 
 
 description = """Get information about a token with id of the token"""

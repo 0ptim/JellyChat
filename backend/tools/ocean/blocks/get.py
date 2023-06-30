@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get(height_or_hash: str) -> str:
-    return getOcean().blocks.get(height_or_hash)
+    try:
+        return getOcean().blocks.get(height_or_hash)
+    except Exception as e:
+        return str(e)
 
 
 description = """Returns the corresponding information of the specified block."""

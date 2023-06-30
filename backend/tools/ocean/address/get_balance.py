@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get_balance(address: str) -> str:
-    return getOcean().address.getBalance(address)
+    try:
+        return getOcean().address.getBalance(address)
+    except Exception as e:
+        return str(e)
 
 
 description = """Gets the current DFI utxo balance of a specific address."""

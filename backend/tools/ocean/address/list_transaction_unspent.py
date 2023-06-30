@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def list_transaction_unspent(address: str) -> str:
-    return getOcean().address.listTransactionUnspent(address)
+    try:
+        return getOcean().address.listTransactionUnspent(address)
+    except Exception as e:
+        return str(e)
 
 
 description = """List all unspent inputs belonging to an address"""

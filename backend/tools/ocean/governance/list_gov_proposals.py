@@ -13,27 +13,30 @@ class ToolInputSchema(BaseModel):
 
 
 def list_gov_proposal(current: bool) -> str:
-    # Query Proposals
-    status = "voting" if current else "all"
-    proposals = []
-    data = getOcean().governance.listGovProposals(status, "all", 0, True, size=200)
-    proposals.extend(data.get("data"))
-
-    next = data.get("page").get("next") if data.get("page") else None
-    while next:
-        data = getOcean().governance.listGovProposals(
-            "all", "all", 0, True, size=200, next=next
-        )
+    try:
+        # Query Proposals
+        status = "voting" if current else "all"
+        proposals = []
+        data = getOcean().governance.listGovProposals(status, "all", 0, True, size=200)
         proposals.extend(data.get("data"))
-        next = data.get("page").get("next") if data.get("page") else None
 
-    # Filter for Proposal ID and Title
-    filtered_proposals = []
-    for proposal in proposals:
-        filtered_proposals.append(
-            {"id": proposal.get("proposalId"), "title": proposal.get("title")}
-        )
-    return filtered_proposals
+        next = data.get("page").get("next") if data.get("page") else None
+        while next:
+            data = getOcean().governance.listGovProposals(
+                "all", "all", 0, True, size=200, next=next
+            )
+            proposals.extend(data.get("data"))
+            next = data.get("page").get("next") if data.get("page") else None
+
+        # Filter for Proposal ID and Title
+        filtered_proposals = []
+        for proposal in proposals:
+            filtered_proposals.append(
+                {"id": proposal.get("proposalId"), "title": proposal.get("title")}
+            )
+        return filtered_proposals
+    except Exception as e:
+        return str(e)
 
 
 description = """Lists id and title of all proposals."""

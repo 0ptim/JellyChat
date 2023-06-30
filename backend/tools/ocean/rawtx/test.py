@@ -13,7 +13,7 @@ def test(raw_tx: str) -> str:
         getOcean().rawTx.test(raw_tx)
         return True
     except Exception as e:
-        return e
+        return str(e)
 
 
 description = """Tests if the provided raw transaction is accepted by the network"""

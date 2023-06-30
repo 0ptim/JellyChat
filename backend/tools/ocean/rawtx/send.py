@@ -12,7 +12,7 @@ def send(raw_tx: str) -> str:
     try:
         return getOcean().rawTx.send(raw_tx)
     except Exception as e:
-        return e
+        return str(e)
 
 
 description = """Sends the provided raw transaction to the network"""

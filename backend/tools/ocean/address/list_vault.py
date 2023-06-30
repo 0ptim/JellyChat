@@ -10,7 +10,10 @@ class ToolInputSchema(BaseModel):
 
 
 def list_vault(address: str, limit: int) -> str:
-    return getOcean().address.listVault(address=address, size=limit)
+    try:
+        return getOcean().address.listVault(address=address, size=limit)
+    except Exception as e:
+        return str(e)
 
 
 description = """Lists vaults belonging to the specified address"""

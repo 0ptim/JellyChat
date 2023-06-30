@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get_burn(placeholder: str) -> str:
-    return getOcean().stats.getBurn()
+    try:
+        return getOcean().stats.getBurn()
+    except Exception as e:
+        return str(e)
 
 
 description = """Gets burn information."""

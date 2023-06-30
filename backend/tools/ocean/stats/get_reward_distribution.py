@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get_reward_distribution(placeholder: str) -> str:
-    return getOcean().stats.getRewardDistribution()
+    try:
+        return getOcean().stats.getRewardDistribution()
+    except Exception as e:
+        return str(e)
 
 
 description = """Gets reward distribution information."""

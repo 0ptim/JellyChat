@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get(masternode_id: str) -> str:
-    return getOcean().masternodes.get(masternode_id)
+    try:
+        return getOcean().masternodes.get(masternode_id)
+    except Exception as e:
+        return str(e)
 
 
 description = """Gets information about a masternode with given id"""

@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get(txid: str) -> str:
-    return getOcean().transactions.get(txid)
+    try:
+        return getOcean().transactions.get(txid)
+    except Exception as e:
+        return str(e)
 
 
 description = """Get information about the transaction of the specified txid."""

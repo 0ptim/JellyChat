@@ -10,7 +10,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get(ticker_symbol: str) -> str:
-    return getOcean().prices.get(ticker_symbol, "USD")
+    try:
+        return getOcean().prices.get(ticker_symbol, "USD")
+    except Exception as e:
+        return str(e)
 
 
 description = """Gets a price ticker and the corresponding information."""

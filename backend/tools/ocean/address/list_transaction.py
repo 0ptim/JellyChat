@@ -10,7 +10,10 @@ class ToolInputSchema(BaseModel):
 
 
 def list_transaction(address: str, limit: int) -> str:
-    return getOcean().address.listTransaction(address=address, size=limit)
+    try:
+        return getOcean().address.listTransaction(address=address, size=limit)
+    except Exception as e:
+        return str(e)
 
 
 description = """Lists transactions belonging to the specified address"""

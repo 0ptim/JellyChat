@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def list_token(address: str) -> str:
-    return getOcean().address.listToken(address)
+    try:
+        return getOcean().address.listToken(address)
+    except Exception as e:
+        return str(e)
 
 
 description = """Gets the balance of all tokens on a address.

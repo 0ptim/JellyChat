@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get_gov_proposal(txid: str) -> str:
-    return getOcean().governance.getGovProposal(txid)
+    try:
+        return getOcean().governance.getGovProposal(txid)
+    except Exception as e:
+        return str(e)
 
 
 description = """Gets information about a proposal with given proposal id."""

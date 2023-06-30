@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def list(limit: int) -> str:
-    return getOcean().blocks.list(limit)
+    try:
+        return getOcean().blocks.list(limit)
+    except Exception as e:
+        return str(e)
 
 
 description = """Lists the latest blocks with the corresponding information."""

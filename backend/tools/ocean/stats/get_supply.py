@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get_supply(placeholder: str) -> str:
-    return getOcean().stats.getSupply()
+    try:
+        return getOcean().stats.getSupply()
+    except Exception as e:
+        return str(e)
 
 
 description = """Gets supply information."""

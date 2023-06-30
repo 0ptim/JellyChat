@@ -4,7 +4,8 @@ from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import SupabaseVectorStore
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
-from langchain.agents import Tool
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
 
 load_dotenv()
 
@@ -35,16 +36,26 @@ qa = RetrievalQA.from_chain_type(
     retriever=retriever,
 )
 
-description = """
-Use this if you need to:
-- Answer questions about the DeFiChain project.
-- Lookup addresses of people.
-Not useful, if you need to answer questions involving live-data.
-Input should be a fully formed question."
-"""
 
-# Create a tool for agents to use
-wikiTool = Tool(name="defichain_wiki_knowledge", description=description, func=qa.run)
+class ToolInputSchema(BaseModel):
+    question: str = Field(..., description="A fully formed question.")
+
+
+def get_answer(question: str) -> str:
+    try:
+        return qa(question)
+    except Exception as e:
+        return "The wiki knowledgebase is currently not available. We are working on it. Tell the user to use the wiki directly. https://www.defichainwiki.com/"
+
+
+description = """Use this if you need to answer any question about DeFiChain which does not require live-data."""
+
+wikiTool = StructuredTool(
+    name="defichain_wiki_knowledge",
+    description=description,
+    func=get_answer,
+    args_schema=ToolInputSchema,
+)
 
 
 if __name__ == "__main__":

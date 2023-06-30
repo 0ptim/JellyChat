@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get(placeholder: str) -> str:
-    return getOcean().stats.get()
+    try:
+        return getOcean().stats.get()
+    except Exception as e:
+        return str(e)
 
 
 description = """Gets general stats of DeFi Blockchain."""

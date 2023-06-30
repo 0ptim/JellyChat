@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get(poolpair_id: str) -> str:
-    return getOcean().poolpairs.get(poolpair_id)
+    try:
+        return getOcean().poolpairs.get(poolpair_id)
+    except Exception as e:
+        return str(e)
 
 
 description = """Gets a pool pair and the corresponding information.

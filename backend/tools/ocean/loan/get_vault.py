@@ -9,7 +9,10 @@ class ToolInputSchema(BaseModel):
 
 
 def get_vault(vault_id: str) -> str:
-    return getOcean().loan.getVault(vault_id)
+    try:
+        return getOcean().loan.getVault(vault_id)
+    except Exception as e:
+        return str(e)
 
 
 description = """Get information about a vault with given vault id."""
