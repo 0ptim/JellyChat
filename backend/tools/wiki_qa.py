@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv, get_key
 from supabase.client import Client, create_client
 from langchain.chat_models import ChatOpenAI
@@ -13,9 +14,9 @@ load_dotenv()
 vectorTableName = "embeddings"
 
 # Create the supabase client
-supabase: Client = create_client(
-    get_key(".env", "SUPABASE_URL"), get_key(".env", "SUPABASE_KEY")
-)
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # Create a vector store
 embeddings = OpenAIEmbeddings()
