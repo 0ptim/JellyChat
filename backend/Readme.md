@@ -15,7 +15,7 @@ The backend is a Flask API that provices both a web socket connection and a REST
     - Calls the Ocean API via DefichainPython
   - Wiki tool
     - Embedds the input
-    - Uses Qdrant to find the best matching document
+    - Uses Supabase (pgvector) to find the best matching document
     - Generates an answer
   - Math tool
 - Comes up with the final answer
@@ -30,7 +30,7 @@ The backend is a Flask API that provices both a web socket connection and a REST
 - Web sockets
 - OpenAI API
 - DefichainPython
-- Qdrant
+- Supabase
 
 ## Deployment
 
@@ -55,9 +55,13 @@ You can listen to the following two events.
 
 This event is emitted, when the agent starts using a tool. You can use this to display an information to the user, so he knows what is happening.
 
+- `tool_name` - message which tool is used
+
 ### Event: `final_message`
 
 This event is emitted, when the agent has come up with a final answer. You can use this to display the answer to the user.
+
+- `message` - The final message
 
 ## REST Endpoints
 
@@ -105,18 +109,13 @@ _Response body_
   - Used to embed incoming questions.
   - Used to generate text.
   - Can be obtained here: [platform.openai.com](https://platform.openai.com/)
-- `QDRANT_HOST` - Qdrant host URL of cluster.
-  - Used to find the best matching documents.
-  - Can be obtained here: [cloud.qdrant.io](https://cloud.qdrant.io/)
-  - The URL looks like: https://XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.eu-central-1-0.aws.cloud.qdrant.io:6333
-- `QDRANT_API_KEY` - Qdrant API key.
-  - Used to find the best matching documents.
-  - Can be obtained here: [cloud.qdrant.io](https://cloud.qdrant./)
 - `SUPABASE_URL` - Supabase API URL.
   - Used to save questions and answers with their rating.
+  - Used to find the best matching documents.
   - Can be obtained here: [app.supabase.io](https://app.supabase.com/)
 - `SUPABASE_KEY` - Supabase anon key.
   - Used to save questions and answers with their rating.
+  - Used to find the best matching documents.
   - Can be obtained here: [app.supabase.io](https://app.supabase.com/)
 
 ## Basic commands
@@ -193,4 +192,4 @@ docker container run --name JellyChat_Backend --env-file .env -d -p 8080:8080 je
 
 The main Agent is in `main_agent.py`. You can run it directly to test it.
 
-To debug, make sure `langchain.debug = True` is active in `main_agent.py`.
+To debug, make sure `langchain.debug = True` is active in `/agent/main_agent.py`.
