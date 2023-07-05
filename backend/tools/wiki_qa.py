@@ -24,6 +24,7 @@ vector_store = SupabaseVectorStore(
     embedding=embeddings,
     client=supabase,
     table_name=vectorTableName,
+    query_name="match_embeddings",
 )
 
 # Create a retriever
