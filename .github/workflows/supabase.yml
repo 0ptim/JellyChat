@@ -9,7 +9,7 @@ on:
 jobs:
   DeployStaging:
     name: Apply supabase migrations to staging
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: staging
