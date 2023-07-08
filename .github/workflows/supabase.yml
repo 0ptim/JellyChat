@@ -11,7 +11,7 @@ on:
 
 jobs:
   DeployStaging:
-    name: Apply supabase migrations to staging
+    name: Staging migration
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     environment:
@@ -36,7 +36,7 @@ jobs:
         working-directory: data
 
   DeployProduction:
-    name: Apply supabase migrations to production
+    name: Production migration
     runs-on: ubuntu-latest
     environment:
       name: production
