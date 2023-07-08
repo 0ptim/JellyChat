@@ -28,6 +28,8 @@ def process_input(app_instance, user_token, message):
     # Only to get user id
     user_id = check_user_exists(user_token)
 
+    add_chat_message(user_id, "human", message)
+
     chat_agent = agent_for_user(user_token)
 
     with get_openai_callback() as cb:
@@ -42,7 +44,6 @@ def process_input(app_instance, user_token, message):
 
     response = response_obj["output"].strip()
 
-    add_chat_message(user_id, "human", message)
     add_chat_message(user_id, "jelly", response)
 
     return jsonify({"response": response}), 200
