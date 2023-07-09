@@ -3,8 +3,6 @@
 
 # JellyChat
 
-TEST
-
 > https://defichainwiki.com/jellychat
 
 JellyChat is a project that aims to create a chatbot that can answer questions about DeFiChain and its ecosystem.
@@ -65,3 +63,9 @@ We use Supabase to store:
 Contains scripts that are executed periodically. Currently, it contains a script that scrapes defichainwiki.com and creates embeddings for each document. The embeddings are saved to Supabase (pgvector).
 
 [Details 🔎](./job/Readme.md)
+
+## Workflow
+
+The `main` branch resembles the production code. When a feature is ready, a pull request is created onto `main`. This will trigger the staging action so the changes can be tested on the staging environment.
+
+When the pull request is merged (changes are pushed to `main`), the production action will be triggered and the changes will be deployed to production.
