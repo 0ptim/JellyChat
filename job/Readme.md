@@ -52,9 +52,3 @@ Deactivate
 ```
 pip install -r requirements.txt
 ```
-
-### Freeze requirements
-
-```
-pip freeze > requirements.txt
-```
