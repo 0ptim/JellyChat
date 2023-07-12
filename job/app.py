@@ -78,10 +78,19 @@ print("✅ Removed all old documents from table")
 
 print("🔮 Embedding..")
 embeddings = OpenAIEmbeddings()
-vector_store = SupabaseVectorStore.from_documents(
-    docs,
-    embeddings,
-    client=supabase,
-    table_name=vectorTableName,
-)
+upload_chunk_size = 200
+
+# Split the documents in chunks for upload (Did time out when too large).
+docs_chunks = [
+    docs[x : x + upload_chunk_size] for x in range(0, len(docs), upload_chunk_size)
+]
+
+# Iterate over each chunk and upload separately.
+for doc_chunk in docs_chunks:
+    vector_store = SupabaseVectorStore.from_documents(
+        doc_chunk,
+        embeddings,
+        client=supabase,
+        table_name=vectorTableName,
+    )
 print("✅ Embedded")

@@ -2,7 +2,8 @@
 
 # JellyChat - Data
 
-> https://cofmxsabxteiidryklyg.supabase.co
+> https://cofmxsabxteiidryklyg.supabase.co  
+> https://iajfqvpslzrtmvekqwpv.supabase.co
 
 We use Supabase to store:
 

@@ -2,9 +2,8 @@
 
 # JellyChat - Backend
 
-TEST
-
-> https://jellychat.fly.dev
+> https://jellychat.fly.dev  
+> https://jellychat-staging.fly.dev
 
 The backend is a Flask API that provices both a web socket connection and a REST endpoint to receive and return messages. It uses a LangChain agent to analyze the input and then uses various tools to best respond to the input.
 

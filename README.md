@@ -64,8 +64,18 @@ Contains scripts that are executed periodically. Currently, it contains a script
 
 [Details 🔎](./job/Readme.md)
 
-## Workflow
+## Workflow and Environments
 
-The `main` branch resembles the production code. When a feature is ready, a pull request is created onto `main`. This will trigger the staging action so the changes can be tested on the staging environment.
+The `main` branch resembles the production code. When a feature is ready, a pull request is created onto `main`. This will trigger the staging actions so the changes can be tested on the staging environment.
+
+- [💽 Staging Database](https://supabase.com/dashboard/project/iajfqvpslzrtmvekqwpv)
+  - Endpoint: https://iajfqvpslzrtmvekqwpv.supabase.co
+- [🌐 Staging Backend](https://fly.io/apps/jellychat-staging)
+  - Endpoint: https://jellychat-staging.fly.dev
 
 When the pull request is merged (changes are pushed to `main`), the production action will be triggered and the changes will be deployed to production.
+
+- [💽 Production Database](https://supabase.com/dashboard/project/cofmxsabxteiidryklyg)
+  - Endpoint: https://cofmxsabxteiidryklyg.supabase.co
+- [🌐 Production Backend](https://fly.io/apps/jellychat)
+  - Endpoint: https://jellychat.fly.dev
