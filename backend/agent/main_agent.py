@@ -32,6 +32,8 @@ def create_agent(memory):
         verbose=True,
         agent_kwargs=agent_kwargs,
         memory=memory,
+        max_iterations=4,
+        early_stopping_method="generate",
     )
 
     return open_ai_agent
