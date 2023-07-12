@@ -1,20 +1,19 @@
-name: Apply supabase migrations
+name: Supabase Production
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
-  release:
-    name: Apply supabase migrations
+  Deploy:
+    name: Migrate production database
     runs-on: ubuntu-latest
 
     env:
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
       SUPABASE_DB_PASSWORD: ${{ secrets.PRODUCTION_DB_PASSWORD }}
-      PROJECT_ID: cofmxsabxteiidryklyg
+      PROJECT_ID: ${{ vars.PRODUCTION_SUPABASE_PROJECT_ID }}
 
     steps:
       - uses: actions/checkout@v3

@@ -1,17 +1,20 @@
-name: Deploy backend to Fly.io
+name: Fly.io Backend Production
+
 on:
   push:
     branches:
       - main
+
 env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  FLY_API_TOKEN: ${{ secrets.PRODUCTION_FLY_DEPLOY_TOKEN }}
+
 jobs:
   deploy:
-    name: Deploy app
+    name: Deploy production backend
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy backend
-        run: flyctl deploy --remote-only
+        run: flyctl deploy --remote-only -a jellychat
         working-directory: backend
