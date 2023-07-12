@@ -139,22 +139,10 @@ python -m venv venv
 Deactivate
 ```
 
-### Uninstall all project dependencies
-
-```
-pip freeze | ForEach-Object { pip uninstall -y $_.Trim() }
-```
-
 ### Install all project dependencies
 
 ```
 pip install -r requirements.txt
-```
-
-### Freeze requirements
-
-```
-pip freeze > requirements.txt
 ```
 
 ## Flask
