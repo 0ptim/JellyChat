@@ -44,3 +44,14 @@ class CallbackHandlers:
                 print(f"QA Tool ended: {output}")
                 add_question_answer(self.current_question, output)
                 self.current_question = ""
+
+    class FinalOutputHandler(BaseCallbackHandler):
+        print("FinalOutputHandler")
+
+        ignore_chat_model = True
+
+        def on_llm_new_token(self, token: str, **kwargs) -> None:
+            """
+            ASDF
+            """
+            print(f"My custom handler, token: {token}")

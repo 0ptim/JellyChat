@@ -6,8 +6,12 @@ from langchain.agents import AgentType, load_tools, initialize_agent
 from langchain.chains.conversation.memory import ConversationBufferMemory
 import langchain
 
+from callback_handlers import CallbackHandlers
+
 from tools.wiki_qa import wikiTool
 from tools.ocean import oceanTools
+
+from langchain.callbacks.base import BaseCallbackHandler
 
 load_dotenv()
 
@@ -16,8 +20,13 @@ def create_agent(memory):
     print("🤖 Initializing main agent...")
 
     # Set debug to True to see A LOT of details of the agent's inner workings
-    # langchain.debug = True
-    llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k-0613", temperature=0.7)
+    langchain.debug = True
+    llm = ChatOpenAI(
+        model_name="gpt-3.5-turbo-16k-0613",
+        temperature=0.7,
+        streaming=True,
+        # callbacks=[CallbackHandlers.FinalOutputHandler()],
+    )
 
     tools = [wikiTool] + load_tools(["llm-math"], llm=llm) + oceanTools
 

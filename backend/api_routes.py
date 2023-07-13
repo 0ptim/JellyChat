@@ -38,6 +38,7 @@ def process_input(app_instance, user_token, message):
             callbacks=[
                 CallbackHandlers.ToolUseNotifier(app_instance, user_id),
                 CallbackHandlers.QAToolHandler(app_instance),
+                CallbackHandlers.FinalOutputHandler(app_instance),
             ],
         )
         log_response_info(cb)
