@@ -18,7 +18,7 @@ class DeFiChainWikiLoader(WebBaseLoader):
         else:
             title = ""
 
-        last_updated_tag = soup.find("theme-last-updated")
+        last_updated_tag = soup.find("span", {"class": "theme-last-updated"})
         if last_updated_tag:
             last_updated = last_updated_tag.get_text()
         else:
