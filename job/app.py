@@ -1,6 +1,6 @@
 from langchain.vectorstores import SupabaseVectorStore
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.text_splitter import CharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from supabase.client import Client, create_client
 from dotenv import load_dotenv, get_key
 import re
@@ -66,8 +66,8 @@ print("✅ Removed long strings")
 
 
 print("🗨 Split into chunks..")
-text_splitter = CharacterTextSplitter(
-    chunk_size=chunk_size, chunk_overlap=chunk_overlap, separator="\n"
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=chunk_size, chunk_overlap=chunk_overlap, length_function=len
 )
 docs = text_splitter.split_documents(docs)
 print("✅ Split into %s chunks" % len(docs))
