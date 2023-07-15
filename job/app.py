@@ -14,6 +14,7 @@ vectorTableName = "embeddings"
 scrapeUrls = ["https://www.defichainwiki.com/sitemap.xml"]
 chunk_size = 1000
 chunk_overlap = 50
+embedding_model = "text-embedding-ada-002"
 
 supabase: Client = create_client(
     get_key(".env", "SUPABASE_URL"), get_key(".env", "SUPABASE_KEY")
@@ -89,7 +90,7 @@ supabase.table(vectorTableName).delete().neq("id", -1).execute()
 print("✅ Removed all old documents from table")
 
 print("🔮 Embedding..")
-embeddings = OpenAIEmbeddings()
+embeddings = OpenAIEmbeddings(model=embedding_model)
 upload_chunk_size = 200
 
 # Split the documents in chunks for upload (Did time out when too large).
