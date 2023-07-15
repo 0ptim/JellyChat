@@ -75,6 +75,14 @@ text_splitter = RecursiveCharacterTextSplitter(
 docs = text_splitter.split_documents(docs)
 print("✅ Split into %s chunks" % len(docs))
 
+# import tiktoken
+# enc = tiktoken.get_encoding("cl100k_base")
+# for doc in docs:
+#     print("🔖 Title:", doc.metadata["title"])
+#     print("📄 Content:", doc.page_content.replace("\n", " ")[:100])
+#     tokens = enc.encode(doc.page_content)
+#     print("⚡ Tokens:", len(tokens))
+
 print("➖ Remove all old documents from table")
 supabase.table(vectorTableName).delete().neq("id", -1).execute()
 print("✅ Removed all old documents from table")
