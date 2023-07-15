@@ -33,7 +33,7 @@ class DeFiChainWikiLoader(WebBaseLoader):
 
         article_tag = soup.find("article")
         if article_tag:
-            content = article_tag.get_text(separator="\n")
+            content = title + ". " + article_tag.get_text(separator="\n")
         else:
             content = ""
 
