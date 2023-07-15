@@ -70,7 +70,8 @@ def setup_routes(app_instance):
 
             response, status_code = process_input(app_instance, user_token, message)
             emit("final_message", {"message": response.get_json()["response"]})
-        except Exception:
+        except Exception as e:
+            print(e)
             emit(
                 "final_message",
                 {
@@ -89,7 +90,8 @@ def setup_routes(app_instance):
 
             response, status_code = process_input(app_instance, user_token, message)
             return make_response(response, status_code)
-        except Exception:
+        except Exception as e:
+            print(e)
             custom_message = "Yikes! 🌊 I made a bubbly blunder. Please accept this humble jellyfish's apologies for the inconvenience. 💜 Can we swim forward and try again together? 🐙"
             return make_response(custom_message, 500)
 
