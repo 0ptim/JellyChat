@@ -85,7 +85,7 @@ def get_answer(question: str) -> str:
         return "The wiki knowledgebase is currently not available. We are working on it. Tell the user to use the wiki directly. https://www.defichainwiki.com/"
 
 
-description = """Use this if you need to answer any question about DeFiChain which does not require live-data. Make sure to inlcude the source of the answer in your response."""
+description = """Use this if you need to answer any question about DeFiChain which does not require live-data. Make sure to include the source of the answer in your response."""
 
 wikiTool = StructuredTool(
     name="defichain_wiki_knowledge",
