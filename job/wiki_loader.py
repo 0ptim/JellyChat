@@ -23,19 +23,19 @@ class DeFiChainWikiLoader(WebBaseLoader):
         if title_tag:
             title = title_tag.get_text()
         else:
-            title = ""
+            raise ValueError("Title tag not found.")
 
         last_updated_tag = soup.find("span", {"class": "theme-last-updated"})
         if last_updated_tag:
             last_updated = extract_date(last_updated_tag.get_text())
         else:
-            last_updated = ""
+            raise ValueError("Last updated tag not found.")
 
         article_tag = soup.find("article")
         if article_tag:
             content = title + ". " + article_tag.get_text(separator="\n")
         else:
-            content = ""
+            raise ValueError("Article tag not found.")
 
         metadata = {
             "title": title,
