@@ -49,8 +49,8 @@ if __name__ == "__main__":
         question = input("⚡ Testing main agent: ")
         with get_openai_callback() as cb:
             response = local_agent(question)
-            print(response)
-            print(f"Total Tokens: {cb.total_tokens}")
-            print(f"Prompt Tokens: {cb.prompt_tokens}")
-            print(f"Completion Tokens: {cb.completion_tokens}")
-            print(f"Total Cost (USD): ${cb.total_cost}")
+            print(f"⚡ Output: {response['output']}")
+            print(f"⚙ Total Tokens: {cb.total_tokens}")
+            print(f"⚙ Prompt Tokens: {cb.prompt_tokens}")
+            print(f"⚙ Completion Tokens: {cb.completion_tokens}")
+            print(f"⚙ Total Cost (USD): ${cb.total_cost}")
