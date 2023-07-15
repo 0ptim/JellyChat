@@ -53,7 +53,7 @@ for url in urls:
     docs.append(doc)
     print("🌐 Source:", doc.metadata["source"])
     print("🔖 Title:", doc.metadata["title"])
-    print("📄 Content:", doc.page_content.replace("\n", " ")[:100])
+    print("📄 Content:", doc.page_content.replace("\n", " ")[:100] + "...")
     print("---")
 print("✅ Scraped %s pages" % len(docs))
 
@@ -81,7 +81,7 @@ print("✅ Split into %s chunks" % len(docs))
 # enc = tiktoken.get_encoding("cl100k_base")
 # for doc in docs:
 #     print("🔖 Title:", doc.metadata["title"])
-#     print("📄 Content:", doc.page_content.replace("\n", " ")[:100])
+#     print("📄 Content:", doc.page_content.replace("\n", " ")[:100] + "...")
 #     tokens = enc.encode(doc.page_content)
 #     print("⚡ Tokens:", len(tokens))
 
