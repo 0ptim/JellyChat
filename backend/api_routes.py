@@ -25,8 +25,10 @@ def process_input(app_instance, user_token, message):
     if not is_valid:
         return error_response, error_code
 
-    # Only to get user id
     user_id = check_user_exists(user_token)
+    if user_id is None:
+        print("Creating user: ", user_token)
+        user_id = create_user(user_token)
 
     add_chat_message(user_id, "human", message)
 
