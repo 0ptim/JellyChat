@@ -12,8 +12,8 @@ load_dotenv()
 
 vectorTableName = "embeddings"
 scrapeUrls = ["https://www.defichainwiki.com/sitemap.xml"]
-chunk_size = 2000
-chunk_overlap = 200
+chunk_size = 1000
+chunk_overlap = 50
 
 supabase: Client = create_client(
     get_key(".env", "SUPABASE_URL"), get_key(".env", "SUPABASE_KEY")
