@@ -67,7 +67,10 @@ print("✅ Removed long strings")
 
 print("🗨 Split into chunks..")
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=chunk_size, chunk_overlap=chunk_overlap, length_function=len
+    chunk_size=chunk_size,
+    chunk_overlap=chunk_overlap,
+    length_function=len,
+    separators=["\n\n", "\n", " ", ""],
 )
 docs = text_splitter.split_documents(docs)
 print("✅ Split into %s chunks" % len(docs))
