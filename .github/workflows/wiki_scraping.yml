@@ -15,27 +15,20 @@ jobs:
           repository: "0ptim/DeFiChainWiki"
           path: "wiki-repo"
 
-      - name: Fetch commit where last run was made
-        id: last_run
+      - name: Check if docs has changed in the last 24 hours
+        id: check_change
         run: |
-          echo "::set-output name=hash::$(cat ../last_run_commit)"
-        working-directory: ./wiki-repo
+          LAST_COMMIT_TIME=$(git log -1 --format="%cd" --date=iso -- docs/)
+          LAST_COMMIT_TIMESTAMP=$(date -u -d "$LAST_COMMIT_TIME" +%s)
+          CURRENT_TIMESTAMP=$(date -u +%s)
+          DIFF_HOURS=$(( ($CURRENT_TIMESTAMP - $LAST_COMMIT_TIMESTAMP) / 3600 ))
 
-      - name: Find commit where docs was last changed
-        id: last_change
-        run: |
-          LAST_COMMIT_WHERE_DOCS_CHANGED="$(git log --format="%H" -- docs/ | head -n 1)"
-          echo "::set-output name=hash::${LAST_COMMIT_WHERE_DOCS_CHANGED}"
+          echo "::set-output name=changed::$(if (($DIFF_HOURS < 24)); then echo 'yes'; else echo 'no'; fi)"
         working-directory: ./wiki-repo
-
-      - name: Compare commits and set output
-        id: comparison
-        run: |
-          echo "::set-output name=result::$(if [[ "${{ steps.last_change.outputs.hash }}" != "${{ steps.last_run.outputs.hash }}" ]]; then echo "yes"; else echo "no"; fi)"
 
   run_script:
     needs: [check_changes]
-    if: ${{ needs.check_changes.outputs.result == 'yes' }}
+    if: ${{ needs.check_changes.outputs.changed == 'yes' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -55,7 +48,3 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SUPABASE_URL: ${{ secrets.PRODUCTION_SUPABASE_API_URL }}
           SUPABASE_KEY: ${{ secrets.PRODUCTION_SUPABASE_API_ANON_KEY }}
-
-      - name: Store last commit hash
-        if: success()
-        run: echo "${{ needs.check_changes.outputs.last_change }}" > ./last_run_commit
