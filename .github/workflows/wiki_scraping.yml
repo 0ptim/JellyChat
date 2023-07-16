@@ -53,9 +53,12 @@ jobs:
           pip install -r requirements.txt
         working-directory: ./job
 
-      - name: Run the script
-        run: python ./job/app.py
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          SUPABASE_URL: ${{ vars.PRODUCTION_SUPABASE_API_URL }}
-          SUPABASE_KEY: ${{ secrets.PRODUCTION_SUPABASE_API_ANON_KEY }}
+      - name: Print supabase url for debugging
+        run: echo ${{ vars.PRODUCTION_SUPABASE_API_URL }}
+
+      # - name: Run the script
+      #   run: python ./job/app.py
+      #   env:
+      #     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      #     SUPABASE_URL: ${{ vars.PRODUCTION_SUPABASE_API_URL }}
+      #     SUPABASE_KEY: ${{ secrets.PRODUCTION_SUPABASE_API_ANON_KEY }}
