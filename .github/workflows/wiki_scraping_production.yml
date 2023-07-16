@@ -1,4 +1,4 @@
-name: Wiki scraping/embedding
+name: Wiki scraping Production
 
 on:
   schedule:
@@ -53,9 +53,7 @@ jobs:
         working-directory: ./job
 
       - name: Run the script
-        run: |
-          echo ${{ vars.PRODUCTION_SUPABASE_API_URL }}
-          python ./job/app.py
+        run: python ./job/app.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SUPABASE_URL: ${{ vars.PRODUCTION_SUPABASE_API_URL }}

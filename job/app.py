@@ -2,7 +2,7 @@ import os
 import re
 from langchain.vectorstores import SupabaseVectorStore
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.text_splitter import CharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from supabase.client import Client, create_client
 from dotenv import load_dotenv
 
@@ -13,8 +13,9 @@ load_dotenv()
 
 vectorTableName = "embeddings"
 scrapeUrls = ["https://www.defichainwiki.com/sitemap.xml"]
-chunk_size = 400
-chunk_overlap = 0
+chunk_size = 1000
+chunk_overlap = 50
+embedding_model = "text-embedding-ada-002"
 
 supabase: Client = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
@@ -51,7 +52,7 @@ for url in urls:
     docs.append(doc)
     print("🌐 Source:", doc.metadata["source"])
     print("🔖 Title:", doc.metadata["title"])
-    print("📄 Content:", doc.page_content.replace("\n", " ")[:100])
+    print("📄 Content:", doc.page_content.replace("\n", " ")[:100] + "...")
     print("---")
 print("✅ Scraped %s pages" % len(docs))
 
@@ -65,18 +66,30 @@ print("✅ Removed long strings")
 
 
 print("🗨 Split into chunks..")
-text_splitter = CharacterTextSplitter(
-    chunk_size=chunk_size, chunk_overlap=chunk_overlap, separator="\n"
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=chunk_size,
+    chunk_overlap=chunk_overlap,
+    length_function=len,
+    separators=["\n\n", "\n", " ", ""],
 )
 docs = text_splitter.split_documents(docs)
 print("✅ Split into %s chunks" % len(docs))
+
+# import tiktoken
+
+# enc = tiktoken.get_encoding("cl100k_base")
+# for doc in docs:
+#     print("🔖 Title:", doc.metadata["title"])
+#     print("📄 Content:", doc.page_content.replace("\n", " ")[:100] + "...")
+#     tokens = enc.encode(doc.page_content)
+#     print("⚡ Tokens:", len(tokens))
 
 print("➖ Remove all old documents from table")
 supabase.table(vectorTableName).delete().neq("id", -1).execute()
 print("✅ Removed all old documents from table")
 
 print("🔮 Embedding..")
-embeddings = OpenAIEmbeddings()
+embeddings = OpenAIEmbeddings(model=embedding_model)
 upload_chunk_size = 200
 
 # Split the documents in chunks for upload (Did time out when too large).
