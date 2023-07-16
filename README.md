@@ -1,5 +1,10 @@
-[![Deploy backend to Fly.io](https://github.com/0ptim/JellyChat/actions/workflows/fly.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly.yml)
-[![Apply supabase migrations](https://github.com/0ptim/JellyChat/actions/workflows/supabase.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase.yml)
+[![Fly.io Backend Production](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml)
+[![Supabase Production](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml)
+
+[![Fly.io Backend Staging](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml)
+[![Supabase Staging](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml)
+
+[![Wiki scraping/embedding](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping.yml)
 
 # JellyChat
 
@@ -60,7 +65,7 @@ We use Supabase to store:
 
 ### ⚡️ `/job`
 
-Contains scripts that are executed periodically. Currently, it contains a script that scrapes defichainwiki.com and creates embeddings for each document. The embeddings are saved to Supabase (pgvector).
+Contains a script that is executed daily at 02:45 UTC via a GitHub action. However, it only runs if there have been changes to the [`/docs`](https://github.com/0ptim/DeFiChainWiki/tree/main/docs) directory within [0ptim/DeFiChainWiki](https://github.com/0ptim/DeFiChainWiki) in the past 24 hours. If changes are detected, the script scrapes the [DeFiChainWiki](defichainwiki.com) to generate new embeddings. These embeddings are then stored in Supabase in the table `embeddings`.
 
 [Details 🔎](./job/Readme.md)
 
