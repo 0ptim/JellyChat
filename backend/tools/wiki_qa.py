@@ -1,5 +1,5 @@
 import os
-from dotenv import load_dotenv, get_key
+from dotenv import load_dotenv
 from supabase.client import Client, create_client
 from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import SupabaseVectorStore

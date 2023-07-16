@@ -1,9 +1,10 @@
+import os
+import re
 from langchain.vectorstores import SupabaseVectorStore
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from supabase.client import Client, create_client
-from dotenv import load_dotenv, get_key
-import re
+from dotenv import load_dotenv
 
 from wiki_loader import DeFiChainWikiLoader
 from sitemap_parser import get_urls
@@ -15,9 +16,7 @@ scrapeUrls = ["https://www.defichainwiki.com/sitemap.xml"]
 chunk_size = 400
 chunk_overlap = 0
 
-supabase: Client = create_client(
-    get_key(".env", "SUPABASE_URL"), get_key(".env", "SUPABASE_KEY")
-)
+supabase: Client = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
 urls = []
 
