@@ -23,11 +23,10 @@ jobs:
           CURRENT_TIMESTAMP=$(date -u +%s)
           DIFF_HOURS=$(( ($CURRENT_TIMESTAMP - $LAST_COMMIT_TIMESTAMP) / 3600 ))
 
-          if [ $DIFF_HOURS -lt 24 ]
-          then
-            echo "changed=yes" >> $GITHUB_ENV
-          else
-            echo "changed=no" >> $GITHUB_ENV
+          if (($DIFF_HOURS < 24)); then 
+              echo 'changed=yes' >> $GITHUB_ENV;
+          else 
+              echo 'changed=no' >> $GITHUB_ENV;
           fi
         working-directory: ./wiki-repo
 
