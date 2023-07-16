@@ -5,6 +5,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from supabase.client import Client, create_client
 from dotenv import load_dotenv
+import uuid
 
 from wiki_loader import DeFiChainWikiLoader
 from sitemap_parser import get_urls
@@ -85,7 +86,7 @@ print("✅ Split into %s chunks" % len(docs))
 #     print("⚡ Tokens:", len(tokens))
 
 print("➖ Remove all old documents from table")
-supabase.table(vectorTableName).delete().neq("id", -1).execute()
+supabase.table(vectorTableName).delete().neq("id", uuid.uuid1()).execute()
 print("✅ Removed all old documents from table")
 
 print("🔮 Embedding..")
