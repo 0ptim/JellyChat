@@ -1,4 +1,6 @@
-[![Deploy backend to Fly.io](https://github.com/0ptim/JellyChat/actions/workflows/fly.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly.yml)
+[![Fly.io Backend Production](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml)
+
+[![Fly.io Backend Staging](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml)
 
 # JellyChat - Backend
 

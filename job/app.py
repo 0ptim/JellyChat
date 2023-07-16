@@ -1,9 +1,10 @@
+import os
+import re
 from langchain.vectorstores import SupabaseVectorStore
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from supabase.client import Client, create_client
-from dotenv import load_dotenv, get_key
-import re
+from dotenv import load_dotenv
 
 from wiki_loader import DeFiChainWikiLoader
 from sitemap_parser import get_urls
@@ -16,9 +17,7 @@ chunk_size = 1000
 chunk_overlap = 50
 embedding_model = "text-embedding-ada-002"
 
-supabase: Client = create_client(
-    get_key(".env", "SUPABASE_URL"), get_key(".env", "SUPABASE_KEY")
-)
+supabase: Client = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
 urls = []
 

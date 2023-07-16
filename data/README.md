@@ -1,4 +1,6 @@
-[![Apply supabase migrations](https://github.com/0ptim/JellyChat/actions/workflows/supabase.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase.yml)
+[![Supabase Production](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml)
+
+[![Supabase Staging](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml)
 
 # JellyChat - Data
 
