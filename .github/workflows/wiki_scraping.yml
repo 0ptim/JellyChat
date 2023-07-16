@@ -1,0 +1,62 @@
+name: Wiki scraping/embedding
+
+on:
+  schedule:
+    - cron: "45 2 * * *"
+
+jobs:
+  check_changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking for changes in the directory
+        uses: actions/checkout@v2
+        with:
+          repository: "0ptim/DeFiChainWiki"
+          path: "wiki-repo"
+
+      - name: Check if docs has changed in the last 24 hours
+        id: check_change
+        run: |
+          LAST_COMMIT_TIME=$(git log -1 --format="%cd" --date=iso -- docs/)
+          LAST_COMMIT_TIMESTAMP=$(date -u -d "$LAST_COMMIT_TIME" +%s)
+          CURRENT_TIMESTAMP=$(date -u +%s)
+          DIFF_HOURS=$(( ($CURRENT_TIMESTAMP - $LAST_COMMIT_TIMESTAMP) / 3600 ))
+
+          if (($DIFF_HOURS < 24)); then 
+              echo "CHANGED=yes" >> $GITHUB_OUTPUT
+          else 
+              echo "CHANGED=no" >> $GITHUB_OUTPUT
+          fi
+        working-directory: ./wiki-repo
+
+      - name: Print output 1
+        run: echo "The output was ${{ steps.check_change.outputs.CHANGED }}"
+
+    outputs:
+      changed: ${{ steps.check_change.outputs.changed }}
+
+  run_script:
+    needs: [check_changes]
+    if: ${{ needs.check_changes.outputs.changed == 'yes' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        working-directory: ./job
+
+      - name: Run the script
+        run: |
+          echo ${{ vars.PRODUCTION_SUPABASE_API_URL }}
+          python ./job/app.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SUPABASE_URL: ${{ vars.PRODUCTION_SUPABASE_API_URL }}
+          SUPABASE_KEY: ${{ secrets.PRODUCTION_SUPABASE_API_ANON_KEY }}
