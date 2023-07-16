@@ -46,5 +46,5 @@ jobs:
         run: python ./job/app.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          SUPABASE_URL: ${{ secrets.PRODUCTION_SUPABASE_API_URL }}
+          SUPABASE_URL: ${{ vars.PRODUCTION_SUPABASE_API_URL }}
           SUPABASE_KEY: ${{ secrets.PRODUCTION_SUPABASE_API_ANON_KEY }}
