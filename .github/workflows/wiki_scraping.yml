@@ -1,0 +1,59 @@
+name: Test Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check_changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking for changes in the directory
+        uses: actions/checkout@v2
+        with:
+          repository: "0ptim/DeFiChainWiki"
+          path: "wiki-repo"
+
+      - name: Fetch commit where last run was made
+        id: last_run
+        run: |
+          echo "::set-output name=hash::$(cat ../last_run_commit)"
+        working-directory: ./wiki-repo
+
+      - name: Find commit where docs was last changed
+        id: last_change
+        run: |
+          LAST_COMMIT_WHERE_DOCS_CHANGED="$(git log --format="%H" -- docs/ | head -n 1)"
+          echo "::set-output name=hash::${LAST_COMMIT_WHERE_DOCS_CHANGED}"
+        working-directory: ./wiki-repo
+
+      - name: Compare commits and set output
+        id: comparison
+        run: |
+          echo "::set-output name=result::$(if [[ "${{ steps.last_change.outputs.hash }}" != "${{ steps.last_run.outputs.hash }}" ]]; then echo "yes"; else echo "no"; fi)"
+
+  run_script:
+    needs: [check_changes]
+    if: ${{ needs.check_changes.outputs.result == 'yes' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run the script
+        run: python ./job/app.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SUPABASE_URL: ${{ secrets.PRODUCTION_SUPABASE_API_URL }}
+          SUPABASE_KEY: ${{ secrets.PRODUCTION_SUPABASE_API_ANON_KEY }}
+
+      - name: Store last commit hash
+        if: success()
+        run: echo "${{ needs.check_changes.outputs.last_change }}" > ./last_run_commit
