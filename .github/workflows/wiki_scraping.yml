@@ -23,12 +23,23 @@ jobs:
           CURRENT_TIMESTAMP=$(date -u +%s)
           DIFF_HOURS=$(( ($CURRENT_TIMESTAMP - $LAST_COMMIT_TIMESTAMP) / 3600 ))
 
-          echo "::set-output name=changed::$(if (($DIFF_HOURS < 24)); then echo 'yes'; else echo 'no'; fi)"
+          if [ $DIFF_HOURS -lt 24 ]
+          then
+            echo "changed=yes" >> $GITHUB_ENV
+          else
+            echo "changed=no" >> $GITHUB_ENV
+          fi
+        working-directory: ./wiki-repo
+
+      - name: Print last commit time for verification
+        run: |
+          LAST_COMMIT_TIME=$(git log -1 --format="%cd" --date=iso -- docs/)
+          echo "Last commit time in docs directory: $LAST_COMMIT_TIME"
         working-directory: ./wiki-repo
 
   run_script:
     needs: [check_changes]
-    if: ${{ needs.check_changes.outputs.changed == 'yes' }}
+    if: ${{ env.changed == 'yes' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
