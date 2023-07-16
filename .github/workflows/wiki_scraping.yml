@@ -1,9 +1,8 @@
-name: Test Workflow
+name: Wiki scraping/embedding
 
 on:
-  push:
-    branches:
-      - 84-wiki-scraping-automation
+  schedule:
+    - cron: "0 2 * * *"
 
 jobs:
   check_changes:
