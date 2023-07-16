@@ -25,13 +25,16 @@ jobs:
 
           if (($DIFF_HOURS < 24)); then 
               echo "CHANGED=yes" >> $GITHUB_OUTPUT
-              else 
+          else 
               echo "CHANGED=no" >> $GITHUB_OUTPUT
           fi
         working-directory: ./wiki-repo
 
       - name: Print output 1
         run: echo "The output was ${{ steps.check_change.outputs.CHANGED }}"
+
+    outputs:
+      changed: ${{ steps.check_change.outputs.changed }}
 
   run_script:
     needs: [check_changes]
@@ -44,7 +47,8 @@ jobs:
           python-version: 3.8
 
       - name: Print output 2
-        run: echo "The output was ${{ steps.check_change.outputs.CHANGED }}"
+        run: echo "The output was ${{ needs.check_changes.outputs.changed }}"
+        # run: echo "The output was ${{ steps.check_change.outputs.CHANGED }}"
 
       # - name: Install dependencies
       #   run: |
