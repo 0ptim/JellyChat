@@ -1,7 +1,9 @@
 name: Test Workflow
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - 84-wiki-scraping-automation
 
 jobs:
   check_changes:
