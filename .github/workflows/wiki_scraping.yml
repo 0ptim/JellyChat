@@ -24,17 +24,18 @@ jobs:
           DIFF_HOURS=$(( ($CURRENT_TIMESTAMP - $LAST_COMMIT_TIMESTAMP) / 3600 ))
 
           if (($DIFF_HOURS < 24)); then 
-              echo "changed=yes" >> $GITHUB_ENV
-              echo "::set-output name=changed::yes" 
-          else 
-              echo "changed=no" >> $GITHUB_ENV
-              echo "::set-output name=changed::no"
+              echo "CHANGED=yes" >> $GITHUB_OUTPUT
+              else 
+              echo "CHANGED=no" >> $GITHUB_OUTPUT
           fi
         working-directory: ./wiki-repo
 
+      - name: Print output
+        run: echo "The output was ${{ steps.check_change.outputs.CHANGED }}"
+
   run_script:
     needs: [check_changes]
-    if: ${{ needs.check_changes.outputs.changed == 'yes' }}
+    if: ${{ needs.check_changes.outputs.CHANGED == 'yes' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
