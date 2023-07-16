@@ -30,7 +30,7 @@ jobs:
           fi
         working-directory: ./wiki-repo
 
-      - name: Print output
+      - name: Print output 1
         run: echo "The output was ${{ steps.check_change.outputs.CHANGED }}"
 
   run_script:
@@ -43,7 +43,7 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Print output 1
+      - name: Print output 2
         run: echo "The output was ${{ steps.check_change.outputs.CHANGED }}"
 
       # - name: Install dependencies
