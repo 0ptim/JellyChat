@@ -54,7 +54,8 @@ jobs:
         working-directory: ./job
 
       - name: Run the script
-        run: echo ${{ vars.PRODUCTION_SUPABASE_API_URL }}
+        run: |
+          echo ${{ vars.PRODUCTION_SUPABASE_API_URL }}
           python ./job/app.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
