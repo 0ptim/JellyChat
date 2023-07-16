@@ -4,7 +4,8 @@
 [![Fly.io Backend Staging](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml)
 [![Supabase Staging](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml)
 
-[![Wiki scraping/embedding](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping.yml)
+[![Wiki scraping Production](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml)
+[![Wiki scraping Staging](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml)
 
 # JellyChat
 
