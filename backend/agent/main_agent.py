@@ -20,12 +20,12 @@ def create_agent(memory):
     print("🤖 Initializing main agent...")
 
     # Set debug to True to see A LOT of details of the agent's inner workings
-    langchain.debug = True
+    # langchain.debug = True
     llm = ChatOpenAI(
         model_name="gpt-3.5-turbo-16k-0613",
         temperature=0.7,
         streaming=True,
-        # callbacks=[CallbackHandlers.FinalOutputHandler()],
+        callbacks=[CallbackHandlers.FinalOutputHandler()],
     )
 
     tools = [wikiTool] + load_tools(["llm-math"], llm=llm) + oceanTools
@@ -38,7 +38,6 @@ def create_agent(memory):
         tools,
         llm,
         agent=AgentType.OPENAI_FUNCTIONS,
-        verbose=True,
         agent_kwargs=agent_kwargs,
         memory=memory,
         max_iterations=4,

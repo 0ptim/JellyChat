@@ -1,9 +1,14 @@
+from asyncio import Event, Queue
 import json
+from typing import Any, Dict, Generator, List, Optional
 from langchain.callbacks.base import BaseCallbackHandler
 from flask_socketio import emit
 from utils import get_tool_message
 from data import add_question_answer, add_chat_message
 from tools.wiki_qa import wikiTool
+from langchain.callbacks import StreamingStdOutCallbackHandler
+from langchain.schema import LLMResult
+from langchain.callbacks.streaming_aiter_final_only import DEFAULT_ANSWER_PREFIX_TOKENS
 
 
 class CallbackHandlers:
@@ -45,13 +50,39 @@ class CallbackHandlers:
                 add_question_answer(self.current_question, output)
                 self.current_question = ""
 
-    class FinalOutputHandler(BaseCallbackHandler):
-        print("FinalOutputHandler")
+    class FinalOutputHandler(StreamingStdOutCallbackHandler):
+        """Callback handler for streaming in agents.
+        Only works with agents using LLMs that support streaming.
+        Only the final output of the agent will be streamed.
+        """
 
-        ignore_chat_model = True
+        def __init__(
+            self,
+            *,
+            answer_prefix_tokens: Optional[List[str]] = None,
+            strip_tokens: bool = True,
+            stream_prefix: bool = False,
+        ) -> None:
+            super().__init__()
+            if answer_prefix_tokens is None:
+                self.answer_prefix_tokens = DEFAULT_ANSWER_PREFIX_TOKENS
+            else:
+                self.answer_prefix_tokens = answer_prefix_tokens
+            if strip_tokens:
+                self.answer_prefix_tokens_stripped = [
+                    token.strip() for token in self.answer_prefix_tokens
+                ]
+            else:
+                self.answer_prefix_tokens_stripped = self.answer_prefix_tokens
+            self.last_tokens = [""] * len(self.answer_prefix_tokens)
+            self.last_tokens_stripped = [""] * len(self.answer_prefix_tokens)
+            self.strip_tokens = strip_tokens
+            self.stream_prefix = stream_prefix
+            self.answer_reached = False
+            self._token_queue: Queue = Queue()
 
-        def on_llm_new_token(self, token: str, **kwargs) -> None:
-            """
-            ASDF
-            """
-            print(f"My custom handler, token: {token}")
+        def on_llm_end(self, response: LLMResult, **kwargs: Any) -> None:
+            """Run when LLM ends running. Stream the final output to the frontend"""
+            print("\n\n")
+            print("LLM Final Response: ", response)
+            print("\n\n")
