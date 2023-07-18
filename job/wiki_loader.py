@@ -3,6 +3,13 @@ from typing import List
 
 from langchain.docstore.document import Document
 from langchain.document_loaders.web_base import WebBaseLoader
+from datetime import datetime
+
+
+def extract_date(s):
+    date_string = s.split("on ")[1]
+    date = datetime.strptime(date_string, "%b %d, %Y")
+    return date
 
 
 class DeFiChainWikiLoader(WebBaseLoader):
@@ -16,23 +23,23 @@ class DeFiChainWikiLoader(WebBaseLoader):
         if title_tag:
             title = title_tag.get_text()
         else:
-            title = ""
+            raise ValueError("Title tag not found.")
 
-        last_updated_tag = soup.find("theme-last-updated")
+        last_updated_tag = soup.find("span", {"class": "theme-last-updated"})
         if last_updated_tag:
-            last_updated = last_updated_tag.get_text()
+            last_updated = extract_date(last_updated_tag.get_text())
         else:
-            last_updated = ""
+            raise ValueError("Last updated tag not found.")
 
         article_tag = soup.find("article")
         if article_tag:
-            content = article_tag.get_text(separator="\n")
+            content = title + ". " + article_tag.get_text(separator="\n")
         else:
-            content = ""
+            raise ValueError("Article tag not found.")
 
         metadata = {
             "title": title,
-            "last_updated": last_updated,
+            "last_updated": last_updated.strftime("%Y-%m-%d"),
             "source": self.web_path,
         }
 
