@@ -11,8 +11,6 @@ from callback_handlers import CallbackHandlers
 from tools.wiki_qa import wikiTool
 from tools.ocean import oceanTools
 
-from langchain.callbacks.base import BaseCallbackHandler
-
 load_dotenv()
 
 
