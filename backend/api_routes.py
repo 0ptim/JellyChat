@@ -32,7 +32,9 @@ def process_input(app_instance, user_token, message):
 
     add_chat_message(user_id, "human", message)
 
-    chat_agent = agent_for_user(user_token)
+    chat_agent = agent_for_user(
+        user_token, CallbackHandlers.FinalOutputHandler(app_instance)
+    )
 
     with get_openai_callback() as cb:
         response_obj = chat_agent(
@@ -40,7 +42,6 @@ def process_input(app_instance, user_token, message):
             callbacks=[
                 CallbackHandlers.ToolUseNotifier(app_instance, user_id),
                 CallbackHandlers.QAToolHandler(app_instance),
-                CallbackHandlers.FinalOutputHandler(app_instance),
             ],
         )
         log_response_info(cb)

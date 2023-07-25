@@ -14,19 +14,30 @@ from tools.ocean import oceanTools
 load_dotenv()
 
 
-def create_agent(memory):
+def create_agent(memory, final_output_handler=None):
     print("🤖 Initializing main agent...")
 
     # Set debug to True to see A LOT of details of langchain's inner workings
     # langchain.debug = True
-    llm = ChatOpenAI(
+
+    # Create the main agent llm
+    agent_llm = ChatOpenAI(
         model_name="gpt-3.5-turbo-16k-0613",
         temperature=0.7,
-        streaming=True,
-        callbacks=[CallbackHandlers.FinalOutputHandler()],
     )
 
-    tools = [wikiTool] + load_tools(["llm-math"], llm=llm) + oceanTools
+    # Add the final output handler to the main agent llm
+    if final_output_handler:
+        agent_llm.callbacks = [final_output_handler]
+        agent_llm.streaming = True
+
+    # Create the llm for math separately so the streaming of the final response doesn't interfere with the main agent
+    llm_for_math = ChatOpenAI(
+        model_name="gpt-3.5-turbo",
+        temperature=0,
+    )
+
+    tools = [wikiTool] + load_tools(["llm-math"], llm=llm_for_math) + oceanTools
 
     agent_kwargs = {
         "extra_prompt_messages": [MessagesPlaceholder(variable_name="memory")],
@@ -34,7 +45,7 @@ def create_agent(memory):
 
     open_ai_agent = initialize_agent(
         tools,
-        llm,
+        agent_llm,
         agent=AgentType.OPENAI_FUNCTIONS,
         agent_kwargs=agent_kwargs,
         memory=memory,

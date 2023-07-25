@@ -19,7 +19,7 @@ import langchain
 load_dotenv()
 
 # Set debug to True to see A LOT of details of langchain's inner workings
-langchain.debug = True
+# langchain.debug = True
 
 # The name of the table in Supabase, where the vectors are stored
 vectorTableName = "embeddings"

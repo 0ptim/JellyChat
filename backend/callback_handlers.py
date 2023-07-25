@@ -54,8 +54,13 @@ class CallbackHandlers:
         Only the final output of the agent will be streamed.
         """
 
+        def __init__(self, app_instance):
+            super().__init__()
+            self.app_instance = app_instance
+
         def on_llm_new_token(self, token: str, **kwargs: Any) -> None:
             """Run on new LLM token. Only available when streaming is enabled."""
             sys.stdout.write(token)
             sys.stdout.flush()
             emit("final_answer_token", {"token": token})
+            self.app_instance.socketio.sleep(0)
