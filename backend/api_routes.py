@@ -12,16 +12,21 @@ from data import (
 )
 
 
-def _is_valid_input(user_token, message):
+def _is_valid_input(user_token, message, application):
     if not user_token:
         return False, jsonify({"error": "User token is required"}), 400
     if not message:
         return False, jsonify({"error": "Message is required"}), 400
+    if not application:
+        return False, jsonify({"error": "Application is required"}), 400
+
     return True, None, None
 
 
-def process_input(app_instance, user_token, message):
-    is_valid, error_response, error_code = _is_valid_input(user_token, message)
+def process_input(app_instance, user_token, message, application):
+    is_valid, error_response, error_code = _is_valid_input(
+        user_token, message, application
+    )
     if not is_valid:
         return error_response, error_code
 
@@ -31,7 +36,7 @@ def process_input(app_instance, user_token, message):
         user_token, CallbackHandlers.FinalOutputHandler(app_instance)
     )
 
-    add_chat_message(user_id, "human", message)
+    add_chat_message(user_id, "human", message, application=application)
 
     with get_openai_callback() as cb:
         response_obj = chat_agent(
@@ -89,14 +94,18 @@ def setup_routes(app_instance):
     socketio = app_instance.socketio
 
     @socketio.on("user_message")
-    def process_input_socket(user_token, message):
+    def process_input_socket(user_token, message, application):
         try:
-            is_valid, error_response, error_code = _is_valid_input(user_token, message)
+            is_valid, error_response, error_code = _is_valid_input(
+                user_token, message, application
+            )
             if not is_valid:
                 emit("error", error_response.get_json())
                 return
 
-            response, status_code = process_input(app_instance, user_token, message)
+            response, status_code = process_input(
+                app_instance, user_token, message, application
+            )
             emit("final_message", {"message": response.get_json()["response"]})
         except Exception as e:
             print(e)
@@ -115,8 +124,11 @@ def setup_routes(app_instance):
 
             user_token = request.json.get("user_token", "").strip()
             message = request.json.get("message", "").strip()
+            application = request.json.get("application", "").strip()
 
-            response, status_code = process_input(app_instance, user_token, message)
+            response, status_code = process_input(
+                app_instance, user_token, message, application
+            )
             return make_response(response, status_code)
         except Exception as e:
             print(e)
