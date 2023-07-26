@@ -30,11 +30,11 @@ def process_input(app_instance, user_token, message):
         print("Creating user: ", user_token)
         user_id = create_user(user_token)
 
-    add_chat_message(user_id, "human", message)
-
     chat_agent = agent_for_user(
         user_token, CallbackHandlers.FinalOutputHandler(app_instance)
     )
+
+    add_chat_message(user_id, "human", message)
 
     with get_openai_callback() as cb:
         response_obj = chat_agent(
