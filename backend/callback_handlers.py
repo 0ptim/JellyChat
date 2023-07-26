@@ -60,7 +60,8 @@ class CallbackHandlers:
 
         def on_llm_new_token(self, token: str, **kwargs: Any) -> None:
             """Run on new LLM token. Only available when streaming is enabled."""
-            sys.stdout.write(token)
-            sys.stdout.flush()
-            emit("final_answer_token", {"token": token})
-            self.app_instance.socketio.sleep(0)
+            # If token string not empty, emit it to the client
+            if token:
+                print(token)
+                emit("final_answer_token", {"token": token})
+                self.app_instance.socketio.sleep(0)
