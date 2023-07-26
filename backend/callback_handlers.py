@@ -50,7 +50,7 @@ class CallbackHandlers:
         """
         Callback handler for streaming.
         Only works with LLMs that support streaming.
-        Only the final output of the agent will be streamed.
+        Only the final output of the agent will be streamed, becuase we pass this callback only to the main agent LLM.
         """
 
         def __init__(self, app_instance):
