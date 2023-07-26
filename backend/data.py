@@ -119,7 +119,9 @@ def get_chat_memory(user_id: int) -> List[Dict[str, Union[int, str, str]]]:
         .select("*")
         .eq("user_id", user_id)
         .in_("message_type", ["human", "jelly"])  # Filter for human and Jelly messages
-        .order("timestamp")
+        .order("timestamp", desc=True)
+        .limit(10)
         .execute()
     )
-    return data.data
+    reversed_data = list(reversed(data.data))
+    return reversed_data
