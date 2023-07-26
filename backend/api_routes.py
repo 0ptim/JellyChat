@@ -25,10 +25,7 @@ def process_input(app_instance, user_token, message):
     if not is_valid:
         return error_response, error_code
 
-    user_id = check_user_exists(user_token)
-    if user_id is None:
-        print("Creating user: ", user_token)
-        user_id = create_user(user_token)
+    user_id = get_user_id(user_token)
 
     chat_agent = agent_for_user(
         user_token, CallbackHandlers.FinalOutputHandler(app_instance)
@@ -51,6 +48,17 @@ def process_input(app_instance, user_token, message):
     add_chat_message(user_id, "jelly", response)
 
     return jsonify({"response": response}), 200
+
+
+def get_user_id(user_token):
+    """
+    Get the user_id for a user_token. If the user does not exist, create a new user.
+    """
+    user_id = check_user_exists(user_token)
+    if user_id is None:
+        print("Creating user: ", user_token)
+        user_id = create_user(user_token)
+    return user_id
 
 
 def log_response_info(callback_obj):
@@ -106,10 +114,7 @@ def setup_routes(app_instance):
             if not user_token:
                 return make_response("User token is missing or empty", 400)
 
-            user_id = check_user_exists(user_token)
-            if user_id is None:
-                print("Creating user: ", user_token)
-                user_id = create_user(user_token)
+            user_id = get_user_id(user_token)
 
             chat_messages = get_chat_history(user_id)
             return make_response(jsonify(chat_messages), 200)
