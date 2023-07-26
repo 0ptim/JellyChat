@@ -10,6 +10,8 @@ from jellychatapi import JellyChatAPI
 
 
 class JellyChatTelegramBot:
+    APPLICATION: str = "telegram"
+
     def __init__(self, token: str, username: str):
         self.token = token
         self.username = username
@@ -48,11 +50,11 @@ class JellyChatTelegramBot:
         if "group" in chatType:  # Group Chat
             if self.username.replace('\"', "") in question:
                 replaced_text: str = question.replace(self.username, "").strip()
-                answer: str = self.jellyChatAPI.user_message(userToken, replaced_text)
+                answer: str = self.jellyChatAPI.user_message(userToken, replaced_text, JellyChatTelegramBot.APPLICATION)
             else:
                 return
         else:  # Private Chat
-            answer: str = self.jellyChatAPI.user_message(userToken, question)
+            answer: str = self.jellyChatAPI.user_message(userToken, question, JellyChatTelegramBot.APPLICATION)
 
         print(f"Bot: {answer}")
         await update.message.reply_text(answer)

@@ -9,6 +9,7 @@ from jellychatapi import JellyChatAPI
 
 
 class JellyChatDiscordBot(discord.Client):
+    APPLICATION: str = "discord"
 
     def __init__(self):
         self.jellyChatAPI = JellyChatAPI()
@@ -76,7 +77,7 @@ class JellyChatDiscordBot(discord.Client):
 
         question = message.content.replace(f"<@{self.user.id}>", "") + extra_prompt
         print(f"New question from {message.author.name}: {question}")
-        return self.jellyChatAPI.user_message(userToken, question)
+        return self.jellyChatAPI.user_message(userToken, question, JellyChatDiscordBot.APPLICATION)
 
     async def send(self, message, answer, is_private: bool):
         """
