@@ -53,6 +53,7 @@ To send a message, emit an event called `user_message` with the data.
 
 - `user_token` - The user token to identify the user/session.
 - `message` - The message to send.
+- `application` - The application you are sending the message from (used for analytics).
 
 ### 🔔 Event: `tool_start`
 
@@ -81,7 +82,8 @@ _Request body_
 ```json
 {
   "message": "How many DFI do I need to create a masternode?",
-  "user_token": "{usertoken}"
+  "user_token": "{usertoken}", // The user token to identify the user/session.
+  "application": "{application}" // The application you are sending the message from (used for analytics).
 }
 ```
 
