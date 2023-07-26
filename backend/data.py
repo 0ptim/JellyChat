@@ -26,7 +26,9 @@ def add_question_answer(question: str, answer: str) -> int:
     return data.data[0]["id"]
 
 
-def add_chat_message(user_id: int, message_type: str, content: str) -> int:
+def add_chat_message(
+    user_id: int, message_type: str, content: str, application: str = ""
+) -> int:
     """Add a chat message to the database.
 
     Args:
@@ -39,7 +41,14 @@ def add_chat_message(user_id: int, message_type: str, content: str) -> int:
     """
     data = (
         supabase.table("chat_messages")
-        .insert({"user_id": user_id, "message_type": message_type, "content": content})
+        .insert(
+            {
+                "user_id": user_id,
+                "message_type": message_type,
+                "content": content,
+                "application": application,
+            }
+        )
         .execute()
     )
     return data.data[0]["id"]
