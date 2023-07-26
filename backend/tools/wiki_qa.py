@@ -19,7 +19,7 @@ import langchain
 load_dotenv()
 
 # Set debug to True to see A LOT of details of langchain's inner workings
-langchain.debug = True
+# langchain.debug = True
 
 # The name of the table in Supabase, where the vectors are stored
 vectorTableName = "embeddings"
@@ -74,7 +74,7 @@ def get_answer(question: str) -> str:
             print("-" * 50)
 
         result = chain.run(context=json.dumps(embeddings.data), question=question)
-        print("📝", result)
+        print("📝 Result of knowledge extraction chain:", result)
 
         return f"""Answer: {result.answer}
         Sources: {json.dumps(result.sources)}

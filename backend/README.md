@@ -47,24 +47,28 @@ To connect to the web socket, use the following URL: `https://jellychat.fly.dev`
 
 The library used on the backend is [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/). There are librarys for many languages available on the Socket.IO website.
 
-**To send a message, emit an event called `user_message` with the data.**
+### 📤 Sending user messages
+
+To send a message, emit an event called `user_message` with the data.
 
 - `user_token` - The user token to identify the user/session.
 - `message` - The message to send.
 
-You can listen to the following two events.
-
-### Event: `tool_start`
+### 🔔 Event: `tool_start`
 
 This event is emitted, when the agent starts using a tool. You can use this to display an information to the user, so he knows what is happening.
 
 - `tool_name` - message which tool is used
 
-### Event: `final_message`
+### 🔔 Event: `final_message`
 
 This event is emitted, when the agent has come up with a final answer. You can use this to display the answer to the user.
 
-- `message` - The final message
+- `token` - One token of the final answer
+
+### 🔔 Event: `final_answer_token`
+
+This event emits each token of the final answer individually. You can use this to display the answer instantly to the user as it is being generated.
 
 ## REST Endpoints
 

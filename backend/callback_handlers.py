@@ -1,4 +1,5 @@
 import json
+from typing import Any
 from langchain.callbacks.base import BaseCallbackHandler
 from flask_socketio import emit
 from utils import get_tool_message
@@ -44,3 +45,22 @@ class CallbackHandlers:
                 print(f"QA Tool ended: {output}")
                 add_question_answer(self.current_question, output)
                 self.current_question = ""
+
+    class FinalOutputHandler(BaseCallbackHandler):
+        """
+        Callback handler for streaming.
+        Only works with LLMs that support streaming.
+        Only the final output of the agent will be streamed, becuase we pass this callback only to the main agent LLM.
+        """
+
+        def __init__(self, app_instance):
+            super().__init__()
+            self.app_instance = app_instance
+
+        def on_llm_new_token(self, token: str, **kwargs: Any) -> None:
+            """Run on new LLM token. Only available when streaming is enabled."""
+            # If token string not empty, emit it to the client
+            if token:
+                print(token)
+                emit("final_answer_token", {"token": token})
+                self.app_instance.socketio.sleep(0)

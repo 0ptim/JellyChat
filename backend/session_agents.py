@@ -7,12 +7,12 @@ from langchain.memory import ChatMessageHistory
 agents_by_user = {}
 
 
-def agent_for_user(user_token):
+def agent_for_user(user_token, final_output_handler=None):
     chat_agent = agents_by_user.get(user_token)
 
     if chat_agent is None:
         memory = create_memoy(user_token)
-        chat_agent = create_agent(memory)
+        chat_agent = create_agent(memory, final_output_handler)
         agents_by_user[user_token] = chat_agent
 
     return chat_agent
