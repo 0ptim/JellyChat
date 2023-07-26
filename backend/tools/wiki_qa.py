@@ -74,7 +74,7 @@ def get_answer(question: str) -> str:
             print("-" * 50)
 
         result = chain.run(context=json.dumps(embeddings.data), question=question)
-        print("📝", result)
+        print("📝 Result of knowledge extraction chain:", result)
 
         return f"""Answer: {result.answer}
         Sources: {json.dumps(result.sources)}
