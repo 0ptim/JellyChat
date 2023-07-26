@@ -58,7 +58,23 @@ def get_user_id(user_token):
     if user_id is None:
         print("Creating user: ", user_token)
         user_id = create_user(user_token)
+        set_inital_message(user_id)
     return user_id
+
+
+def set_inital_message(user_id):
+    """
+    Set the initial message from Jelly as greeting.
+    """
+    add_chat_message(
+        user_id,
+        "jelly",
+        """Hi there, it's Jelly 🪼
+
+Your friendly undersea guide to everything DeFiChain. Feel comfortable to dive into any question you've got.
+
+Ready to navigate through this exciting blockchain journey together? 🌊""",
+    )
 
 
 def log_response_info(callback_obj):
