@@ -22,7 +22,6 @@ class JellyChatTelegramBot:
         self.app = Application.builder().token(token).build()
 
         self.app.add_handler(CommandHandler("start", self.start))
-        self.app.add_handler(CommandHandler("help", self.help))
 
         self.app.add_handler(MessageHandler(filters.TEXT, self.handler))
 
@@ -60,11 +59,19 @@ class JellyChatTelegramBot:
         await update.message.reply_text(answer)
 
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        await update.message.reply_text("Hey I'm Jelly 🪼 and I'm here to help you with everything around Defichain!\n"
-                                        "Don't be shy and ask me something⁉️")
+        chatType: str = update.message.chat.type
 
-    async def help(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        await update.message.reply_text("If there is something i can help you with, just ask!🙋🏻")
+        if chatType == "private":
+            chatId: int = update.message.chat.id
+            userToken: str = JellyChatAPI.create_user_token(chatId)  # create user token
+            history = self.jellyChatAPI.user_history(userToken)
+            if len(history) == 1:
+                await update.message.reply_text(history[0].get("content"))
+            else:
+                await update.message.reply_text(f"Hey there!🪼\nI think I remember your face... "
+                                                f"Sure you are: @{update.message.from_user.username}\n"
+                                                f"Nice to have you back. If you have any question, "
+                                                f"don't be shy and ask me something⁉️")
 
 
 if __name__ == '__main__':
