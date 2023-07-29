@@ -1,5 +1,6 @@
 import os
 import sys
+import logging
 from dotenv import load_dotenv
 
 from telegram import Update
@@ -7,6 +8,10 @@ from telegram.ext import CommandHandler, ContextTypes, Application, MessageHandl
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")))
 from jellychatapi import JellyChatAPI
+from logger import configure_logging
+
+
+configure_logging()
 
 
 class JellyChatTelegramBot:
@@ -18,7 +23,7 @@ class JellyChatTelegramBot:
 
         self.jellyChatAPI = JellyChatAPI()
 
-        print("Initializing bots...")
+        logging.info("Initializing bots...")
         self.app = Application.builder().token(token).build()
 
         self.app.add_handler(CommandHandler("start", self.start))
@@ -29,7 +34,7 @@ class JellyChatTelegramBot:
         """
         Run the bot
         """
-        print("Telegram bot has started...")
+        logging.info("Telegram bot has started...")
         self.app.run_polling(0.5)  # Check for messages every 0.5 seconds
 
     async def handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -45,50 +50,64 @@ class JellyChatTelegramBot:
         if update.message.reply_to_message:
             reply: str = update.message.reply_to_message.text
             reply_user: str = update.message.reply_to_message.from_user.username
-        question: str = update.message.text
+        user_message: str = update.message.text
 
         userToken: str = JellyChatAPI.create_user_token(chatId)  # create user token
 
         # Add reply to question if reply exists
         if reply:
-            question = f"{reply}\n\n{question}"
+            question: str = f"{reply}\n\n{user_message}"
+        else:
+            question: str = user_message
 
-        print("----")
-        print(f"Chat ID: {chatId}")
-        print(f"Chat Type: {chatType}")
+        # Logging String: Question
         if reply:
-            print(f"Reply: {reply}")
-            print(f"Reply User: {reply_user}")
-        print(f"Question: {question}")
-        print("----")
+            logging_question: str = f"Question: Chat ID: {chatId}, Chat Type: {chatType}, Reply User: {reply_user}, " \
+                                    f"Reply: \n{reply}, \nUser Message: \n{user_message}"
+        else:
+            logging_question: str = f"Question: Chat ID: {chatId}, Chat Type: {chatType}, " \
+                                    f"\nUser Message: {user_message}"
 
         # Differentiate between a group and a private chat
         if "group" in chatType:  # Group Chat
             if self.username in question or reply_user:
+                logging.info(logging_question)
                 replaced_text: str = question.replace(self.username, "").strip()
                 answer: str = self.jellyChatAPI.user_message(userToken, replaced_text, JellyChatTelegramBot.APPLICATION)
             else:
                 return
         else:  # Private Chat
+            logging.info(logging_question)
             answer: str = self.jellyChatAPI.user_message(userToken, question, JellyChatTelegramBot.APPLICATION)
 
-        print(f"--> Answer: {answer}")
+        logging.info(f"Answer: Chat ID: {chatId}, Chat Type: {chatType}, Answer: \n{answer}")
         await update.message.reply_text(answer)
 
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """
+        /start command
+        """
         chatType: str = update.message.chat.type
+        chatId: int = update.message.chat.id
+        userToken: str = JellyChatAPI.create_user_token(chatId)  # create user token
+        user: str = update.message.from_user.username
 
+        # Check if private chat
         if chatType == "private":
-            chatId: int = update.message.chat.id
-            userToken: str = JellyChatAPI.create_user_token(chatId)  # create user token
             history = self.jellyChatAPI.user_history(userToken)
+            # If new user --> load context user message
             if len(history) == 1:
+                logging.info(f"New User: @{user}")
                 await update.message.reply_text(history[0].get("content"))
+            # Old user coming back --> greeting message
             else:
+                logging.info(f"Old user coming back: @{user}")
                 await update.message.reply_text(f"Hey there!🪼\nI think I remember your face... "
-                                                f"Sure you are: @{update.message.from_user.username}\n"
+                                                f"Sure you are: @{user}\n"
                                                 f"Nice to have you back. If you have any question, "
                                                 f"don't be shy and ask me something⁉️")
+        else:
+            logging.warning(f"User @{user} tried to use /start outside of private chat")
 
 
 if __name__ == '__main__':

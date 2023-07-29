@@ -7,6 +7,7 @@ WORKDIR /home/appuser
 
 # Copy Files
 COPY jellychatapi.py .
+COPY logger.py .
 COPY telegram/ .
 
 # Install Dependencies

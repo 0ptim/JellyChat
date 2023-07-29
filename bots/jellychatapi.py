@@ -1,5 +1,6 @@
 import requests
 import hashlib
+import logging
 from typing import Any
 
 
@@ -14,6 +15,7 @@ class JellyChatAPI:
         if "response" in response:
             return response.get("response")
         else:
+            logging.error(f"There is an error with the connection to JellyChat API")
             return f"Hey here is Jelly. I'm sleeping right now!💤"
 
     def __init__(self, url: str = "https://jellychat.fly.dev"):
