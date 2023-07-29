@@ -7,7 +7,7 @@ class JellyChatAPI:
 
     @staticmethod
     def create_user_token(identification: Any) -> str:
-        return hashlib.sha256((str(identification) + "e").encode("utf-8")).hexdigest()
+        return hashlib.sha256((str(identification)).encode("utf-8")).hexdigest()
 
     @staticmethod
     def get_response(response):
