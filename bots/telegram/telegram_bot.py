@@ -37,17 +37,34 @@ class JellyChatTelegramBot:
         This method handles all incoming messages for the bot:
         It will whether the message is coming from a private or a guild chat and acts accordingly
         """
+        reply = ""
+        reply_user = ""
+
         chatType: str = update.message.chat.type
-        question: str = update.message.text
         chatId: int = update.message.chat.id
+        if update.message.reply_to_message:
+            reply: str = update.message.reply_to_message.text
+            reply_user: str = update.message.reply_to_message.from_user.username
+        question: str = update.message.text
 
         userToken: str = JellyChatAPI.create_user_token(chatId)  # create user token
 
-        print(f"User ({update.message.chat.id}) in {chatType}: '{question}'")
+        # Add reply to question if reply exists
+        if reply:
+            question = f"{reply}\n\n{question}"
+
+        print("----")
+        print(f"Chat ID: {chatId}")
+        print(f"Chat Type: {chatType}")
+        if reply:
+            print(f"Reply: {reply}")
+            print(f"Reply User: {reply_user}")
+        print(f"Question: {question}")
+        print("----")
 
         # Differentiate between a group and a private chat
         if "group" in chatType:  # Group Chat
-            if self.username.replace('\"', "") in question:
+            if self.username in question or reply_user:
                 replaced_text: str = question.replace(self.username, "").strip()
                 answer: str = self.jellyChatAPI.user_message(userToken, replaced_text, JellyChatTelegramBot.APPLICATION)
             else:
@@ -55,7 +72,7 @@ class JellyChatTelegramBot:
         else:  # Private Chat
             answer: str = self.jellyChatAPI.user_message(userToken, question, JellyChatTelegramBot.APPLICATION)
 
-        print(f"Bot: {answer}")
+        print(f"--> Answer: {answer}")
         await update.message.reply_text(answer)
 
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
