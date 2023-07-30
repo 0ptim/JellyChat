@@ -22,9 +22,11 @@
 ## Bot Description
 
 1. Name: JellyChat
-2. User Picture: ![profile_picture](profile_picture.svg)
-3. About Text: Jelly Chat 🪼 GPT Bot with information about Defichain
-4. Description: Hey there!🪼 If you have any question about Defichain, don't be shy and ask me something⁉️
+2. About Text: Jelly Chat 🪼 GPT Bot with information about Defichain
+3. Description: Hey there!🪼 If you have any question about Defichain, don't be shy and ask me something⁉️
+4. User Picture: 
+
+<img src="profile_picture.svg" alt="Bild" width="300">
 
 ## Bot Commands:
 
