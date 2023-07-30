@@ -134,3 +134,22 @@ def get_chat_memory(user_id: int) -> List[Dict[str, Union[int, str, str]]]:
     )
     reversed_data = list(reversed(data.data))
     return reversed_data
+
+
+def get_total_human_messages() -> int:
+    """Get the total number of human messages.
+
+    Returns:
+        The total number of human messages.
+    """
+    data = (
+        supabase.table("chat_messages")
+        .select("id")
+        .eq("message_type", "human")
+        .execute()
+    )
+    return len(data.data)
+
+
+if __name__ == "__main__":
+    print(get_total_human_messages())

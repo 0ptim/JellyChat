@@ -9,6 +9,7 @@ from data import (
     get_chat_history,
     get_question_answers,
     add_chat_message,
+    get_total_human_messages,
 )
 
 error_placeholder = """Yikes! I made a bubbly blunder ⛈️
@@ -143,6 +144,20 @@ def setup_routes(app_instance):
     def get_all_messages_answers():
         messages_answers = get_question_answers()
         return make_response(jsonify(messages_answers), 200)
+
+    @app.route("/human_message_count", methods=["GET"])
+    def get_human_message_count():
+        total_human_messages = get_total_human_messages()
+        return make_response(
+            jsonify(
+                {
+                    "subject": "Total human messages",
+                    "status": total_human_messages,
+                    "color": "blue",
+                }
+            ),
+            200,
+        )
 
     @app.after_request
     def handle_options_requests(response):
