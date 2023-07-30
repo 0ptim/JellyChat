@@ -11,48 +11,45 @@ from data import (
     add_chat_message,
 )
 
+error_placeholder = """Yikes! I made a bubbly blunder ⛈️
 
-def _is_valid_input(user_token, message, application):
-    if not user_token:
-        return False, jsonify({"error": "User token is required"}), 400
-    if not message:
-        return False, jsonify({"error": "Message is required"}), 400
-    if not application:
-        return False, jsonify({"error": "Application is required"}), 400
+Please accept this humble jellyfish's apologies for the inconvenience.
 
-    return True, None, None
+Can we swim forward and try again together? 🐙"""
 
 
 def process_input(app_instance, user_token, message, application):
-    is_valid, error_response, error_code = _is_valid_input(
-        user_token, message, application
-    )
-    if not is_valid:
-        return error_response, error_code
+    try:
+        user_id = get_user_id(user_token)
 
-    user_id = get_user_id(user_token)
-
-    chat_agent = agent_for_user(
-        user_token, CallbackHandlers.FinalOutputHandler(app_instance)
-    )
-
-    add_chat_message(user_id, "human", message, application=application)
-
-    with get_openai_callback() as cb:
-        response_obj = chat_agent(
-            message,
-            callbacks=[
-                CallbackHandlers.ToolUseNotifier(app_instance, user_id),
-                CallbackHandlers.QAToolHandler(app_instance),
-            ],
+        chat_agent = agent_for_user(
+            user_token, CallbackHandlers.FinalOutputHandler(app_instance)
         )
-        log_response_info(cb)
 
-    response = response_obj["output"].strip()
+        add_chat_message(user_id, "human", message, application=application)
 
-    add_chat_message(user_id, "jelly", response)
+        with get_openai_callback() as cb:
+            response_obj = chat_agent(
+                message,
+                callbacks=[
+                    CallbackHandlers.ToolUseNotifier(app_instance, user_id),
+                    CallbackHandlers.QAToolHandler(app_instance),
+                ],
+            )
+            log_response_info(cb)
 
-    return jsonify({"response": response}), 200
+        response = response_obj["output"].strip()
+
+        add_chat_message(user_id, "jelly", response)
+
+        return response
+    except Exception as e:
+        print(e)
+        if user_id:
+            add_chat_message(user_id, "jelly", error_placeholder)
+        # Emit error message to socket, because otherwise apps which use streaming would not display the error
+        emit("final_answer_token", {"token": error_placeholder})
+        return error_placeholder
 
 
 def get_user_id(user_token):
@@ -94,46 +91,39 @@ def setup_routes(app_instance):
     socketio = app_instance.socketio
 
     @socketio.on("user_message")
-    def process_input_socket(user_token, message, application):
-        try:
-            is_valid, error_response, error_code = _is_valid_input(
-                user_token, message, application
-            )
-            if not is_valid:
-                emit("error", error_response.get_json())
-                return
+    def user_message_socket(user_token=None, message=None, application=None):
+        print("user_message", user_token, message, application)
+        if not user_token:
+            emit("error", {"error": "'user_token' is required"})
+            return
+        if not message:
+            emit("error", {"error": "'message' is required"})
+            return
+        if not application:
+            emit("error", {"error": "'application' is required"})
+            return
 
-            response, status_code = process_input(
-                app_instance, user_token, message, application
-            )
-            emit("final_message", {"message": response.get_json()["response"]})
-        except Exception as e:
-            print(e)
-            emit(
-                "final_message",
-                {
-                    "message": "Yikes! 🌊 I made a bubbly blunder. Please accept this humble jellyfish's apologies for the inconvenience. 💜 Can we swim forward and try again together? 🐙"
-                },
-            )
+        response = process_input(app_instance, user_token, message, application)
+        emit("final_message", {"message": response})
 
     @app.route("/user_message", methods=["POST"])
-    def process_input_rest():
-        try:
-            if not request.is_json:
-                return make_response("Request should be in JSON format", 400)
+    def user_message_rest():
+        if not request.is_json:
+            return make_response("Request should be in JSON format", 400)
 
-            user_token = request.json.get("user_token", "").strip()
-            message = request.json.get("message", "").strip()
-            application = request.json.get("application", "").strip()
+        user_token = request.json.get("user_token", "").strip()
+        message = request.json.get("message", "").strip()
+        application = request.json.get("application", "").strip()
 
-            response, status_code = process_input(
-                app_instance, user_token, message, application
-            )
-            return make_response(response, status_code)
-        except Exception as e:
-            print(e)
-            custom_message = "Yikes! 🌊 I made a bubbly blunder. Please accept this humble jellyfish's apologies for the inconvenience. 💜 Can we swim forward and try again together? 🐙"
-            return make_response(custom_message, 500)
+        if not user_token:
+            return make_response(jsonify({"error": "'user_token' is required"}), 400)
+        if not message:
+            return make_response(jsonify({"error": "'message' is required"}), 400)
+        if not application:
+            return make_response(jsonify({"error": "'application' is required"}), 400)
+
+        response = process_input(app_instance, user_token, message, application)
+        return make_response(response, 200)
 
     @app.route("/history", methods=["POST"])
     def get_user_history():
