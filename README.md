@@ -1,3 +1,5 @@
+![Total human messages counter](https://badgen.net/https/jellychat.fly.dev/human_message_count)
+
 [![Fly.io Backend Production](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml)
 [![Supabase Production](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml)
 
