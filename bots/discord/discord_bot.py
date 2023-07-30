@@ -51,10 +51,7 @@ class JellyChatDiscordBot(discord.Client):
         """
         # Only generates and sends message if bot is tagged
         if self.user in message.mentions:
-            if "/private" == message.content[0:8]:
-                await self.private(message)
-            else:
-                await self.send(message, self.get_answer(message, False), False)
+            await self.send(message, self.get_answer(message, False), False)
 
     async def private(self, message):
         """
