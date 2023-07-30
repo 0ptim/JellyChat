@@ -12,6 +12,7 @@ class JellyChatAPI:
 
     @staticmethod
     def get_response(response):
+        print(response)
         if "response" in response:
             return response.get("response")
         else:
@@ -22,10 +23,17 @@ class JellyChatAPI:
         self.url = url
 
     def user_message(self, userToken: str, message: str, application):
-        self.user_history(userToken)
-        return JellyChatAPI.get_response(requests.post(self.url + "/user_message",
-                                                       json={"user_token": userToken, "application": application,
-                                                             "message": message}).json())
+        try:
+            self.user_history(userToken)
+            # return JellyChatAPI.get_response(requests.post(self.url + "/user_message",
+            #                                               json={"user_token": userToken, "application": application,
+            #                                                     "message": message}).json())
+
+            return requests.post(self.url + "/user_message", json={"user_token": userToken, "application": application,
+                                                                   "message": message}).text
+        except Exception as e:
+            logging.error(f"Failing connection to API {self.url}: \n{e}")
+            return f"Hey here is Jelly. I'm sleeping right now!💤"
 
     def user_history(self, userToken: str) -> [{}]:
         return requests.post(self.url + "/history", json={"user_token": userToken}).json()
