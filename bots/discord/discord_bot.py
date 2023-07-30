@@ -72,7 +72,7 @@ class JellyChatDiscordBot(discord.Client):
         # Prompt that is appended to the question.
         extra_prompt = " The answer must be less than 2000 characters in length."
 
-        question = message.content.replace(f"<@{self.user.id}>", "") + extra_prompt
+        question = message.content.replace(f"<@{self.user.id}>", "")  #  + extra_prompt
         print(f"New question from {message.author.name}: {question}")
         return self.jellyChatAPI.user_message(userToken, question, JellyChatDiscordBot.APPLICATION)
 
