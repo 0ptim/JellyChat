@@ -67,6 +67,7 @@ class JellyChatDiscordBot(discord.Client):
         This method handles all messages of a private chat:
         It will always answer on anything that has been written into the chat
         """
+        await self.is_first_message(message)
         answer: str = self.get_answer(message, is_private=True)
         await self.send(message, answer, is_private=True)
 
@@ -113,6 +114,14 @@ class JellyChatDiscordBot(discord.Client):
                 await message.author.send(msg, reference=message)
             else:
                 await message.channel.send(msg, reference=message)
+
+    async def is_first_message(self, message):
+        userToken: str = JellyChatAPI.create_user_token(message.author.name)
+        history = self.jellyChatAPI.user_history(userToken)
+        # If new user --> load context user message
+        if len(history) == 1:
+            logging.info(f"New User: {message.author.name}")
+            await message.author.send(history[0].get("content"))
 
     async def fetch_message(self, ctx, message_id: int):
         try:
