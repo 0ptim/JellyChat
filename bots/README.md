@@ -83,6 +83,8 @@ Python run:
 python3 discord/discord_bot.py
 ```
 
+#### Docker
+
 Docker build:
 ```bash
 docker build -t jelly_chat_discord_bot -f discord/Dockerfile .
