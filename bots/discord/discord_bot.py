@@ -1,11 +1,16 @@
 import os
 import sys
+import logging
 from dotenv import load_dotenv
 
 import discord
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")))
 from jellychatapi import JellyChatAPI
+from logger import configure_logging
+
+
+configure_logging()
 
 
 class JellyChatDiscordBot(discord.Client):
@@ -14,20 +19,19 @@ class JellyChatDiscordBot(discord.Client):
     def __init__(self):
         self.jellyChatAPI = JellyChatAPI()
 
-        print("Initializing bots...")
+        logging.info("Initializing bots...")
         intents = discord.Intents.default()
         intents.message_content = True
         super().__init__(intents=intents)
 
     async def on_ready(self) -> None:
         """
-        This method will print if the bot has stared successfully and list all connected guilds
+        This method will log if the bot has stared successfully and list all connected guilds
         """
-        print("The Discord bot is up and running...")
-        print("The Discord Bot is running on the following servers: ")
+        logging.info("The Discord bot is up and running...")
+        logging.info("The Discord Bot is running on the following servers: ")
         for guild in self.guilds:
-            print(f"\t{self.guilds.index(guild)}: {guild.name}")
-        print(f"-----------------------------------------------------")
+            logging.info(f"\t{self.guilds.index(guild)}: {guild.name}")
 
     async def on_message(self, message):
         """
@@ -79,25 +83,31 @@ class JellyChatDiscordBot(discord.Client):
         extra_prompt = " The answer must be less than 2000 characters in length."
 
         message_content: str = message.content.replace(f"<@{self.user.id}>", "")  # + extra_prompt
-        question: str = message_content
-        if reply:
-            reply_content: str = reply.content.replace(f"<@{self.user.id}>", "")
-            question: str = f"{reply_content}\n\n{message_content}"
 
-        return self.jellyChatAPI.user_message(userToken, question, JellyChatDiscordBot.APPLICATION)
+        if reply:
+
+            reply_content: str = reply.content.replace(f"<@{self.user.id}>", "")
+            logging.info(f"Question: User: {message.author.name}, Reply:\n{reply_content}\nQuestion:\n{message_content}")
+            question: str = f"{reply_content}\n\n{message_content}"
+        else:
+            question: str = message_content
+            logging.info(f"Question: User: {message.author.name}, Question:\n{message_content}")
+
+        answer: str = self.jellyChatAPI.user_message(userToken, question, JellyChatDiscordBot.APPLICATION)
+        logging.info(f"Answer: User: {message.author.name}, Answer: {answer}")
+        return answer
 
     async def send(self, message, answer, is_private: bool):
         """
         This method sends the answer either into the guild or private chat
         """
-        print(f"Answer: {answer}")
         try:
             if is_private:
                 await message.author.send(answer, reference=message)
             else:
                 await message.channel.send(answer, reference=message)
         except Exception as e:  # An error will occur if the answer is longer than 2000 characters
-            print(e)
+            logging.error(f"There is an error sending the message: {e}")
             msg = "Woooops, something went wrong while trying to ship the answer to you."
             if is_private:
                 await message.author.send(msg, reference=message)
@@ -110,11 +120,11 @@ class JellyChatDiscordBot(discord.Client):
             message = await ctx.channel.fetch_message(message_id)
             return message
         except discord.NotFound:
-            print("Message not found.")
+            logging.error("Message not found.")
         except discord.Forbidden:
-            print("Bot doesn't have permission to access the message.")
+            logging.error("Bot doesn't have permission to access the message.")
         except discord.HTTPException:
-            print("An error occurred during the HTTP request.")
+            logging.error("An error occurred during the HTTP request.")
 
 
 if __name__ == '__main__':
