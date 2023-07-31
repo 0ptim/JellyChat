@@ -149,7 +149,3 @@ def get_total_human_messages() -> int:
         .execute()
     )
     return len(data.data)
-
-
-if __name__ == "__main__":
-    print(get_total_human_messages())

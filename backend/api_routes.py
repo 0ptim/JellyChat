@@ -124,7 +124,7 @@ def setup_routes(app_instance):
             return make_response(jsonify({"error": "'application' is required"}), 400)
 
         response = process_input(app_instance, user_token, message, application)
-        return make_response(response, 200)
+        return make_response(jsonify({"response": response}), 200)
 
     @app.route("/history", methods=["POST"])
     def get_user_history():
