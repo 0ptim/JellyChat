@@ -1,13 +1,40 @@
-![Total human messages counter](https://badgen.net/https/jellychat.fly.dev/human_message_count)
+<p align="center">
+  <a href="https://t.me/+nl8AbyS6izZjNjc0">
+    <img align="center" src="https://badgen.net/badge/Join%20us%20on/Telegram/1a98fc?icon=telegram" alt="Join us on Telegram">
+  </a>
+  <a href="https://defichainwiki.com/jellychat">
+    <img align="center" src="https://img.shields.io/badge/Official%20Website-%230077B5.svg?&style=for-the-badge&logo=website&logoColor=white" alt="Website">
+  </a>
+    <img src="https://badgen.net/https/jellychat.fly.dev/human_message_count" alt="Total human messages counter">
+</p>
 
-[![Fly.io Backend Production](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml)
-[![Supabase Production](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml)
+<h2 align="center">Production deployments</h2>
 
-[![Fly.io Backend Staging](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml)
-[![Supabase Staging](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml)
+<p align="center">
+  <a href="https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml">
+    <img src="https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml/badge.svg" alt="Fly.io Backend Production">
+  </a>
+  <a href="https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml">
+    <img src="https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml/badge.svg" alt="Supabase Production">
+  </a>
+  <a href="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml">
+    <img src="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml/badge.svg" alt="Wiki scraping Production">
+  </a>
+</p>
 
-[![Wiki scraping Production](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml)
-[![Wiki scraping Staging](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml)
+<h2 align="center">Staging deployments</h2>
+
+<p align="center">
+   <a href="https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml">
+    <img src="https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml/badge.svg" alt="Fly.io Backend Staging">
+  </a>
+  <a href="https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml">
+    <img src="https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml/badge.svg" alt="Supabase Staging">
+  </a>
+  <a href="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml">
+    <img src="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml/badge.svg" alt="Wiki scraping Staging">
+  </a>
+</p>
 
 # JellyChat
 
