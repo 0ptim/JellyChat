@@ -3,9 +3,9 @@
     <img align="center" src="https://badgen.net/badge/Join%20us%20on/Telegram/1a98fc?icon=telegram" alt="Join us on Telegram">
   </a>
   <a href="https://defichainwiki.com/jellychat">
-    <img align="center" src="https://img.shields.io/badge/Official%20Website-%230077B5.svg?&style=for-the-badge&logo=website&logoColor=white" alt="Website">
+    <img align="center" src="https://img.shields.io/badge/🚀_Open_JellyChat-%230077B5.svg?&style=for-the-badge&logo=website&logoColor=white" alt="Website">
   </a>
-    <img src="https://badgen.net/https/jellychat.fly.dev/human_message_count" alt="Total human messages counter">
+  <img src="https://badgen.net/https/jellychat.fly.dev/human_message_count" style="vertical-align: middle;" alt="Total human messages counter">
 </p>
 
 <h2 align="center">Production deployments</h2>
@@ -37,8 +37,6 @@
 </p>
 
 # JellyChat
-
-> https://defichainwiki.com/jellychat
 
 JellyChat is a project that aims to create a chatbot that can answer questions about DeFiChain and its ecosystem.
 
