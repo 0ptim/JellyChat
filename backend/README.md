@@ -1,6 +1,19 @@
-[![Fly.io Backend Production](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml)
-
-[![Fly.io Backend Staging](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml)
+<p>
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml/badge.svg"
+    />
+  </a>
+    <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml/badge.svg"
+    />
+  </a>
+</p>
 
 # JellyChat - Backend
 

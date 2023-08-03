@@ -1,17 +1,76 @@
-![Total human messages counter](https://badgen.net/https/jellychat.fly.dev/human_message_count)
+<h1>JellyChat</h2>
 
-[![Fly.io Backend Production](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml)
-[![Supabase Production](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml)
+<p>
+  <a href="https://defichainwiki.com/jellychat">
+    <img
+      src="https://badgen.net/badge/🚀%20Open/JellyChat?color=red"
+    />
+  </a>
+  <a href="https://t.me/+nl8AbyS6izZjNjc0">
+    <img
+      src="https://badgen.net/badge/🗯%20Join%20us%20on/Telegram/1a98fc"
+    />
+  </a>
+  <a>
+    <img
+      src="https://badgen.net/https/jellychat.fly.dev/human_message_count"
+    />
+  </a>
+</p>
 
-[![Fly.io Backend Staging](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml)
-[![Supabase Staging](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml)
+<h2>Deployments</h2>
 
-[![Wiki scraping Production](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml)
-[![Wiki scraping Staging](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml)
+<h3>Production</h3>
 
-# JellyChat
+<p>
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml/badge.svg"
+    />
+  </a>
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml/badge.svg"
+    />
+  </a>
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml/badge.svg"
+    />
+  </a>
+</p>
 
-> https://defichainwiki.com/jellychat
+<h3>Staging</h3>
+
+<p>
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml/badge.svg"
+    />
+  </a>
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml/badge.svg"
+    />
+  </a>
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml/badge.svg"
+    />
+  </a>
+</p>
 
 JellyChat is a project that aims to create a chatbot that can answer questions about DeFiChain and its ecosystem.
 
