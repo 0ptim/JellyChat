@@ -1,6 +1,19 @@
-[![Supabase Production](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml)
-
-[![Supabase Staging](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml/badge.svg)](https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml)
+<p>
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml/badge.svg"
+    />
+  </a>
+    <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml/badge.svg"
+    />
+  </a>
+</p>
 
 # JellyChat - Data
 

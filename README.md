@@ -1,42 +1,76 @@
 <p align="center">
   <a href="https://t.me/+nl8AbyS6izZjNjc0">
-    <img align="center" src="https://badgen.net/badge/Join%20us%20on/Telegram/1a98fc?icon=telegram" alt="Join us on Telegram">
+    <img
+      src="https://badgen.net/badge/Join%20us%20on/Telegram/1a98fc?icon=telegram"
+    />
   </a>
   <a href="https://defichainwiki.com/jellychat">
-    <img align="center" src="https://img.shields.io/badge/🚀_Open_JellyChat-%230077B5.svg?&style=for-the-badge&logo=website&logoColor=white" alt="Website">
+    <img
+      src="https://badgen.net/badge/Open%20JellyChat/Website?icon=chrome&color=red"
+    />
   </a>
-  <img src="https://badgen.net/https/jellychat.fly.dev/human_message_count" style="vertical-align: middle;" alt="Total human messages counter">
+  <a>
+    <img
+      src="https://badgen.net/https/jellychat.fly.dev/human_message_count"
+    />
+  </a>
 </p>
 
 <h2 align="center">Production deployments</h2>
 
 <p align="center">
-  <a href="https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml">
-    <img src="https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml/badge.svg" alt="Fly.io Backend Production">
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml/badge.svg"
+    />
   </a>
-  <a href="https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml">
-    <img src="https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml/badge.svg" alt="Supabase Production">
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/supabase_production.yml/badge.svg"
+    />
   </a>
-  <a href="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml">
-    <img src="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml/badge.svg" alt="Wiki scraping Production">
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_production.yml/badge.svg"
+    />
   </a>
 </p>
 
 <h2 align="center">Staging deployments</h2>
 
 <p align="center">
-   <a href="https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml">
-    <img src="https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml/badge.svg" alt="Fly.io Backend Staging">
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml/badge.svg"
+    />
   </a>
-  <a href="https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml">
-    <img src="https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml/badge.svg" alt="Supabase Staging">
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/supabase_staging.yml/badge.svg"
+    />
   </a>
-  <a href="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml">
-    <img src="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml/badge.svg" alt="Wiki scraping Staging">
+  <a
+    href="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml"
+  >
+    <img
+      src="https://github.com/0ptim/JellyChat/actions/workflows/wiki_scraping_staging.yml/badge.svg"
+    />
   </a>
 </p>
 
 # JellyChat
+
+> https://defichainwiki.com/jellychat
 
 JellyChat is a project that aims to create a chatbot that can answer questions about DeFiChain and its ecosystem.
 

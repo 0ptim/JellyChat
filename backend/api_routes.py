@@ -153,7 +153,7 @@ def setup_routes(app_instance):
                 {
                     "subject": "Total human messages",
                     "status": total_human_messages,
-                    "color": "blue",
+                    "color": "purple",
                 }
             ),
             200,
