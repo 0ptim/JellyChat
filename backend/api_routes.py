@@ -151,7 +151,7 @@ def setup_routes(app_instance):
         return make_response(
             jsonify(
                 {
-                    "subject": "Total human messages",
+                    "subject": "🔥 Total human messages",
                     "status": total_human_messages,
                     "color": "purple",
                 }

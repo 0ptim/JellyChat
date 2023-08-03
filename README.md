@@ -3,12 +3,12 @@
 <p>
   <a href="https://defichainwiki.com/jellychat">
     <img
-      src="https://badgen.net/badge/Open%20JellyChat/Website?icon=chrome&color=red"
+      src="https://badgen.net/badge/🚀%20Open/JellyChat?color=red"
     />
   </a>
   <a href="https://t.me/+nl8AbyS6izZjNjc0">
     <img
-      src="https://badgen.net/badge/Join%20us%20on/Telegram/1a98fc?icon=telegram"
+      src="https://badgen.net/badge/🗯%20Join%20us%20on/Telegram/1a98fc"
     />
   </a>
   <a>
