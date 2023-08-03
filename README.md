@@ -18,7 +18,9 @@
   </a>
 </p>
 
-<h2>Production deployments</h2>
+<h2>Deployments</h2>
+
+<h3>Production</h3>
 
 <p>
   <a
@@ -44,7 +46,7 @@
   </a>
 </p>
 
-<h2>Staging deployments</h2>
+<h3>Staging</h3>
 
 <p>
   <a
