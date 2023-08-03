@@ -1,6 +1,6 @@
-<h1 align="center">JellyChat</h2>
+<h1>JellyChat</h2>
 
-<p align="center">
+<p>
   <a href="https://defichainwiki.com/jellychat">
     <img
       src="https://badgen.net/badge/Open%20JellyChat/Website?icon=chrome&color=red"
@@ -18,9 +18,9 @@
   </a>
 </p>
 
-<h2 align="center">Production deployments</h2>
+<h2>Production deployments</h2>
 
-<p align="center">
+<p>
   <a
     href="https://github.com/0ptim/JellyChat/actions/workflows/fly_production.yml"
   >
@@ -44,9 +44,9 @@
   </a>
 </p>
 
-<h2 align="center">Staging deployments</h2>
+<h2>Staging deployments</h2>
 
-<p align="center">
+<p>
   <a
     href="https://github.com/0ptim/JellyChat/actions/workflows/fly_staging.yml"
   >
