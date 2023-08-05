@@ -1,10 +1,9 @@
 name: Fly.io Telegram Bot Staging
 
 on:
-  pull_request:
+  push:
     branches:
       - main
-  workflow_dispatch:
 
 env:
   FLY_API_TOKEN: ${{ secrets.STAGING_FLY_TELEGRAM_DEPLOY_TOKEN }}
