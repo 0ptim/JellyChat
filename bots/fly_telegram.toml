@@ -1,4 +1,3 @@
-app = "jellychat-telegram-staging"
 primary_region = "ams"
 
 [build]

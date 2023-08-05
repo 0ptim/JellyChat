@@ -1,4 +1,3 @@
-app = "jellychat"
 kill_signal = "SIGINT"
 kill_timeout = "5s"
 
