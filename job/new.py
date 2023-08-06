@@ -32,8 +32,12 @@ urls = list(dict.fromkeys(urls))
 print("🔎 Found %s unique pages" % len(urls))
 
 
-# Remove for testing
-urls = [url for url in urls if "/wallet" in url]
+# Remove urls
+remove_urls = (
+    "https://docs.defichain-python.de/build/html/search.html"
+)
+
+urls = [url for url in urls if url not in remove_urls]
 
 print("🔭 Scrape %s found pages.." % len(urls))
 print("---")
@@ -47,9 +51,8 @@ print(f"✅ Scraped all pages")
 for doc in docs:
     print("🌐 Source:", doc.metadata["source"])
     print("🔖 Title:", doc.metadata["title"])
-    print("📄 Content:", doc.page_content.replace("\n", " ")[:1000] + "...")
+    print("📄 Content:", doc.page_content.replace("\n", " ")[:100] + "...")
     print("---")
-
 
 print("➖ Remove long strings")
 for document in docs:
