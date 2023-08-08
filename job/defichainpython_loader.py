@@ -8,13 +8,19 @@ from langchain.document_loaders.web_base import WebBaseLoader
 class DefichainPythonLoader(WebBaseLoader):
     """Loader that loads from DefichainPython."""
 
+    @staticmethod
+    def replace_enter(text: str) -> str:
+        while text.find("\n\n") != -1:
+            text = text.replace("\n\n", "\n")
+        return text
+
     def load(self) -> List[Document]:
         """Load webpage."""
         soup = self.scrape()
 
-        title_tag = soup.find("h1")
-        if title_tag:
-            title = title_tag.get_text()
+        title_tags = soup.find_all("h1")
+        if title_tags:
+            title = ", ".join([tag.get_text() for tag in title_tags])
         else:
             print(self.web_path)
             raise ValueError("Title tag not found.")
@@ -72,12 +78,30 @@ class DefichainPythonLoader(WebBaseLoader):
             document = Document(page_content=content, metadata=metadata_class)
             documents.append(document)
 
+        """Embeddings for normal text"""
+        article_tag = soup.find("article")
+        all_tags = article_tag.find_all("dl")
+
+        class_tags = [tag for tag in all_tags if "class" in tag["class"]]
+
+        for class_tag in class_tags:
+            class_tag.decompose()
+
+        content = DefichainPythonLoader.replace_enter(article_tag.get_text())
+
+        metadata_class = {
+            "title": title,
+            "source": self.web_path,
+        }
+
+        document = Document(page_content=content, metadata=metadata_class)
+        documents.append(document)
         return documents
 
 
 if __name__ == "__main__":
     loader = DefichainPythonLoader(
-        "https://docs.defichain-python.de/build/html/sdk/hdwallet/wallet.html"
+        "https://docs.defichain-python.de/build/html/guides/example/chainedTransactions.html"
     )
     docs = loader.load()
     for doc in docs:
