@@ -76,6 +76,8 @@ def set_inital_message(user_id):
 
 Your friendly undersea guide to everything DeFiChain. Feel comfortable to dive into any question you've got.
 
+Please note, while I aim for accuracy, sometimes I might get things a bit off - the ocean of blockchain can be complex!
+
 Ready to navigate through this exciting blockchain journey together? 🌊""",
     )
 
