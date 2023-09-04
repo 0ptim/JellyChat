@@ -1,0 +1,20 @@
+name: Fly.io Telegram Bot Staging
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  FLY_API_TOKEN: ${{ secrets.STAGING_FLY_TELEGRAM_DEPLOY_TOKEN }}
+
+jobs:
+  deploy:
+    name: Deploy staging telegram bot
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy bot
+        run: flyctl deploy --remote-only -a jellychat-telegram-staging -c fly_telegram.toml
+        working-directory: bots
