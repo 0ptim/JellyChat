@@ -80,6 +80,10 @@ class JellyChatTelegramBot:
             logging.info(logging_question)
             answer: str = self.jellyChatAPI.user_message(userToken, question, JellyChatTelegramBot.APPLICATION)
 
+        # Add disclaimer message
+        if JellyChatAPI.DISCLAIMER:
+            answer += "\n\n" + JellyChatAPI.DISCLAIMER
+
         logging.info(f"Answer: Chat ID: {chatId}, Chat Type: {chatType}, Answer: \n{answer}")
         await update.message.reply_text(answer)
 
