@@ -8,6 +8,7 @@ from langchain.schema import SystemMessage
 import langchain
 
 from tools.wiki_qa import wikiTool
+from tools.defichainpython_qa import defichainPythonTool
 from tools.ocean import oceanTools
 
 from agent.prompt import PROMPT
@@ -38,7 +39,7 @@ def create_agent(memory, final_output_handler=None):
         temperature=0,
     )
 
-    tools = [wikiTool] + load_tools(["llm-math"], llm=llm_for_math) + oceanTools
+    tools = [wikiTool, defichainPythonTool] + load_tools(["llm-math"], llm=llm_for_math) + oceanTools
 
     system_message = SystemMessage(content=PROMPT)
 
