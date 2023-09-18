@@ -164,7 +164,7 @@ class DefichainPythonLoader(WebBaseLoader):
         """Page Content"""
         page_content_docs = DefichainPythonLoader.split_documents(
             [Document(page_content=page_json.get("page_description"), metadata=base_metadata)])
-        page_content_docs = DefichainPythonLoader.append_metadata(page_content_docs)
+        #page_content_docs = DefichainPythonLoader.append_metadata(page_content_docs)
         documents.extend(page_content_docs)
 
         """Classes"""
@@ -176,7 +176,7 @@ class DefichainPythonLoader(WebBaseLoader):
 
             class_content_docs = DefichainPythonLoader.split_documents(
                 [Document(page_content=class_content, metadata=class_metadata)])
-            class_content_docs = DefichainPythonLoader.append_metadata(class_content_docs)
+            #class_content_docs = DefichainPythonLoader.append_metadata(class_content_docs)
 
             documents.extend(class_content_docs)
 
@@ -190,7 +190,7 @@ class DefichainPythonLoader(WebBaseLoader):
 
                 method_content_docs = DefichainPythonLoader.split_documents(
                     [Document(page_content=method_content, metadata=method_metadata)])
-                method_content_docs = DefichainPythonLoader.append_metadata(method_content_docs)
+                #method_content_docs = DefichainPythonLoader.append_metadata(method_content_docs)
                 documents.extend(method_content_docs)
 
         """Functions"""
@@ -202,7 +202,7 @@ class DefichainPythonLoader(WebBaseLoader):
 
             function_content_docs = DefichainPythonLoader.split_documents(
                 [Document(page_content=function_content, metadata=function_metadata)])
-            function_content_docs = DefichainPythonLoader.append_metadata(function_content_docs)
+            #function_content_docs = DefichainPythonLoader.append_metadata(function_content_docs)
             documents.extend(function_content_docs)
 
         return documents
