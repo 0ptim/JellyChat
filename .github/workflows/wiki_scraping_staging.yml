@@ -1,6 +1,9 @@
 name: Wiki scraping Staging
 
 on:
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
