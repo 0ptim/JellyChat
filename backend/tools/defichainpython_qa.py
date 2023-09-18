@@ -41,7 +41,7 @@ class KnowledgeAnswer(BaseModel):
     )
 
 
-llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0.7)
+llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0.3)
 
 prompt_msgs = [
     SystemMessagePromptTemplate.from_template(
@@ -84,7 +84,7 @@ def get_answer(question: str) -> str:
         return "The wiki knowledgebase is currently not available. We are working on it. Tell the user to use the wiki directly. https://www.defichainwiki.com/"
 
 
-description = """Use this if you need to answer any question reguarding python for defichain:coding, connection to a defichain node, connection to ocean, creating a wallet, create custom transactions. Make sure to include the source of the answer in your response."""
+description = """Use this if you need to answer any question reguarding python and coding in general. Keywords: python, script, coding, connection to a defichain node, connection to ocean API, creating a wallet, create custom transactions. Make sure to include the source of the answer in your response."""
 
 defichainPythonTool = StructuredTool(
     name="defichain_python_knowledge",
