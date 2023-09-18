@@ -19,8 +19,15 @@ jobs:
           pip install -r requirements.txt
         working-directory: ./job
 
-      - name: Run the script
-        run: python ./job/app.py
+      - name: Embeddings for DefichainWiki
+        run: python ./job/wiki_embedding.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SUPABASE_URL: ${{ vars.STAGING_SUPABASE_API_URL }}
+          SUPABASE_KEY: ${{ secrets.STAGING_SUPABASE_API_ANON_KEY }}
+
+      - name: Embeddings for DefichainPython
+        run: python ./job/defichainpython_embedding.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SUPABASE_URL: ${{ vars.STAGING_SUPABASE_API_URL }}
