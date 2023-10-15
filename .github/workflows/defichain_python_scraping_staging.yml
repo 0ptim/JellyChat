@@ -1,4 +1,4 @@
-name: Wiki scraping Staging
+name: Defichain Python scraping Staging
 
 on:
   pull_request:
@@ -22,8 +22,8 @@ jobs:
           pip install -r requirements.txt
         working-directory: ./job
 
-      - name: Embeddings for DefichainWiki
-        run: python ./job/wiki_embedding.py
+      - name: Embeddings for DefichainPython
+        run: python ./job/defichainpython_embedding.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SUPABASE_URL: ${{ vars.STAGING_SUPABASE_API_URL }}
