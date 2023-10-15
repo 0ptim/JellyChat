@@ -20,8 +20,8 @@ load_dotenv()
 # Set debug to True to see A LOT of details of langchain's inner workings
 # langchain.debug = True
 
-# The name of the table in Supabase, where the vectors are stored
-vectorTableName = "embeddings"
+# The name of the function in Supabase which is used to match the embeddings
+matchVectorFunctionName = "match_embeddings_defichain_python"
 
 # Create the supabase client
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -61,7 +61,7 @@ def get_answer(question: str) -> str:
     try:
         vectors = OpenAIEmbeddings().embed_documents([question])
         embeddings = supabase.rpc(
-            "match_embeddings", dict(query_embedding=vectors[0], match_count=7)
+            matchVectorFunctionName, dict(query_embedding=vectors[0], match_count=7)
         ).execute()
 
         print(f"⚡ Retrieved {len(embeddings.data)} vectors from Supabase:")
@@ -92,6 +92,7 @@ defichainPythonTool = StructuredTool(
     func=get_answer,
     args_schema=ToolInputSchema,
 )
+
 
 if __name__ == "__main__":
     while True:

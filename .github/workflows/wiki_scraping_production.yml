@@ -53,7 +53,7 @@ jobs:
         working-directory: ./job
 
       - name: Run the script
-        run: python ./job/app.py
+        run: python ./job/wiki_embedding.py
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SUPABASE_URL: ${{ vars.PRODUCTION_SUPABASE_API_URL }}

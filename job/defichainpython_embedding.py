@@ -11,7 +11,7 @@ from sitemap_parser import get_urls
 
 load_dotenv()
 
-vectorTableName = "embeddings"
+vectorTableName = "embeddings_defichain_python"
 scrapeUrls = ["https://docs.defichain-python.de/build/html/sitemap.xml"]
 embedding_model = "text-embedding-ada-002"
 
@@ -29,9 +29,7 @@ urls = list(dict.fromkeys(urls))
 print("🔎 Found %s unique pages" % len(urls))
 
 # Remove urls
-remove_urls = (
-    "https://docs.defichain-python.de/build/html/search.html"
-)
+remove_urls = "https://docs.defichain-python.de/build/html/search.html"
 
 urls = [url for url in urls if url not in remove_urls]
 
@@ -60,7 +58,7 @@ upload_chunk_size = 200
 
 # Split the documents in chunks for upload (Did time out when too large).
 docs_chunks = [
-    docs[x: x + upload_chunk_size] for x in range(0, len(docs), upload_chunk_size)
+    docs[x : x + upload_chunk_size] for x in range(0, len(docs), upload_chunk_size)
 ]
 
 # Iterate over each chunk and upload separately.

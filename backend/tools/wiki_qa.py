@@ -15,14 +15,13 @@ from langchain.prompts import (
 )
 import langchain
 
-
 load_dotenv()
 
 # Set debug to True to see A LOT of details of langchain's inner workings
 # langchain.debug = True
 
 # The name of the table in Supabase, where the vectors are stored
-vectorTableName = "embeddings"
+matchVectorFunctionName = "match_embeddings"
 
 # Create the supabase client
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -42,12 +41,12 @@ class KnowledgeAnswer(BaseModel):
     )
 
 
-llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0.7)
+llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0.3)
 
 prompt_msgs = [
     SystemMessagePromptTemplate.from_template(
-        """You're an elite algorithm, answering queries based solely on given context. If the context lacks the answer, state ignorance.
-        
+        """You're an elite algorithm, answering queries based solely on given context. If the context lacks the answer, state ignorance. If you are not 100% sure tell the user.
+
         Context:
         {context}"""
     ),
@@ -62,7 +61,7 @@ def get_answer(question: str) -> str:
     try:
         vectors = OpenAIEmbeddings().embed_documents([question])
         embeddings = supabase.rpc(
-            "match_embeddings", dict(query_embedding=vectors[0], match_count=7)
+            matchVectorFunctionName, dict(query_embedding=vectors[0], match_count=7)
         ).execute()
 
         print(f"⚡ Retrieved {len(embeddings.data)} vectors from Supabase:")
